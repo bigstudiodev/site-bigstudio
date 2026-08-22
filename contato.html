@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato — BIG STUDIO</title>
+<meta name="description" content="Peça orçamento para aplicativos ou projetos FiveM da BIG STUDIO.">
+<link rel="icon" href="assets/img/selo.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BIG STUDIO">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Contato — BIG STUDIO">
+<meta property="og:description" content="Peça orçamento para aplicativos ou projetos FiveM da BIG STUDIO.">
+<meta property="og:url" content="https://bigstudiodev.github.io/site-bigstudio/contato.html">
+<meta property="og:image" content="https://bigstudiodev.github.io/site-bigstudio/assets/img/card-link.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F1F2EE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Chivo:wght@400;500;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="index.html">
+    <span class="selo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    BIG STUDIO
+  </a>
+  <nav class="menu">
+    <a href="index.html">Início</a>
+    <a href="aplicativos.html">Aplicativos</a>
+    <a href="fivem.html">FiveM</a>
+    <a href="bigrotas.html">BigRotas</a>
+    <a href="contato.html" aria-current="page">Contato</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="faixa">
+    <div class="cabeca">
+      <p class="rotulo">Contato</p>
+      <h2>Conta o que você precisa.</h2>
+      <p>Orçamento sai depois da conversa: cada projeto tem um tamanho. Responda em uma linha o que é e a gente volta com o valor e o prazo.</p>
+    </div>
+
+    <div class="formulario">
+      <div class="campo">
+        <label for="nome">Seu nome</label>
+        <input id="nome" type="text" autocomplete="name">
+      </div>
+      <div class="campo">
+        <label for="assunto">Sobre o que é</label>
+        <select id="assunto">
+          <option>Projeto FiveM</option>
+          <option>Aplicativo</option>
+          <option>BigRotas</option>
+          <option>Outro assunto</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="mensagem">O que você precisa</label>
+        <textarea id="mensagem" placeholder="Ex.: quero uma base com tema próprio para um servidor de RP."></textarea>
+      </div>
+      <div class="botoes">
+        <button class="btn btn-cheio" type="button" id="enviar">Abrir e-mail preenchido</button>
+        <a class="btn btn-vazio" href="https://wa.me/5511960405352?text=Oi!%20Vim%20pelo%20site%20da%20BIG%20STUDIO.">WhatsApp</a>
+      </div>
+      <p class="aviso">O botão abre seu aplicativo de e-mail com a mensagem pronta. Nada é enviado sem você conferir.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <span>BIG STUDIO · 2026</span>
+  <span><a href="mailto:desenvolver.vee@gmail.com">desenvolver.vee@gmail.com</a></span>
+</footer>
+
+<script>
+  const EMAIL = "desenvolver.vee@gmail.com"; // e-mail da BIG STUDIO
+
+  document.getElementById("enviar").addEventListener("click", function(){
+    const nome = document.getElementById("nome").value.trim();
+    const assunto = document.getElementById("assunto").value;
+    const mensagem = document.getElementById("mensagem").value.trim();
+
+    const corpo = "Nome: " + (nome || "-") + "\n\n" + (mensagem || "-");
+    window.location.href = "mailto:" + EMAIL
+      + "?subject=" + encodeURIComponent("[Site] " + assunto)
+      + "&body=" + encodeURIComponent(corpo);
+  });
+</script>
+
+</body>
+</html>

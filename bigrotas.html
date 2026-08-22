@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BigRotas — BIG STUDIO</title>
+<meta name="description" content="BigRotas: o entregador de aplicativo manda a planilha e recebe a rota do dia na ordem certa.">
+<link rel="icon" href="assets/img/selo.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BIG STUDIO">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="BigRotas — BIG STUDIO">
+<meta property="og:description" content="BigRotas: o entregador de aplicativo manda a planilha e recebe a rota do dia na ordem certa.">
+<meta property="og:url" content="https://bigstudiodev.github.io/site-bigstudio/bigrotas.html">
+<meta property="og:image" content="https://bigstudiodev.github.io/site-bigstudio/assets/img/card-link.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F1F2EE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Chivo:wght@400;500;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="index.html">
+    <span class="selo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+    BIG STUDIO
+  </a>
+  <nav class="menu">
+    <a href="index.html">Início</a>
+    <a href="aplicativos.html">Aplicativos</a>
+    <a href="fivem.html">FiveM</a>
+    <a href="bigrotas.html" aria-current="page">BigRotas</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="faixa">
+    <div class="cabeca">
+      <p class="rotulo">BigRotas</p>
+      <h2>Sua rota do dia, na ordem certa.</h2>
+      <p>Para quem entrega por aplicativo: você manda a planilha da Shopee e recebe de volta a sequência das paradas. Sem instalar nada, sem digitar endereço de novo.</p>
+    </div>
+
+    <div class="botoes">
+      <a class="btn btn-cheio" id="abrir-conversa" href="#">Falar com o BigRotas</a>
+    </div>
+
+    <div class="passos" style="margin-top:44px">
+      <div class="passo">
+        <span class="num">1</span>
+        <h3>Manda a planilha</h3>
+        <p>O mesmo arquivo que já chega pra você, do jeito que está.</p>
+      </div>
+      <div class="passo">
+        <span class="num">2</span>
+        <h3>Espera alguns segundos</h3>
+        <p>O motor lê os endereços e monta a sequência do trajeto.</p>
+      </div>
+      <div class="passo">
+        <span class="num">3</span>
+        <h3>Sai pra rua</h3>
+        <p>Você recebe a lista na ordem de entrega e começa o dia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="faixa">
+    <div class="cabeca">
+      <p class="rotulo">Na prática</p>
+      <h2>A mesma planilha, reorganizada.</h2>
+    </div>
+    <div class="fluxo">
+      <div class="caixa">
+        <strong>Como chega</strong>
+        <ul>
+          <li>Rua C, 400</li>
+          <li>Rua A, 120</li>
+          <li>Rua B, 87</li>
+          <li>Rua A, 310</li>
+        </ul>
+      </div>
+      <div class="seta-fluxo" aria-hidden="true">↓</div>
+      <div class="caixa">
+        <strong>Como sai</strong>
+        <ol>
+          <li>Rua A, 120</li>
+          <li>Rua A, 310</li>
+          <li>Rua B, 87</li>
+          <li>Rua C, 400</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <span>BIG STUDIO · 2026</span>
+  <span><a href="contato.html">Falar com a gente</a></span>
+</footer>
+
+<script>
+  /* ---------------------------------------------------------
+     Link da conversa do BigRotas.
+     Número da BIG STUDIO. Formato: 55 + DDD + número, sem símbolos.
+     Se um dia virar Telegram ou Discord, troque só esta linha.
+     --------------------------------------------------------- */
+  const CONVERSA = "https://wa.me/5511960405352?text=" +
+    encodeURIComponent("Oi! Quero usar o BigRotas pra organizar minha rota.");
+
+  document.getElementById("abrir-conversa").setAttribute("href", CONVERSA);
+</script>
+
+</body>
+</html>
