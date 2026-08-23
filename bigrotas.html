@@ -87,8 +87,10 @@
       <h3>R$ 25,00</h3>
       <p class="resumo">30 dias de acesso</p>
       <p><strong>5 dias grátis para novos usuários.</strong></p>
+      <p>O teste grátis começa somente quando a primeira planilha .xlsx válida é enviada para processamento.</p>
       <div class="botoes">
         <a class="btn btn-cheio" data-conversa="teste" href="https://wa.me/5511960405352">Testar grátis</a>
+        <a class="btn btn-vazio" data-conversa="assinar" href="https://wa.me/5511960405352">Assinar</a>
       </div>
     </div>
   </section>
@@ -158,11 +160,15 @@
   /* ---------------------------------------------------------
      Links das conversas do BIG Rotas.
      Número da BIG STUDIO. Formato: 55 + DDD + número, sem símbolos.
+     A mensagem de "assinar" precisa ser exatamente essa palavra,
+     sem texto ao redor: é o comando que o backend do WhatsApp
+     reconhece para iniciar o fluxo real de pagamento (Pix).
      --------------------------------------------------------- */
   const WHATSAPP = "https://wa.me/5511960405352?text=";
   const MENSAGENS = {
     teste: "Oi! Quero testar grátis o BIG Rotas por 5 dias.",
-    uso: "Oi! Quero usar o BIG Rotas para organizar minha rota."
+    uso: "Oi! Quero usar o BIG Rotas para organizar minha rota.",
+    assinar: "assinar"
   };
 
   document.querySelectorAll("[data-conversa]").forEach((link) => {
