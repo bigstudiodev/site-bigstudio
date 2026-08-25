@@ -280,7 +280,138 @@ h3{font-size:1.25rem}
 .fivem-contato h2{max-width:15ch;margin-top:clamp(40px,6vw,70px);font-size:clamp(2.5rem,7vw,5.2rem)}
 .fivem-botao-final{margin-top:clamp(32px,4.5vw,52px)}
 
-/* 8. responsivo ------------------------------------------ */
+/* 8. página BIG Rotas ------------------------------------ */
+.pagina-bigrotas{
+  --bigrotas-verde:#62BE2E;
+  --bigrotas-verde-escuro:#164F24;
+  --bigrotas-noite:#07100B;
+}
+.pagina-bigrotas main{overflow:hidden}
+.bigrotas-secao{
+  max-width:var(--largura);margin:0 auto;
+  padding:clamp(56px,8vw,96px) var(--pad);scroll-margin-top:70px;
+}
+.bigrotas-secao + .bigrotas-secao{border-top:1px solid var(--linha)}
+.bigrotas-meta{
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--tinta-suave);
+}
+.bigrotas-meta p,.bigrotas-meta span{margin:0}
+
+.bigrotas-hero{
+  min-height:calc(90svh - 58px);display:grid;align-content:space-between;
+  gap:clamp(64px,10vw,128px);
+}
+.bigrotas-hero-conteudo{display:grid;gap:clamp(34px,6vw,68px)}
+.bigrotas-hero h1{
+  max-width:12ch;font-size:clamp(3rem,8vw,6.35rem);
+  line-height:.92;letter-spacing:-.045em;
+}
+.bigrotas-hero-apoio{display:grid;gap:30px;align-items:end}
+.bigrotas-hero-apoio > p{
+  max-width:59ch;margin:0;color:var(--tinta-suave);
+  font-size:clamp(1rem,2vw,1.18rem);
+}
+.bigrotas-hero-acoes{display:flex;flex-wrap:wrap;align-items:center;gap:18px 24px}
+.bigrotas-link{
+  width:max-content;text-decoration:none;font-family:var(--mono);
+  font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+  border-bottom:1px solid var(--tinta);padding-bottom:6px;
+}
+.bigrotas-link:hover{color:var(--bigrotas-verde-escuro);border-color:var(--bigrotas-verde-escuro)}
+
+.bigrotas-intro{margin-top:clamp(46px,7vw,78px);max-width:65ch}
+.bigrotas-intro h2{max-width:13ch;font-size:clamp(2.5rem,6.8vw,5rem)}
+.bigrotas-intro p{margin:22px 0 0;color:var(--tinta-suave);font-size:clamp(1rem,2vw,1.18rem)}
+.bigrotas-passos{
+  list-style:none;margin:clamp(54px,8vw,88px) 0 0;padding:0;
+  display:grid;gap:30px;
+}
+.bigrotas-passos li{border-top:2px solid var(--tinta);padding-top:18px}
+.bigrotas-passos span{
+  display:block;margin-bottom:18px;font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.12em;color:var(--bigrotas-verde-escuro);
+}
+.bigrotas-passos h3{font-size:clamp(1.2rem,2.5vw,1.6rem)}
+.bigrotas-passos p{margin:12px 0 0;color:var(--tinta-suave);max-width:31ch}
+
+.bigrotas-produto{background:var(--bigrotas-noite);color:#F4F6F1}
+.bigrotas-produto .bigrotas-secao{max-width:calc(var(--largura) + 120px)}
+.bigrotas-meta-claro{color:rgba(244,246,241,.62)}
+.bigrotas-produto-intro{margin-top:clamp(46px,7vw,82px);max-width:70ch}
+.bigrotas-produto-intro h2{font-size:clamp(2.8rem,7vw,5.5rem)}
+.bigrotas-produto-intro p{
+  max-width:61ch;margin:24px 0 0;color:rgba(244,246,241,.7);
+  font-size:clamp(1rem,2vw,1.16rem);
+}
+.bigrotas-arte{margin:clamp(42px,7vw,78px) 0 0}
+.bigrotas-arte img{width:100%;display:block;border-radius:clamp(14px,2vw,22px)}
+.bigrotas-whatsapp{
+  margin:clamp(54px,8vw,92px) 0 0;padding-top:28px;
+  border-top:1px solid rgba(255,255,255,.2);
+}
+.bigrotas-whatsapp img{width:100%;max-width:936px;display:block;border-radius:clamp(14px,2vw,22px)}
+
+.bigrotas-plano{
+  margin-top:clamp(48px,7vw,82px);padding:clamp(30px,5vw,56px) 0;
+  border-top:2px solid var(--tinta);border-bottom:1px solid var(--linha);
+  display:grid;gap:42px;
+}
+.bigrotas-plano-copy h2{max-width:15ch;font-size:clamp(2.4rem,6vw,4.6rem)}
+.bigrotas-plano-copy p{max-width:52ch;margin:24px 0 0;color:var(--tinta-suave)}
+.bigrotas-preco{display:flex;flex-direction:column;align-items:flex-start}
+.bigrotas-preco > span{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:.13em;
+  color:var(--bigrotas-verde-escuro);
+}
+.bigrotas-preco > strong{
+  margin-top:18px;font-family:var(--display);font-size:clamp(3.2rem,6vw,5rem);
+  line-height:.86;letter-spacing:-.05em;white-space:nowrap;
+}
+.bigrotas-preco > p:first-of-type{
+  margin:16px 0 0;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.25rem,3vw,1.7rem);
+}
+.bigrotas-preco > p:last-of-type{max-width:35ch;margin:20px 0 0;color:var(--tinta-suave)}
+.bigrotas-preco .btn{margin-top:30px}
+
+.bigrotas-confianca{margin-top:clamp(52px,8vw,92px);display:grid;gap:46px}
+.bigrotas-confianca article{padding-top:20px;border-top:2px solid var(--tinta)}
+.bigrotas-confianca span{
+  display:block;margin-bottom:38px;font-family:var(--mono);font-size:.65rem;
+  letter-spacing:.12em;color:var(--bigrotas-verde-escuro);
+}
+.bigrotas-confianca h2{max-width:17ch;font-size:clamp(2rem,4.6vw,3.4rem)}
+
+.bigrotas-faq-grid{margin-top:clamp(50px,8vw,86px);display:grid;gap:46px}
+.bigrotas-faq-titulo h2{font-size:clamp(2.5rem,6vw,4.8rem)}
+.bigrotas-faq-titulo p{margin:20px 0 0;color:var(--tinta-suave)}
+.bigrotas-perguntas{border-bottom:1px solid var(--tinta)}
+.bigrotas-perguntas details{border-top:1px solid var(--tinta);padding:20px 0}
+.bigrotas-perguntas summary{
+  cursor:pointer;font-family:var(--display);font-weight:600;
+  font-size:clamp(1.08rem,2.4vw,1.35rem);line-height:1.25;
+}
+.bigrotas-perguntas summary::marker{color:var(--bigrotas-verde-escuro)}
+.bigrotas-perguntas p{max-width:60ch;margin:16px 0 4px;color:var(--tinta-suave)}
+
+.bigrotas-final h2{
+  max-width:14ch;margin-top:clamp(52px,8vw,88px);
+  font-size:clamp(2.7rem,7vw,5.6rem);
+}
+.bigrotas-final > p{max-width:54ch;margin:28px 0 0;color:var(--tinta-suave);font-size:clamp(1rem,2vw,1.18rem)}
+.bigrotas-final-acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(34px,5vw,54px)}
+.bigrotas-legal{display:flex;flex-wrap:wrap;gap:18px 30px;margin-top:clamp(52px,8vw,86px);padding-top:20px;border-top:1px solid var(--linha)}
+.bigrotas-legal a{
+  text-decoration:none;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave);
+}
+.bigrotas-legal a:hover{color:var(--tinta)}
+
+.pagina-bigrotas .btn-cheio:hover{background:var(--bigrotas-verde-escuro);border-color:var(--bigrotas-verde-escuro)}
+
+/* 9. responsivo ------------------------------------------ */
 @media (min-width:820px){
   .capa{grid-template-columns:1.15fr .85fr;align-items:center;gap:56px}
   .fachada{max-width:none;justify-self:end}
@@ -291,6 +422,12 @@ h3{font-size:1.25rem}
   .seta-fluxo{transform:rotate(-90deg)}
   .caminho{display:flex;align-items:baseline;justify-content:space-between;gap:32px}
   .fivem-hero-apoio{grid-template-columns:minmax(0,1fr) auto}
+  .bigrotas-hero-apoio{grid-template-columns:minmax(0,1fr) auto}
+  .bigrotas-passos{grid-template-columns:repeat(3,1fr)}
+  .bigrotas-plano{grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);gap:clamp(54px,8vw,110px)}
+  .bigrotas-preco{padding-left:clamp(38px,5vw,66px);border-left:1px solid var(--linha)}
+  .bigrotas-confianca{grid-template-columns:repeat(2,1fr);gap:clamp(50px,8vw,100px)}
+  .bigrotas-faq-grid{grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);gap:clamp(60px,9vw,130px)}
 }
 
 @media (max-width:560px){
@@ -299,9 +436,14 @@ h3{font-size:1.25rem}
   .fivem-marca{margin-left:calc(var(--pad) * -.35);margin-right:calc(var(--pad) * -.35)}
   .fivem-valores{display:grid;grid-template-columns:repeat(2,1fr)}
   .fivem-etapas li{font-size:.78rem}
+  .bigrotas-meta{align-items:flex-start;font-size:.6rem}
+  .bigrotas-meta span{max-width:18ch;text-align:right}
+  .bigrotas-hero-acoes{align-items:flex-start;flex-direction:column}
+  .bigrotas-hero-acoes .btn,.bigrotas-final-acoes .btn{text-align:center}
+  .bigrotas-produto .bigrotas-secao{padding-left:16px;padding-right:16px}
 }
 
-/* 9. acessibilidade -------------------------------------- */
+/* 10. acessibilidade ------------------------------------- */
 :focus-visible{outline:3px solid var(--azulejo);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
