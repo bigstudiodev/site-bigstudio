@@ -80,6 +80,10 @@ h3{font-size:1.25rem}
 .cabeca{max-width:54ch;margin-bottom:36px}
 .cabeca p{color:var(--tinta-suave);margin:14px 0 0}
 
+/* corpo de documento legal: h2 numerados no tamanho do h3 (não mexe no h2 global) */
+.corpo-politica h2{font-size:1.25rem}
+.corpo-politica a{overflow-wrap:anywhere}
+
 .capa{display:grid;gap:40px}
 .capa .chamada{font-size:clamp(1.02rem,3.4vw,1.22rem);color:var(--tinta-suave);max-width:46ch;margin:20px 0 0}
 
