@@ -99,12 +99,18 @@ h3{font-size:1.25rem}
 .btn-vazio:hover{background:var(--muro)}
 
 .grade{display:grid;gap:14px}
-.cartao{border:1.5px solid var(--tinta);background:var(--cal);padding:24px 22px 26px;position:relative}
+.cartao{border:1.5px solid var(--tinta);background:var(--cal);padding:24px 22px 26px;position:relative;display:flex;flex-direction:column}
 .cartao:hover{background:var(--branco)}
 .cartao h3{margin-bottom:6px}
 .cartao .resumo{margin:0 0 16px;color:var(--tinta-suave)}
 .cartao ul{margin:0;padding-left:18px;font-size:.94rem}
 .cartao li{margin-bottom:5px}
+.cartao-link{
+  width:max-content;margin-top:auto;padding-top:22px;text-decoration:none;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  border-bottom:1px solid var(--tinta);padding-bottom:4px;
+}
+.cartao-link:hover{color:var(--azulejo);border-color:var(--azulejo)}
 .cartao::before{content:"";position:absolute;left:-1.5px;top:22px;width:5px;height:34px;background:var(--azulejo)}
 .cartao.tom-amarelo::before{background:var(--amarelo)}
 .cartao.tom-rosa::before{background:var(--rosa)}
@@ -415,7 +421,88 @@ h3{font-size:1.25rem}
 
 .pagina-bigrotas .btn-cheio:hover{background:var(--bigrotas-verde-escuro);border-color:var(--bigrotas-verde-escuro)}
 
-/* 9. responsivo ------------------------------------------ */
+/* 9. página Meu Financeiro ------------------------------- */
+.pagina-financeiro{
+  --financeiro-verde:#42D45F;
+  --financeiro-noite:#021B15;
+  --financeiro-painel:#061F19;
+  --financeiro-dourado:#D3A83F;
+  --financeiro-claro:#F3F2EC;
+}
+.pagina-financeiro main{overflow:hidden}
+
+.financeiro-boas-vindas{background:var(--financeiro-noite);color:var(--financeiro-claro)}
+.financeiro-boas-vindas-inner{
+  width:min(100%,1440px);min-height:calc(100svh - 57px);margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,.98fr) minmax(360px,.92fr);
+  gap:clamp(48px,7vw,110px);align-items:center;
+  padding:clamp(64px,8vw,116px) var(--pad) 0;
+}
+.financeiro-apresentacao{align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding-bottom:clamp(64px,8vw,110px)}
+.financeiro-identidade{display:flex;align-items:center;gap:22px}
+.financeiro-identidade img{width:82px;aspect-ratio:1;object-fit:cover;border-radius:18px}
+.financeiro-identidade span{font-family:var(--display);font-size:clamp(1.2rem,2vw,1.8rem);font-weight:800;text-transform:uppercase}
+.financeiro-divisor{width:92px;height:3px;margin:48px 0;background:var(--financeiro-dourado)}
+.financeiro-apresentacao h1{max-width:24ch;font-size:clamp(3.3rem,5vw,4.5rem);line-height:.94;letter-spacing:-.05em}
+.financeiro-apresentacao h1 span{white-space:normal}
+.financeiro-apresentacao > p{max-width:47ch;margin:34px 0 0;color:rgba(243,242,236,.74);font-size:clamp(1rem,1.8vw,1.3rem)}
+.financeiro-plataforma{
+  display:block;margin-top:42px;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--financeiro-verde);
+}
+.financeiro-politica{
+  width:max-content;margin-top:auto;padding-top:52px;padding-bottom:5px;
+  color:var(--financeiro-dourado);text-decoration:none;font-family:var(--mono);
+  font-size:.72rem;letter-spacing:.04em;border-bottom:1px solid rgba(211,168,63,.7);
+}
+.financeiro-politica:hover{color:var(--financeiro-claro);border-color:var(--financeiro-claro)}
+.financeiro-preview{
+  align-self:end;margin:0;max-height:calc(100svh - 92px);overflow:hidden;
+  border:1px solid rgba(243,242,236,.25);border-bottom:0;border-radius:34px 34px 0 0;
+  background:var(--financeiro-painel);box-shadow:0 24px 60px rgba(0,0,0,.24);
+}
+.financeiro-preview img{width:100%;height:auto}
+
+/* faixas editoriais alternadas (fundo escuro / fundo cru) */
+.financeiro-faixa-escura{background:var(--financeiro-noite);color:var(--financeiro-claro)}
+.financeiro-faixa-clara{background:var(--cal);color:var(--tinta)}
+.financeiro-secao{
+  max-width:var(--largura);margin:0 auto;
+  padding:clamp(56px,9vw,104px) var(--pad);
+}
+.financeiro-faixa-curta .financeiro-secao{padding-block:clamp(44px,7vw,72px)}
+.financeiro-meta{
+  margin:0;font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--financeiro-verde);
+}
+.financeiro-faixa-clara .financeiro-meta{color:#12683A}
+.financeiro-faixa h2{
+  margin:20px 0 0;font-family:var(--display);font-weight:800;
+  font-size:clamp(1.9rem,4.6vw,3rem);line-height:1.04;letter-spacing:-.02em;
+  max-width:20ch;
+}
+.financeiro-faixa-curta h2{max-width:26ch;font-size:clamp(1.5rem,3.4vw,2.15rem)}
+.financeiro-disponibilidade h2{max-width:14ch}
+
+.financeiro-lista{
+  list-style:none;margin:clamp(34px,6vw,56px) 0 0;padding:0;
+  border-top:1px solid rgba(243,242,236,.2);
+}
+.financeiro-lista li{
+  padding:20px 2px;border-bottom:1px solid rgba(243,242,236,.2);
+  font-family:var(--mono);font-size:clamp(.92rem,1.7vw,1.08rem);letter-spacing:.02em;
+}
+
+.financeiro-areas{margin:clamp(34px,6vw,56px) 0 0;display:grid;gap:34px}
+.financeiro-area h3{
+  margin:0 0 12px;font-family:var(--mono);font-weight:500;
+  font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:#12683A;
+}
+.financeiro-area p{margin:0;max-width:36ch;color:var(--tinta-suave);font-size:clamp(1rem,2vw,1.15rem)}
+
+.financeiro-privacidade .financeiro-politica{margin-top:22px;padding-top:0;display:inline-block}
+
+/* 10. responsivo ----------------------------------------- */
 @media (min-width:820px){
   .capa{grid-template-columns:1.15fr .85fr;align-items:center;gap:56px}
   .fachada{max-width:none;justify-self:end}
@@ -432,6 +519,9 @@ h3{font-size:1.25rem}
   .bigrotas-preco{padding-left:clamp(38px,5vw,66px);border-left:1px solid var(--linha)}
   .bigrotas-confianca{grid-template-columns:repeat(2,1fr);gap:clamp(50px,8vw,100px)}
   .bigrotas-faq-grid{grid-template-columns:minmax(280px,.72fr) minmax(0,1.28fr);gap:clamp(60px,9vw,130px)}
+  .financeiro-areas{grid-template-columns:1fr 1fr;gap:0}
+  .financeiro-area{padding-right:clamp(36px,5vw,72px)}
+  .financeiro-area + .financeiro-area{padding-right:0;padding-left:clamp(36px,5vw,72px);border-left:1px solid var(--linha)}
 }
 
 @media (max-width:560px){
@@ -445,9 +535,23 @@ h3{font-size:1.25rem}
   .bigrotas-hero-acoes{align-items:flex-start;flex-direction:column}
   .bigrotas-hero-acoes .btn,.bigrotas-final-acoes .btn{text-align:center}
   .bigrotas-produto .bigrotas-secao{padding-left:16px;padding-right:16px}
+  .financeiro-boas-vindas-inner{
+    min-height:auto;grid-template-columns:1fr;gap:52px;
+    padding-top:52px;
+  }
+  .financeiro-apresentacao{padding-bottom:0}
+  .financeiro-identidade{gap:14px}
+  .financeiro-identidade img{width:58px;border-radius:14px}
+  .financeiro-divisor{width:68px;margin:36px 0}
+  .financeiro-apresentacao h1{max-width:10ch;font-size:clamp(2.85rem,14vw,4.6rem)}
+  .financeiro-apresentacao h1 span{white-space:normal}
+  .financeiro-apresentacao > p{margin-top:24px}
+  .financeiro-plataforma{margin-top:30px}
+  .financeiro-apresentacao .financeiro-politica{margin-top:42px;padding-top:0}
+  .financeiro-preview{width:min(100%,430px);justify-self:center;max-height:620px;border-radius:26px 26px 0 0}
 }
 
-/* 10. acessibilidade ------------------------------------- */
+/* 11. acessibilidade ------------------------------------- */
 :focus-visible{outline:3px solid var(--azulejo);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}

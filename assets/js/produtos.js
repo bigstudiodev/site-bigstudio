@@ -17,7 +17,9 @@ const PRODUTOS = [
       "Aviso quando a conta vence ou atrasa",
       "Categorias criadas por você"
     ],
-    tom: "azul"
+    tom: "azul",
+    url: "meu-financeiro.html",
+    chamada: "Conhecer o app"
   },
   {
     nome: "Meu Tatame",
@@ -107,6 +109,15 @@ function montarCartao(p){
   });
 
   artigo.append(etiqueta, titulo, resumo, lista);
+
+  if (p.url) {
+    const link = document.createElement("a");
+    link.className = "cartao-link";
+    link.href = p.url;
+    link.textContent = (p.chamada || "Conhecer") + " →";
+    artigo.appendChild(link);
+  }
+
   return artigo;
 }
 
