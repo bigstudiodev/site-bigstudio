@@ -121,6 +121,15 @@ h3{font-size:1.25rem}
   margin-bottom:14px;color:var(--tinta-suave);
 }
 
+/* Atualizações públicas (Etapa 2D) - reaproveita .grade/.cartao/.etiqueta/
+   .cartao-link já existentes; só o necessário para o estado textual e a
+   linha de meta (projeto · data) fica aqui. */
+.atualizacao-meta{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;
+  color:var(--tinta-suave);margin:0 0 10px;
+}
+.atualizacoes-estado{color:var(--tinta-suave);font-size:.94rem;margin:0}
+
 /* caminhos da home */
 .caminhos{display:grid;gap:0;border-top:2px solid var(--tinta)}
 .caminho{

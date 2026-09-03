@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Testes — atualizacoes.js (Etapa 2D)</title>
+<style>
+  body{font-family:monospace;padding:20px;background:#111;color:#eee}
+  .ok{color:#7CFC7C}
+  .falha{color:#FF6B6B;font-weight:bold}
+  #resultado{white-space:pre-wrap;font-size:14px;line-height:1.6}
+  .area-teste{display:none}
+</style>
+</head>
+<body>
+<h1>Testes de assets/js/atualizacoes.js</h1>
+<p>Abrir este arquivo direto no navegador (ou via um servidor estático local).
+NUNCA chama a API pública real - todo <code>fetch</code> é interceptado abaixo
+antes de <code>atualizacoes.js</code> ser carregado.</p>
+<pre id="resultado">Rodando...</pre>
+
+<!-- Contêineres de cada cenário - escondidos (o CSS de produção não é
+     necessário para o teste; só o comportamento de atualizacoes.js). Cada
+     um usa data-atualizacoes-projeto como um DISCRIMINADOR de cenário para
+     o fetch falso abaixo saber o que devolver - nunca um slug real. -->
+<div class="area-teste">
+  <div id="c-sucesso" data-atualizacoes data-atualizacoes-projeto="cenario-sucesso"></div>
+  <div id="c-vazio" data-atualizacoes data-atualizacoes-projeto="cenario-vazio"></div>
+  <div id="c-http-500" data-atualizacoes data-atualizacoes-projeto="cenario-http-500"></div>
+  <div id="c-json-invalido" data-atualizacoes data-atualizacoes-projeto="cenario-json-invalido"></div>
+  <div id="c-timeout" data-atualizacoes data-atualizacoes-projeto="cenario-timeout"></div>
+  <div id="c-formato-invalido" data-atualizacoes data-atualizacoes-projeto="cenario-formato-invalido"></div>
+  <div id="c-xss" data-atualizacoes data-atualizacoes-projeto="cenario-xss"></div>
+  <div id="c-link-perigoso" data-atualizacoes data-atualizacoes-projeto="cenario-link-perigoso"></div>
+  <div id="c-link-seguro" data-atualizacoes data-atualizacoes-projeto="cenario-link-seguro"></div>
+  <div id="c-ocultar-vazio" data-atualizacoes data-atualizacoes-projeto="cenario-vazio"
+       data-atualizacoes-ocultar-vazio="true"></div>
+  <div id="c-bigrotas" data-atualizacoes data-atualizacoes-projeto="big-rotas"
+       data-atualizacoes-mostrar-projeto="false"></div>
+  <div id="c-global-com-projeto" data-atualizacoes data-atualizacoes-limite="6"></div>
+</div>
+
+<script>
+  /* Configuração de teste - NUNCA a URL real de producao (que ainda nem
+     existe) - so um host claramente falso para o fetch mockado abaixo
+     interceptar. */
+  const CONTROL_CENTER_PUBLIC_API_BASE_URL = "https://cc-teste.invalido";
+
+  const RESPOSTAS = {
+    "cenario-sucesso": { status: 200, corpo: {
+      items: [
+        { projeto: { slug: "big-rotas", nome: "BIG Rotas" }, titulo: "Nova versão do agrupador",
+          resumo: "Resumo público de teste.", conteudo: "Conteúdo completo.",
+          data_referencia: "2026-09-10", destaque: true, link: "https://exemplo.invalido/nota",
+          publicada_em: "2026-09-10T12:00:00+00:00" },
+      ],
+      pagination: { page: 1, limit: 3, count: 1 },
+    }},
+    "cenario-vazio": { status: 200, corpo: { items: [], pagination: { page: 1, limit: 3, count: 0 } } },
+    "cenario-http-500": { status: 500, corpo: { error: "erro_interno" } },
+    "cenario-json-invalido": { status: 200, corpoTexto: "isto nao e JSON {" },
+    "cenario-timeout": { timeout: true },
+    "cenario-formato-invalido": { status: 200, corpo: { mensagem: "formato inesperado, sem items" } },
+    "cenario-xss": { status: 200, corpo: { items: [
+      { projeto: { slug: "x", nome: "X" }, titulo: "<img src=x onerror=window.__xss=true>",
+        resumo: "<script>window.__xss2=true<\/script>", data_referencia: "2026-09-01",
+        destaque: false, link: null },
+    ], pagination: { page: 1, limit: 3, count: 1 } }},
+    "cenario-link-perigoso": { status: 200, corpo: { items: [
+      { projeto: { slug: "x", nome: "X" }, titulo: "Item com link perigoso", resumo: "r",
+        data_referencia: "2026-09-01", destaque: false, link: "javascript:alert(1)" },
+    ], pagination: { page: 1, limit: 3, count: 1 } }},
+    "cenario-link-seguro": { status: 200, corpo: { items: [
+      { projeto: { slug: "x", nome: "X" }, titulo: "Item com link seguro", resumo: "r",
+        data_referencia: "2026-09-01", destaque: false, link: "https://exemplo.invalido/pagina" },
+    ], pagination: { page: 1, limit: 3, count: 1 } }},
+    "big-rotas": { status: 200, corpo: { items: [
+      { projeto: { slug: "big-rotas", nome: "BIG Rotas" }, titulo: "Atualização do BIG Rotas",
+        resumo: "r", data_referencia: "2026-09-05", destaque: false, link: null },
+    ], pagination: { page: 1, limit: 3, count: 1 } }},
+  };
+
+  window.__CHAMADAS_FETCH = [];
+
+  var fetchOriginal = window.fetch.bind(window);
+
+  window.fetch = function (url, opcoes) {
+    if (String(url).indexOf("cc-teste.invalido") === -1) {
+      // Chamada real do PRÓPRIO harness de teste (ex.: buscar config.js
+      // para inspecionar o texto) - nunca a chamada que atualizacoes.js
+      // faria para a API publica, essa sempre usa a base configurada.
+      return fetchOriginal(url, opcoes);
+    }
+    window.__CHAMADAS_FETCH.push(String(url));
+    var urlObjeto = new URL(url);
+    // O cenario vem do PATH (projeto=<slug> vira /projetos/<slug>/...,
+    // sem filtro vira /atualizacoes) - detecta por qual segmento aparece.
+    var match = urlObjeto.pathname.match(/\/api\/public\/projetos\/([^/]+)\/atualizacoes/);
+    var chave = match ? decodeURIComponent(match[1]) : "cenario-global-sem-filtro";
+    if (chave === "cenario-global-sem-filtro") {
+      chave = "cenario-sucesso"; // o container "c-global-com-projeto" reusa o sucesso
+    }
+    var definicao = RESPOSTAS[chave];
+    if (!definicao) {
+      return Promise.reject(new Error("cenario de teste desconhecido: " + chave));
+    }
+    if (definicao.timeout) {
+      // Nunca resolve - o AbortController de atualizacoes.js deve
+      // cortar isto sozinho depois do tempo limite.
+      return new Promise(function (_, rejeitar) {
+        if (opcoes && opcoes.signal) {
+          opcoes.signal.addEventListener("abort", function () {
+            rejeitar(new DOMException("abortado", "AbortError"));
+          });
+        }
+      });
+    }
+    return Promise.resolve({
+      ok: definicao.status >= 200 && definicao.status < 300,
+      status: definicao.status,
+      json: function () {
+        if (definicao.corpoTexto !== undefined) {
+          return Promise.resolve(JSON.parse(definicao.corpoTexto)); // lança SyntaxError de proposito
+        }
+        return Promise.resolve(definicao.corpo);
+      },
+    });
+  };
+</script>
+
+<script src="../assets/js/atualizacoes.js" defer></script>
+
+<script>
+  var falhas = [];
+  function checar(condicao, mensagem) {
+    if (!condicao) { falhas.push(mensagem); }
+  }
+
+  function rodarAsserções() {
+    // ---- SUCESSO ----
+    var sucesso = document.getElementById("c-sucesso");
+    var artigo = sucesso.querySelector("article.cartao");
+    checar(!!artigo, "SUCESSO: deveria renderizar um <article class=\"cartao\">");
+    checar(artigo && artigo.querySelector("h3").textContent === "Nova versão do agrupador",
+      "SUCESSO: título deveria ser exibido via textContent");
+    checar(artigo && artigo.querySelector(".resumo").textContent === "Resumo público de teste.",
+      "SUCESSO: resumo deveria aparecer");
+    checar(artigo && artigo.querySelector(".atualizacao-meta").textContent.indexOf("10/09/2026") !== -1,
+      "SUCESSO: data_referencia deveria ser formatada como DD/MM/AAAA");
+    checar(artigo && artigo.querySelector(".etiqueta") && artigo.querySelector(".etiqueta").textContent === "Destaque",
+      "SUCESSO: destaque=true deveria mostrar a etiqueta 'Destaque'");
+    var linkSucesso = artigo && artigo.querySelector("a.cartao-link");
+    checar(!!linkSucesso && linkSucesso.getAttribute("href") === "https://exemplo.invalido/nota",
+      "SUCESSO: link http(s) deveria virar um <a> de verdade");
+    checar(!!linkSucesso && linkSucesso.getAttribute("rel") === "noopener noreferrer",
+      "SUCESSO: link em nova aba deveria ter rel=noopener noreferrer");
+
+    // ---- EMPTY ----
+    var vazio = document.getElementById("c-vazio");
+    checar(vazio.textContent.indexOf("Nenhuma atualização") !== -1,
+      "EMPTY: deveria mostrar mensagem de vazio, nunca tratar como erro");
+    checar(!vazio.querySelector("article"), "EMPTY: nao deveria renderizar nenhum card");
+
+    var ocultarVazio = document.getElementById("c-ocultar-vazio");
+    var secaoOcultarVazio = ocultarVazio.closest("section") || ocultarVazio;
+    checar(secaoOcultarVazio.hidden === true,
+      "EMPTY com ocultar-vazio=true: a secao/contêiner deveria ficar oculta");
+
+    // ---- FALHA: HTTP 500 ----
+    var http500 = document.getElementById("c-http-500");
+    checar(http500.textContent.indexOf("indisponíveis") !== -1,
+      "FALHA HTTP 500: deveria mostrar mensagem discreta de indisponibilidade");
+    checar(http500.textContent.indexOf("Traceback") === -1 && http500.textContent.indexOf("500") === -1,
+      "FALHA HTTP 500: NUNCA deveria mostrar o código/erro técnico cru no texto");
+
+    // ---- FALHA: JSON inválido ----
+    var jsonInvalido = document.getElementById("c-json-invalido");
+    checar(jsonInvalido.textContent.indexOf("indisponíveis") !== -1,
+      "FALHA JSON invalido: deveria cair no mesmo estado discreto de indisponibilidade");
+
+    // ---- FALHA: formato inesperado (sem items) ----
+    var formatoInvalido = document.getElementById("c-formato-invalido");
+    checar(formatoInvalido.textContent.indexOf("indisponíveis") !== -1,
+      "FALHA formato invalido (sem items): NUNCA deveria tentar renderizar, deveria indicar indisponibilidade");
+
+    // ---- SEGURANCA: XSS ----
+    var xss = document.getElementById("c-xss");
+    var artigoXss = xss.querySelector("article.cartao");
+    checar(!!artigoXss, "XSS: o card deveria ser renderizado mesmo com conteudo perigoso");
+    checar(window.__xss !== true && window.__xss2 !== true,
+      "XSS: NENHUM script/handler vindo da API deveria executar");
+    checar(!xss.querySelector("img"), "XSS: nenhuma tag <img> deveria ser criada a partir do texto da API");
+    checar(artigoXss && artigoXss.querySelector("h3").textContent.indexOf("<img") === 0,
+      "XSS: o texto perigoso deveria aparecer LITERALMENTE como texto (via textContent), nunca como HTML");
+
+    // ---- SEGURANCA: link javascript: ----
+    var linkPerigoso = document.getElementById("c-link-perigoso");
+    checar(!linkPerigoso.querySelector("a.cartao-link"),
+      "LINK PERIGOSO: um link javascript: NUNCA deveria virar um <a> clicável");
+
+    var linkSeguro = document.getElementById("c-link-seguro");
+    checar(!!linkSeguro.querySelector("a.cartao-link"), "LINK SEGURO: um link https deveria aparecer normalmente");
+
+    // ---- FILTRO: pagina BIG Rotas usa slug, nunca ID ----
+    var chamadaBigRotas = window.__CHAMADAS_FETCH.filter(function (u) {
+      return u.indexOf("big-rotas") !== -1;
+    })[0];
+    checar(!!chamadaBigRotas && chamadaBigRotas.indexOf("/api/public/projetos/big-rotas/atualizacoes") !== -1,
+      "FILTRO: a pagina do BIG Rotas deveria chamar /api/public/projetos/big-rotas/atualizacoes");
+    checar(window.__CHAMADAS_FETCH.every(function (u) { return !/[?&]id=\d/.test(u); }),
+      "FILTRO: nenhuma chamada deveria usar um parametro id= numerico (ID interno)");
+    var bigRotasCard = document.getElementById("c-bigrotas").querySelector("article.cartao");
+    checar(!!bigRotasCard && !bigRotasCard.querySelector(".atualizacao-meta") ||
+           bigRotasCard.querySelector(".atualizacao-meta").textContent.indexOf("BIG Rotas") === -1,
+      "FILTRO: com mostrar-projeto=false, o nome do projeto NAO deveria se repetir no card");
+
+    // ---- CONFIGURACAO: nada de segredo no bundle ----
+    return fetch("../assets/js/config.js").then(function (r) { return r.text(); }).then(function (configTexto) {
+      checar(configTexto.indexOf("CONTROL_CENTER_DATABASE_URL") === -1,
+        "CONFIG: config.js NUNCA deveria mencionar a variável de banco de dados");
+      // Formatos que SO fariam sentido como valor real de segredo - nunca
+      // aparecem nem em prosa explicativa (diferente de palavras soltas
+      // como "token", que o proprio comentario usa para EXPLICAR que
+      // nao ha nenhum).
+      checar(!/postgres(ql)?:\/\//i.test(configTexto) && !/Bearer\s+[A-Za-z0-9._-]{10,}/.test(configTexto)
+        && !/AKIA[0-9A-Z]{16}/.test(configTexto),
+        "CONFIG: config.js NUNCA deveria conter um valor no formato de credencial/DSN real");
+      checar(typeof CONTROL_CENTER_PUBLIC_API_BASE_URL === "string" ? /^https?:\/\//.test(CONTROL_CENTER_PUBLIC_API_BASE_URL) : CONTROL_CENTER_PUBLIC_API_BASE_URL === null,
+        "CONFIG: o valor em tempo de execucao deveria ser null OU uma URL http(s) - nunca outra coisa");
+    });
+  }
+
+  // atualizacoes.js roda no DOMContentLoaded; como este <script> de
+  // asserções está DEPOIS dele no documento e também aguarda o mesmo
+  // evento, ele roda customarily depois - mas o timeout precisa de um
+  // tempo real para disparar, entao aguardamos um pouco mais para esse
+  // cenario especifico antes de checar tudo.
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      var timeoutEl = document.getElementById("c-timeout");
+      checar(timeoutEl.textContent.indexOf("indisponíveis") !== -1,
+        "TIMEOUT: apos o tempo limite, deveria cair no mesmo estado discreto de indisponibilidade");
+
+      Promise.resolve(rodarAsserções()).then(function () {
+        var resultado = document.getElementById("resultado");
+        if (falhas.length === 0) {
+          resultado.innerHTML = '<span class="ok">TODOS OS TESTES PASSARAM (' +
+            (RESPOSTAS ? Object.keys(RESPOSTAS).length : 0) + ' cenarios cobertos)</span>';
+        } else {
+          resultado.innerHTML = '<span class="falha">FALHAS (' + falhas.length + '):</span>\n - ' +
+            falhas.join('\n - ');
+        }
+      });
+    }, 6500); // > TEMPO_LIMITE_MS (6000ms) de atualizacoes.js
+  });
+</script>
+</body>
+</html>

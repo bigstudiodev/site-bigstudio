@@ -68,3 +68,30 @@ Duas opções, o site funciona igual nas duas:
 
 Página única, sem catálogo: o botão **Falar com o BigRotas** abre direto a conversa.
 O link fica no `<script>` no fim de `bigrotas.html`, na constante `CONVERSA` — trocar o número antes de publicar.
+
+## Atualizações (Etapa 2D — feed público do Control Center)
+
+O site consome, só por leitura (GET), o feed público do Control Center:
+`GET /api/public/atualizacoes` e `GET /api/public/projetos/<slug>/atualizacoes`.
+Nada de login, WhatsApp, banco ou escrita entra pelo site — isso é tudo
+responsabilidade do Control Center.
+
+- `assets/js/config.js` — só a URL base pública (`CONTROL_CENTER_PUBLIC_API_BASE_URL`).
+  Hoje está `null` **de propósito**, porque o Control Center ainda não tem
+  endereço de produção — enquanto for `null`, nenhuma chamada de rede é
+  feita e a seção de Atualizações simplesmente não aparece. Preencher essa
+  constante é o único passo necessário para ligar o feed depois.
+- `assets/js/atualizacoes.js` — o cliente: basta um `<div data-atualizacoes>`
+  na página (ver comentário no topo do arquivo para as opções). Já usado em
+  `index.html`, `aplicativos.html` (feed geral) e `bigrotas.html` (filtrado
+  pelo projeto, slug `big-rotas`).
+- Qualquer falha (API fora do ar, erro HTTP, JSON inválido) só mostra um
+  texto discreto ("Atualizações indisponíveis no momento.") — nunca quebra
+  a página nem trava o GitHub Pages.
+
+**Pendência para quando o Control Center for publicado:** configurar no
+backend (`CONTROL_CENTER_PUBLIC_CORS_ORIGIN`) a origem do GitHub Pages
+deste site, hoje `https://bigstudiodev.github.io` (sem caminho — é a
+origem de `https://bigstudiodev.github.io/site-bigstudio/`, e muda se um
+domínio próprio entrar no lugar, ver seção "Card de link e favicon" acima).
+Sem isso, o navegador bloqueia a resposta por CORS mesmo com a API no ar.

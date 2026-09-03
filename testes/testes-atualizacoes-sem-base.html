@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Testes — atualizacoes.js sem base configurada (Etapa 2D)</title>
+<style>
+  body{font-family:monospace;padding:20px;background:#111;color:#eee}
+  .ok{color:#7CFC7C}
+  .falha{color:#FF6B6B;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>Teste: CONTROL_CENTER_PUBLIC_API_BASE_URL ausente</h1>
+<p>Este arquivo NÃO carrega <code>config.js</code> de propósito - simula o
+estado real de produção hoje (URL ainda não definida). Nenhuma chamada de
+rede deveria acontecer.</p>
+<pre id="resultado">Rodando...</pre>
+
+<section>
+  <div id="c-sem-base" data-atualizacoes></div>
+</section>
+
+<script>
+  window.__fetch_foi_chamado = false;
+  window.fetch = function () {
+    window.__fetch_foi_chamado = true;
+    return Promise.reject(new Error("fetch NUNCA deveria ser chamado sem base configurada"));
+  };
+</script>
+
+<!-- Sem <script src="../assets/js/config.js"> de proposito. -->
+<script src="../assets/js/atualizacoes.js" defer></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      var falhas = [];
+      function checar(cond, msg) { if (!cond) { falhas.push(msg); } }
+
+      checar(window.__fetch_foi_chamado === false,
+        "sem CONTROL_CENTER_PUBLIC_API_BASE_URL, NENHUMA chamada fetch deveria acontecer");
+      var alvo = document.getElementById("c-sem-base");
+      var secao = alvo.closest("section");
+      checar(secao.hidden === true,
+        "sem base configurada, a secao deveria ficar oculta (fallback seguro)");
+
+      var resultado = document.getElementById("resultado");
+      if (falhas.length === 0) {
+        resultado.innerHTML = '<span class="ok">TODOS OS TESTES PASSARAM</span>';
+      } else {
+        resultado.innerHTML = '<span class="falha">FALHAS:</span>\n - ' + falhas.join('\n - ');
+      }
+    }, 200);
+  });
+</script>
+</body>
+</html>
