@@ -1,0 +1,101 @@
+/* Apresentação do Meu Financeiro: tela completa, sem recorte por altura. */
+.pagina-financeiro{--fin-verde:#65CF91;--fin-dourado:#D3AD55}
+.financeiro-boas-vindas-inner{
+  max-width:1280px;min-height:auto;grid-template-columns:minmax(0,1fr) minmax(0,.88fr);
+  gap:clamp(40px,6vw,88px);align-items:center;padding:clamp(48px,6vw,88px) var(--pad);
+}
+.financeiro-apresentacao{padding-bottom:0;align-self:center;min-width:0}
+.financeiro-identidade{gap:14px}
+.financeiro-identidade img{width:54px;border-radius:13px}
+.financeiro-identidade span{font-size:clamp(1rem,1.7vw,1.3rem);letter-spacing:.02em}
+.financeiro-divisor{width:52px;margin:30px 0;background:var(--fin-dourado);height:2px}
+.financeiro-apresentacao h1{max-width:14ch;font-size:clamp(2.6rem,4.7vw,4rem);line-height:1.03;letter-spacing:-.035em}
+.financeiro-apresentacao h1 span{color:var(--fin-verde);white-space:normal}
+.financeiro-apresentacao > p{margin-top:24px;font-size:1.08rem;max-width:40ch;line-height:1.7;color:#CAD4CD}
+.financeiro-plataforma{margin-top:28px;color:var(--fin-verde);font-size:.65rem}
+.financeiro-acoes{margin-top:22px}
+.pagina-financeiro .btn{border-radius:9px}
+.pagina-financeiro .btn-cheio{background:var(--fin-verde);border-color:var(--fin-verde);color:#000}
+.pagina-financeiro .btn-cheio:hover{background:#8BDEA9;border-color:#8BDEA9}
+.financeiro-apresentacao .financeiro-politica{display:inline-block;margin-top:22px;padding-top:0;font-size:.65rem}
+.financeiro-preview{
+  width:100%;max-width:460px;max-height:none;align-self:center;justify-self:end;
+  overflow:visible;border:0;border-radius:0;background:none;box-shadow:none;
+}
+.fin-tela{
+  padding:clamp(24px,3vw,36px);border:1px solid #34443A;border-radius:30px;
+  background:#07100B;color:#F3F2EC;box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.fin-tela-marca{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:.95rem;font-weight:600}
+.fin-tela-marca img{width:42px;height:42px;border-radius:11px}
+.fin-exemplo{margin-left:auto;font:500 .55rem var(--mono);letter-spacing:.05em;color:#AEC2B5;border:1px solid #34443A;border-radius:5px;padding:4px 6px}
+.fin-saudacao{margin-top:28px}
+.fin-saudacao p{font-family:var(--display);font-size:1.8rem;font-weight:600;line-height:1.2;margin:0 0 8px}
+.fin-saudacao > span{display:block;color:#B4C2B9;font-size:.75rem;line-height:1.6}
+.fin-saldo{margin-top:30px}
+.fin-saldo p,.fin-orcamento > p{font:500 .61rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fin-dourado);margin:0 0 12px}
+.fin-saldo > strong{display:block;font-family:var(--display);font-weight:600;font-size:clamp(2.35rem,4vw,3.2rem);letter-spacing:-.04em;line-height:1.1;white-space:nowrap}
+.fin-saldo > strong span{font-size:.7em;color:#CDD7CF}
+.fin-movimentos{display:grid;grid-template-columns:1fr 1fr;margin:26px 0 0;gap:18px}
+.fin-movimentos > div{min-width:0}
+.fin-movimentos > div + div{border-left:1px solid #34443A;padding-left:18px}
+.fin-movimentos dt{font-size:.7rem;color:var(--fin-verde);margin-bottom:6px}
+.fin-movimentos dd{font-size:clamp(.85rem,1.5vw,1.13rem);font-weight:500;color:var(--fin-verde);margin:0;white-space:nowrap}
+.fin-movimentos > div + div dt,.fin-movimentos > div + div dd{color:#EF8B7F}
+.fin-orcamento{margin-top:28px;padding:20px;border:1px solid #293C30;background:#0C1911;border-radius:15px}
+.fin-orcamento-valor{display:flex;align-items:baseline;flex-wrap:wrap;gap:3px 8px}
+.fin-orcamento-valor strong{font-family:var(--display);font-weight:500;font-size:1.4rem;letter-spacing:-.025em}
+.fin-orcamento-valor > span{font-size:.7rem;color:#BDCBBF}
+.fin-barra{height:7px;border-radius:6px;background:#26382C;overflow:hidden;margin:16px 0 12px}
+.fin-barra > span{display:block;width:73.125%;height:100%;border-radius:inherit;background:var(--fin-dourado);transform-origin:left}
+.fin-restante{font-size:.7rem;color:var(--fin-dourado)}
+.fin-tela-fecho{display:flex;justify-content:space-between;gap:10px;margin-top:25px;padding-top:16px;border-top:1px solid #293C30;color:#A5B9AA;font:400 .58rem var(--mono)}
+.financeiro-preview figcaption{text-align:center;color:#A5B6AB;font:400 .6rem var(--mono);line-height:1.7;letter-spacing:.02em;margin:14px 10px 0}
+.financeiro-faixa{border-top:1px solid var(--linha)}
+.financeiro-secao{padding-block:clamp(48px,7vw,80px)}
+.financeiro-meta{color:var(--fin-verde);font-size:.65rem}
+.financeiro-faixa h2{max-width:23ch;font-size:clamp(2rem,4vw,3rem);line-height:1.08;letter-spacing:-.025em}
+.financeiro-lista{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;border:0;margin-top:34px}
+.financeiro-lista li{padding:26px;border:1px solid #253D2D;border-radius:16px;background:#050C07;transition:border-color .2s ease,transform .2s ease}
+.fin-recurso-num{font:400 .65rem var(--mono);color:var(--fin-dourado);display:block;margin-bottom:24px}
+.financeiro-lista h3{font-size:1.2rem;line-height:1.2;letter-spacing:-.02em}
+.financeiro-lista p{font:400 .9rem/1.6 var(--corpo);color:#B7C6BC;margin:12px 0 0}
+.financeiro-areas{gap:16px;grid-template-columns:1fr 1fr;margin-top:34px}
+.financeiro-area,.financeiro-area + .financeiro-area{padding:26px;border:1px solid #253D2D;border-radius:16px;background:#050C07}
+.financeiro-area h3{color:var(--fin-dourado)}
+.financeiro-area p{font-size:1rem}
+.financeiro-privacidade .financeiro-secao{border-left:2px solid var(--fin-verde);margin-block:44px;padding-block:10px}
+.financeiro-disponibilidade h2{max-width:20ch}
+.fin-disponibilidade-texto{font-size:1rem;color:#B7C6BC;margin:22px 0 26px;max-width:42ch}
+[id^="financeiro-"]{scroll-margin-top:100px}
+@media(hover:hover){.financeiro-lista li:hover{border-color:var(--fin-verde);transform:translateY(-3px)}}
+.fin-revelado{animation:fin-aparecer .6s ease both}
+.fin-tela.fin-revelado .fin-barra > span{animation:fin-preencher 1.2s .25s cubic-bezier(.2,.7,.3,1) both}
+@keyframes fin-aparecer{from{opacity:.35;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fin-preencher{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:900px){
+  .financeiro-boas-vindas-inner{grid-template-columns:1fr;gap:42px;max-width:720px}
+  .financeiro-apresentacao{max-width:560px}
+  .financeiro-apresentacao h1{font-size:clamp(2.6rem,7vw,3.6rem);max-width:16ch}
+  .financeiro-preview{justify-self:center;max-width:430px;max-height:none}
+  .fin-saldo > strong{font-size:clamp(2.35rem,7vw,3.2rem)}
+  .fin-movimentos dd{font-size:1.05rem}
+}
+@media(max-width:560px){
+  .financeiro-boas-vindas-inner{padding-top:40px;padding-bottom:44px}
+  .financeiro-apresentacao h1{font-size:clamp(2.45rem,10vw,3.2rem);max-width:15ch}
+  .financeiro-apresentacao .financeiro-politica{margin-top:22px}
+  .fin-tela{border-radius:24px;padding:22px}
+  .fin-tela-marca{font-size:.85rem;gap:8px}
+  .fin-tela-marca img{width:34px;height:34px}
+  .fin-movimentos{gap:12px}.fin-movimentos > div + div{padding-left:12px}
+  .fin-movimentos dd{font-size:clamp(.8rem,3.7vw,1.05rem)}
+  .fin-orcamento{padding:17px}
+  .financeiro-lista,.financeiro-areas{grid-template-columns:1fr}
+  .financeiro-lista li,.financeiro-area,.financeiro-area + .financeiro-area{padding:22px}
+  .financeiro-privacidade .financeiro-secao{margin-block:32px}
+}
+@media(prefers-reduced-motion:reduce){
+  .fin-revelado,.fin-tela.fin-revelado .fin-barra > span{animation:none}
+  .financeiro-lista li{transition:none}.financeiro-lista li:hover{transform:none}
+}
