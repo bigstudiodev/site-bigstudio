@@ -19,10 +19,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Chivo:wght@400;500;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/estilo.css?v=brasil-4">
+<link rel="stylesheet" href="assets/css/fachada.css?v=1">
 <script src="assets/js/config.js"></script>
 <script src="assets/js/atualizacoes.js" defer></script>
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
+<script src="assets/js/fachada.js?v=1" defer></script>
 </head>
 <body>
 
@@ -57,21 +59,25 @@
       </div>
     </div>
 
+    <div class="fachada-cena">
     <div class="fachada" aria-hidden="true">
       <div class="coluna">
         <div class="bloco b1 cobogo"></div>
-        <div class="bloco b2"><span class="janela j1"></span><span class="janela j2"></span></div>
-        <div class="bloco b1"></div>
+        <div class="bloco b2"><span class="janela j1 janela-viva luz-azul"></span><span class="janela j2"></span></div>
+        <div class="bloco b1"><span class="porta"></span></div>
       </div>
       <div class="coluna">
         <div class="bloco b3"><span class="janela j1"></span></div>
-        <div class="bloco b4"><span class="janela j1"></span><span class="janela j2"></span></div>
+        <div class="bloco b4"><span class="janela j1"></span><span class="janela j2 janela-viva luz-central"></span><span class="porta"></span></div>
       </div>
       <div class="coluna">
         <div class="bloco b5"></div>
         <div class="bloco b6 cobogo"></div>
         <div class="bloco b3"><span class="janela j2"></span></div>
       </div>
+      <span class="trajeto"><span class="morador"><span class="pessoa"><i class="cabeca-pixel"></i><i class="corpo-pixel"></i><i class="perna-pixel perna-a"></i><i class="perna-pixel perna-b"></i></span></span></span>
+    </div>
+    <button class="cena-controle" type="button" hidden>Pausar cena</button>
     </div>
   </section>
 
