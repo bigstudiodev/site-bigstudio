@@ -24,7 +24,7 @@
       }
 
       const estilo = getComputedStyle(marca);
-      const cores = ['--amarelo', '--azulejo', '--tinta'].map((nome) =>
+      const cores = ['--amarelo', '--azulejo', '--verde'].map((nome) =>
         estilo.getPropertyValue(nome).trim());
 
       animacoes = blocos.map((bloco, indice) => {

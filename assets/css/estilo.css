@@ -14,9 +14,11 @@
   --tinta-suave:#D8DDD9;
   --azulejo:#6FA8FF;
   --amarelo:#F0B429;
+  --verde:#22C55E;
+  --verde-hover:#16A34A;
   --rosa:#DD5F7C;
   --linha:rgba(255,255,255,.18);
-  --favela-opacidade:.035;
+  --favela-opacidade:.07;
 
   --display:"Bricolage Grotesque","Chivo",system-ui,-apple-system,"Segoe UI",sans-serif;
   --corpo:"Chivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -67,6 +69,7 @@ h3{font-size:1.25rem}
 .selo{display:grid;grid-template-columns:repeat(3,6px);grid-auto-rows:6px;gap:2px;flex-shrink:0}
 .selo i{background:var(--tinta);border-radius:1px}
 .selo i:nth-child(2){background:var(--azulejo)}
+.selo i:nth-child(5){background:var(--verde)}
 .selo i:nth-child(6){background:var(--amarelo)}
 .selo i:nth-child(7){opacity:.25}
 
@@ -120,8 +123,8 @@ h3{font-size:1.25rem}
   font-weight:700;font-size:.92rem;padding:13px 22px;
   border:1.5px solid var(--tinta);background:none;color:var(--tinta);cursor:pointer;
 }
-.btn-cheio{background:var(--tinta);color:var(--cal)}
-.btn-cheio:hover{background:var(--azulejo);border-color:var(--azulejo)}
+.btn-cheio{background:var(--verde);border-color:var(--verde);color:var(--cal)}
+.btn-cheio:hover{background:var(--verde-hover);border-color:var(--verde-hover)}
 .btn-vazio:hover{background:var(--muro);border-color:var(--azulejo)}
 
 .grade{display:grid;gap:14px}
@@ -217,7 +220,7 @@ h3{font-size:1.25rem}
 .bloco.b2{height:88px;background:var(--azulejo)}
 .bloco.b3{height:70px;background:var(--amarelo)}
 .bloco.b4{height:112px;background:var(--cal)}
-.bloco.b5{height:46px;background:var(--rosa)}
+.bloco.b5{height:46px;background:var(--verde)}
 .bloco.b6{height:78px;background:var(--muro)}
 .cobogo{
   background-color:var(--cal);
