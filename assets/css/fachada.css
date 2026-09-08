@@ -1,17 +1,23 @@
 /* A cena usa a composição original. Sem JavaScript, permanece estática. */
 .fachada-cena{width:100%;max-width:420px;min-width:0}
-.fachada-cena .fachada{position:relative;width:100%;max-width:none;isolation:isolate}
+.fachada-cena .fachada{position:relative;width:100%;max-width:none;isolation:isolate;overflow:hidden}
 .fachada-cena .coluna{min-width:0}
 .porta{position:absolute;bottom:-1px;left:50%;width:18px;height:27px;transform:translateX(-50%);background:#080C0A;border:1px solid rgba(255,255,255,.3);border-bottom:0}
 .porta::after{content:"";position:absolute;right:3px;top:15px;width:2px;height:2px;background:var(--amarelo);opacity:.55}
+.porta-amarela{left:20px}
 .janela-viva{background:#FFE5A0;opacity:.18}
 .janela-viva::after{content:"";position:absolute;inset:-5px;background:radial-gradient(ellipse,rgba(255,216,125,.23),transparent 70%);opacity:0}
 .trajeto{position:absolute;bottom:0;left:calc((100% - 16px)/6);width:calc((100% + 8px)/3);height:22px;pointer-events:none;z-index:1}
+.trajeto-centro-direita{left:50%;width:calc((100% + 32px)/6 + 21px)}
+.trajeto-esquerda-direita{width:calc(50% + 29px)}
+.vizinho-2{--atraso:-12s;--camisa:#A5C7EA;--pele:#A77750;--passo:.52s}
+.vizinho-3{--atraso:-24s;--camisa:#D7C58E;--pele:#C9926D;--partida:100%;--destino:0%;--passo:.41s}
+.vizinho-4{--atraso:-36s;--camisa:#CAD4C9;--pele:#805538;--partida:100%;--destino:0%;--passo:.49s}
 .morador{position:absolute;inset:0;opacity:0;transform:translateX(0)}
 .pessoa{position:absolute;bottom:0;left:-5px;width:10px;height:21px;display:block}
 .pessoa i{position:absolute;display:block}
-.cabeca-pixel{width:6px;height:6px;left:2px;top:0;background:#E2C59B}
-.corpo-pixel{width:10px;height:8px;left:0;top:7px;background:#BDD2BB}
+.cabeca-pixel{width:6px;height:6px;left:2px;top:0;background:var(--pele,#E2C59B)}
+.corpo-pixel{width:10px;height:8px;left:0;top:7px;background:var(--camisa,#BDD2BB)}
 .perna-pixel{width:3px;height:6px;top:15px;background:#A2B5C8;transform-origin:top}
 .perna-a{left:1px}.perna-b{right:1px}
 .cena-controle{display:block;margin:12px 0 0 auto;padding:6px 0;min-height:32px;font:inherit;font-size:.68rem;color:var(--tinta-suave);background:none;border:0;border-bottom:1px solid var(--linha);cursor:pointer}
@@ -20,22 +26,22 @@
 .cena-pronta .janela-viva{animation:janela-acesa 24s ease-in-out infinite}
 .cena-pronta .janela-viva::after{animation:halo-janela 24s ease-in-out infinite}
 .cena-pronta .luz-central,.cena-pronta .luz-central::after{animation-delay:-12s}
-.cena-pronta .morador{animation:visita 24s linear infinite}
-.cena-pronta .perna-a{animation:passo .6s steps(2,end) infinite}
-.cena-pronta .perna-b{animation:passo .6s steps(2,end) -.3s infinite}
+.cena-pronta .morador{animation:visita 60s linear var(--atraso,0s) infinite}
+.cena-pronta .perna-a{animation:passo var(--passo,.45s) steps(2,end) infinite}
+.cena-pronta .perna-b{animation:passo var(--passo,.45s) steps(2,end) infinite reverse}
 .cena-pronta .janela-viva,.cena-pronta .janela-viva::after,.cena-pronta .morador,.cena-pronta .perna-pixel{animation-play-state:paused}
 .cena-rodando .janela-viva,.cena-rodando .janela-viva::after,.cena-rodando .morador,.cena-rodando .perna-pixel{animation-play-state:running}
 @keyframes janela-acesa{0%,8%,48%,100%{opacity:.18}16%,38%{opacity:.92}}
 @keyframes halo-janela{0%,8%,48%,100%{opacity:0}16%,38%{opacity:.7}}
-/* O morador sai, visita a casa vizinha, descansa e volta pelo mesmo caminho. */
+/* Quatro ciclos defasados: no máximo dois moradores visíveis por vez. */
 @keyframes visita{
-  0%,16%{opacity:0;transform:translateX(0)}
-  19%{opacity:.8;transform:translateX(0)}
-  35%{opacity:.8;transform:translateX(100%)}
-  38%,65%{opacity:0;transform:translateX(100%)}
-  68%{opacity:.8;transform:translateX(100%)}
-  84%{opacity:.8;transform:translateX(0)}
-  87%,100%{opacity:0;transform:translateX(0)}
+  0%,3%{opacity:0;transform:translateX(var(--partida,0%))}
+  4%{opacity:.8;transform:translateX(var(--partida,0%))}
+  10.6667%{opacity:.8;transform:translateX(var(--destino,100%))}
+  11.6667%,53%{opacity:0;transform:translateX(var(--destino,100%))}
+  54%{opacity:.8;transform:translateX(var(--destino,100%))}
+  60.6667%{opacity:.8;transform:translateX(var(--partida,0%))}
+  61.6667%,100%{opacity:0;transform:translateX(var(--partida,0%))}
 }
 @keyframes passo{to{transform:translateY(-2px)}}
 @media(min-width:820px){.fachada-cena{justify-self:end;align-self:center}}
