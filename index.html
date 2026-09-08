@@ -14,13 +14,15 @@
 <meta property="og:url" content="https://bigstudiodev.github.io/site-bigstudio/">
 <meta property="og:image" content="https://bigstudiodev.github.io/site-bigstudio/assets/img/card-link.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#F1F2EE">
+<meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Chivo:wght@400;500;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/estilo.css?v=cabecalho-2">
 <script src="assets/js/config.js"></script>
 <script src="assets/js/atualizacoes.js" defer></script>
+<script src="assets/js/marca.js?v=2" defer></script>
+<script src="assets/js/menu.js?v=1" defer></script>
 </head>
 <body>
 
@@ -29,12 +31,16 @@
     <span class="selo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
     BIG STUDIO
   </a>
-  <nav class="menu">
-    <a href="index.html" aria-current="page">Início</a>
-    <a href="aplicativos.html">Aplicativos</a>
-    <a href="fivem.html">FiveM</a>
-    <a href="bigrotas.html">BigRotas</a>
-    <a href="contato.html">Contato</a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu" hidden>
+    <img src="assets/img/menu.svg" width="22" height="22" alt="" data-menu-abrir>
+    <img src="assets/img/fechar.svg" width="22" height="22" alt="" data-menu-fechar hidden>
+  </button>
+  <nav class="menu" id="menu-principal" aria-label="Navegação principal">
+    <a href="index.html" aria-current="page"><span>Início</span></a>
+    <a href="aplicativos.html"><span>Aplicativos</span></a>
+    <a href="fivem.html"><span>FiveM</span></a>
+    <a href="bigrotas.html"><span>BigRotas</span></a>
+    <a class="menu-contato" href="contato.html"><span>Contato</span></a>
   </nav>
 </header>
 
