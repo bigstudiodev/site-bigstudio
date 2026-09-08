@@ -9,6 +9,7 @@
 const PRODUTOS = [
   {
     nome: "Meu Financeiro",
+    vitrine: "financeiro",
     categoria: "app",
     etiqueta: "Android · em desenvolvimento",
     resumo: "As contas da casa organizadas no celular.",
@@ -23,6 +24,7 @@ const PRODUTOS = [
   },
   {
     nome: "Meu Tatame",
+    vitrine: "tatame",
     categoria: "app",
     etiqueta: "Android · em desenvolvimento",
     resumo: "Agenda e chamada para academias de luta.",
@@ -35,6 +37,7 @@ const PRODUTOS = [
   },
   {
     nome: "BigLock",
+    vitrine: "biglock",
     categoria: "app",
     etiqueta: "PC e Android · em desenvolvimento",
     resumo: "Suas senhas guardadas offline.",
@@ -86,15 +89,18 @@ const PRODUTOS = [
 ];
 
 /* --------- montagem dos cards (não precisa editar) -------- */
-function montarCartao(p){
+function montarCartao(p, vitrine = false){
   const artigo = document.createElement("article");
   artigo.className = "cartao" + (p.tom && p.tom !== "azul" ? " tom-" + p.tom : "");
+  const emVitrine = vitrine && Boolean(p.vitrine);
+  const modelo = emVitrine ? document.getElementById("vitrine-" + p.vitrine) : null;
+  if (emVitrine) artigo.classList.add("app-cartao", "app-" + p.vitrine);
 
   const etiqueta = document.createElement("span");
   etiqueta.className = "etiqueta";
   etiqueta.textContent = p.etiqueta;
 
-  const titulo = document.createElement("h3");
+  const titulo = document.createElement(emVitrine ? "h2" : "h3");
   titulo.textContent = p.nome;
 
   const resumo = document.createElement("p");
@@ -102,13 +108,15 @@ function montarCartao(p){
   resumo.textContent = p.resumo;
 
   const lista = document.createElement("ul");
-  (p.pontos || []).forEach(function(ponto){
+  (emVitrine ? (p.pontos || []).slice(0, 2) : (p.pontos || [])).forEach(function(ponto){
     const item = document.createElement("li");
     item.textContent = ponto;
     lista.appendChild(item);
   });
 
-  artigo.append(etiqueta, titulo, resumo, lista);
+  artigo.append(etiqueta, titulo, resumo);
+  if (modelo) artigo.appendChild(modelo.content.cloneNode(true));
+  artigo.appendChild(lista);
 
   if (p.url) {
     const link = document.createElement("a");
@@ -116,6 +124,11 @@ function montarCartao(p){
     link.href = p.url;
     link.textContent = (p.chamada || "Conhecer") + " →";
     artigo.appendChild(link);
+  } else if (emVitrine) {
+    const estado = document.createElement("p");
+    estado.className = "app-em-breve";
+    estado.textContent = "Em desenvolvimento";
+    artigo.appendChild(estado);
   }
 
   return artigo;
@@ -126,6 +139,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const categoria = alvo.getAttribute("data-lista");
     PRODUTOS
       .filter(function(p){ return p.categoria === categoria; })
-      .forEach(function(p){ alvo.appendChild(montarCartao(p)); });
+      .forEach(function(p){ alvo.appendChild(montarCartao(p, alvo.hasAttribute("data-vitrine"))); });
   });
 });

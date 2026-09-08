@@ -1,0 +1,51 @@
+/* Vitrine restrita à página de aplicativos. */
+.pagina-aplicativos .faixa{max-width:1280px}
+.pagina-aplicativos .cabeca{max-width:64ch}
+.pagina-aplicativos h1{font-size:clamp(2.3rem,5vw,3.5rem);line-height:1.08;max-width:19ch}
+.app-vitrine{gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.app-cartao{--app-acento:#73D69B;min-width:0;padding:24px;border:1px solid #344039;border-radius:18px;background:rgba(0,0,0,.88);transition:border-color .22s ease,transform .22s ease;overflow:hidden}
+.app-tatame{--app-acento:#F0C35C}
+.app-biglock{--app-acento:#E99CB3}
+.app-cartao::before{top:0;left:24px;width:38px;height:2px;background:var(--app-acento)}
+.app-cartao .etiqueta{font-size:.58rem;letter-spacing:.06em;line-height:1.6;padding:0;border:0;color:#ADB8B1;margin:2px 0 18px;min-height:2em}
+.app-cartao h2{font-size:1.48rem;line-height:1.1;margin-bottom:10px}
+.app-cartao .resumo{font-size:.93rem;line-height:1.6;min-height:3.2em;margin-bottom:22px;color:#D5DDD7}
+.app-demo{height:225px;flex-shrink:0;border:1px solid #2A3D31;border-radius:12px;padding:17px;margin-bottom:24px;background:#08110C;color:#EEF3EF}
+.demo-topo{display:flex;align-items:center;gap:8px;height:28px;font-size:.68rem;margin-bottom:20px;font-weight:500;white-space:nowrap}
+.demo-topo img{width:24px;height:24px;object-fit:contain;flex-shrink:0}
+.demo-financeiro .demo-topo img{width:28px;height:28px;border-radius:6px}
+.demo-exemplo{margin-left:auto;font:400 .49rem var(--mono);color:#ADB8B1;font-weight:400}
+.demo-rotulo{display:block;font:400 .55rem/1.5 var(--mono);letter-spacing:.045em;color:var(--app-acento);text-transform:uppercase}
+.demo-saldo{display:block;font-family:var(--display);font-size:clamp(1.65rem,2.7vw,2.25rem);letter-spacing:-.025em;line-height:1.25;margin:9px 0 18px;font-weight:600;white-space:nowrap}
+.demo-saldo > span{font-size:.7em}
+.demo-orcamento{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:.62rem;color:#CCD5CF}
+.demo-orcamento strong{font-size:.62rem;font-weight:500;color:var(--app-acento)}
+.demo-barra{height:5px;margin:9px 0 10px;background:#263B2D;border-radius:4px;overflow:hidden}
+.demo-barra > span{display:block;width:73%;height:100%;background:#D3AD55;border-radius:inherit;transform-origin:left}
+.demo-nota{display:block;font-size:.57rem;color:#AFBFB2;line-height:1.5}
+.app-cartao ul{padding-left:17px;font-size:.82rem;line-height:1.6;color:#D5DDD7}
+.app-cartao li{margin-bottom:9px;padding-left:2px}
+.app-cartao li::marker{color:var(--app-acento)}
+.app-cartao .cartao-link{font-size:.64rem;margin-top:auto;min-height:44px;padding-top:24px;padding-bottom:6px;border-color:var(--app-acento);color:var(--app-acento)}
+.app-cartao .cartao-link:hover{color:#FFF;border-color:#FFF}
+.app-em-breve{font:400 .6rem var(--mono);color:#A2AEA6;margin:auto 0 0;padding-top:24px;min-height:44px;line-height:1.6}
+.app-legenda{margin:18px 0 0;text-align:right;font:400 .6rem/1.6 var(--mono);color:#AAB7AF}
+.app-cartao.app-revelado{animation:app-entrada .55s ease backwards}
+.app-revelado .demo-barra > span{animation:app-preencher 1s .15s ease both}
+@keyframes app-entrada{from{opacity:.4;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes app-preencher{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(hover:hover){.app-cartao:hover{border-color:var(--app-acento);transform:translateY(-3px)}}
+@media(max-width:1050px){.app-cartao{padding:20px}.app-demo{padding:14px}.demo-topo{gap:6px;font-size:.63rem}}
+@media(max-width:900px){
+  .app-vitrine{grid-template-columns:1fr;max-width:560px;margin:0 auto;gap:22px}
+  .app-cartao{padding:26px}.app-cartao .resumo{min-height:0}.app-cartao .etiqueta{min-height:0}
+  .app-demo{padding:20px;height:240px}.demo-topo{font-size:.76rem}.demo-saldo{font-size:2.3rem}
+  .demo-exemplo{font-size:.55rem}.demo-rotulo{font-size:.63rem}
+  .demo-nota{font-size:.65rem}.demo-orcamento{font-size:.7rem}
+  .app-cartao ul{font-size:.92rem}.app-legenda{text-align:center}
+}
+@media(max-width:380px){.app-cartao{padding:20px}.app-demo{padding:14px}.demo-topo{font-size:.65rem}.demo-exemplo{font-size:.48rem}}
+@media(prefers-reduced-motion:reduce){
+  .app-cartao.app-revelado,.app-revelado .demo-barra > span{animation:none}
+  .app-cartao{transition:none}.app-cartao:hover{transform:none}
+}

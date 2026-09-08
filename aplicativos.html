@@ -19,13 +19,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Chivo:wght@400;500;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/estilo.css?v=brasil-4">
-<script src="assets/js/produtos.js" defer></script>
+<link rel="stylesheet" href="assets/css/aplicativos.css?v=1">
+<script src="assets/js/produtos.js?v=3" defer></script>
+<script src="assets/js/aplicativos.js?v=1" defer></script>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/atualizacoes.js" defer></script>
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
 </head>
-<body>
+<body class="pagina-aplicativos">
 
 <header class="topo">
   <a class="marca" href="index.html">
@@ -50,10 +52,12 @@
   <section class="faixa">
     <div class="cabeca">
       <p class="rotulo">Aplicativos</p>
-      <h2>Apps para usar todo dia.</h2>
+      <h1>Apps para usar todo dia.</h1>
       <p>Cada um resolve uma coisa específica, sem funções sobrando.</p>
     </div>
-    <div class="grade" data-lista="app"></div>
+    <div class="grade app-vitrine" data-lista="app" data-vitrine></div>
+    <p class="app-legenda">Meu Financeiro: demonstração ilustrativa com dados de exemplo</p>
+    <noscript><p>Conheça o <a href="meu-financeiro.html">Meu Financeiro</a>, o Meu Tatame e o BigLock. Nossos aplicativos estão em desenvolvimento.</p></noscript>
   </section>
 
   <section class="faixa">
@@ -76,6 +80,17 @@
   </section>
 
 </main>
+
+<template id="vitrine-financeiro">
+  <div class="app-demo demo-financeiro" aria-label="Exemplo de resumo financeiro">
+    <div class="demo-topo"><img src="assets/img/meu-financeiro-logo.png" alt="" width="28" height="28"><span>Resumo do mês</span><span class="demo-exemplo">Exemplo</span></div>
+    <span class="demo-rotulo">Saldo do mês</span>
+    <strong class="demo-saldo">R$ 2.860<span>,00</span></strong>
+    <div class="demo-orcamento"><span>Orçamento utilizado</span><strong>73%</strong></div>
+    <div class="demo-barra" role="meter" aria-label="Orçamento utilizado no exemplo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="73"><span></span></div>
+    <span class="demo-nota">Restam R$ 860,00 no orçamento</span>
+  </div>
+</template>
 
 <footer class="rodape">
   <span>BIG STUDIO · 2026</span>
