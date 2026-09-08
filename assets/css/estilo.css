@@ -82,6 +82,8 @@ h3{font-size:1.25rem}
 .menu-toggle img{width:22px;height:22px;filter:invert(1)}
 .topo .menu[hidden],.menu-toggle[hidden],.menu-toggle img[hidden]{display:none}
 @media (max-width:819px){
+  /* Em telas pequenas os traços precisam de mais contraste para permanecer visíveis. */
+  :root{--favela-opacidade:.12}
   .topo{min-height:68px;padding-block:11px;gap:0 16px}
   .marca{font-size:1.05rem}
   .menu{width:100%;align-items:stretch;flex-direction:column;gap:0;font-size:1rem}
