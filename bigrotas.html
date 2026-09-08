@@ -19,10 +19,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Chivo:wght@400;500;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/estilo.css?v=brasil-4">
+<link rel="stylesheet" href="assets/css/bigrotas-vivo.css?v=1">
 <script src="assets/js/config.js"></script>
 <script src="assets/js/atualizacoes.js" defer></script>
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
+<script src="assets/js/bigrotas-vivo.js?v=1" defer></script>
 </head>
 <body class="pagina-bigrotas">
 
@@ -52,16 +54,27 @@
       <span>01 / ROTA + WHATSAPP</span>
     </div>
 
-    <div class="bigrotas-hero-conteudo">
-      <h1>Organiza e agrupa sua rota da Shopee direto no WhatsApp.</h1>
+    <div class="bigrotas-hero-conteudo bigrotas-hero-vivo">
+      <div class="bigrotas-hero-copy">
+        <h1>Organiza e agrupa sua rota da Shopee direto no WhatsApp.</h1>
 
-      <div class="bigrotas-hero-apoio">
-        <p>Envie sua planilha <strong>.xlsx</strong> original da Shopee. O BIG Rotas processa e devolve a rota organizada no próprio WhatsApp.</p>
-        <div class="bigrotas-hero-acoes">
-          <a class="btn btn-cheio" data-conversa="teste" href="https://wa.me/5511960405352">Testar grátis no WhatsApp</a>
-          <a class="bigrotas-link" href="#como-funciona">Como funciona ↓</a>
+        <div class="bigrotas-hero-apoio">
+          <p>Envie sua planilha <strong>.xlsx</strong> original da Shopee. O BIG Rotas processa e devolve a rota organizada no próprio WhatsApp.</p>
+          <div class="bigrotas-hero-acoes">
+            <a class="btn btn-cheio" data-conversa="teste" href="https://wa.me/5511960405352">Testar grátis no WhatsApp</a>
+            <a class="bigrotas-link" href="#como-funciona">Como funciona ↓</a>
+          </div>
         </div>
       </div>
+      <aside class="bigrotas-fluxo-vivo" aria-label="Demonstração do fluxo do BIG Rotas">
+        <div class="fluxo-vivo-topo"><span>Fluxo da rota</span><span>Demonstração</span></div>
+        <ol class="fluxo-vivo-etapas">
+          <li data-rota-etapa="arquivo"><span class="fluxo-vivo-num">01</span><div><strong>Planilha original</strong><small>arquivo .xlsx recebido</small></div><span class="fluxo-vivo-status">Pronto</span></li>
+          <li data-rota-etapa="processo"><span class="fluxo-vivo-num">02</span><div><strong>Rota organizada</strong><small>informações agrupadas</small></div><span class="fluxo-vivo-status">Processando</span></li>
+          <li data-rota-etapa="whatsapp"><span class="fluxo-vivo-num">03</span><div><strong>WhatsApp</strong><small>resultado devolvido</small></div><span class="fluxo-vivo-status">Enviado</span></li>
+        </ol>
+        <p class="fluxo-vivo-nota">Dados apenas para ilustrar o funcionamento.</p>
+      </aside>
     </div>
   </section>
 
@@ -77,17 +90,17 @@
     </div>
 
     <ol class="bigrotas-passos">
-      <li>
+      <li data-rota-entrada>
         <span>01 / ENVIE</span>
         <h3>Planilha original</h3>
         <p>Envie a planilha <strong>.xlsx</strong> original da Shopee pelo WhatsApp.</p>
       </li>
-      <li>
+      <li data-rota-entrada>
         <span>02 / PROCESSAMOS</span>
         <h3>Rota organizada</h3>
         <p>O BIG Rotas processa e organiza as informações da sua rota.</p>
       </li>
-      <li>
+      <li data-rota-entrada>
         <span>03 / RECEBA</span>
         <h3>De volta no WhatsApp</h3>
         <p>Você recebe a rota organizada no próprio WhatsApp.</p>
@@ -123,7 +136,7 @@
       <span>PIX MANUAL / SEM RENOVAÇÃO AUTOMÁTICA</span>
     </div>
 
-    <div class="bigrotas-plano">
+    <div class="bigrotas-plano" data-rota-entrada>
       <div class="bigrotas-plano-copy">
         <h2>5 dias para testar. Um plano simples para continuar.</h2>
         <p>O teste gratuito começa somente quando a primeira planilha <strong>.xlsx</strong> válida é enviada para processamento.</p>
@@ -146,11 +159,11 @@
     </div>
 
     <div class="bigrotas-confianca">
-      <article>
+      <article data-rota-entrada>
         <span>FORMATO ACEITO</span>
         <h2>Planilha .xlsx original da Shopee.</h2>
       </article>
-      <article>
+      <article data-rota-entrada>
         <span>USO DOS DADOS</span>
         <h2>Sua planilha é usada apenas para processar a rota e não é divulgada.</h2>
       </article>
