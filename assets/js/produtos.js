@@ -1,7 +1,7 @@
 /* =========================================================
    BIG STUDIO — cadastro de produtos
    Para adicionar um produto: copie um bloco abaixo e edite.
-   Campos: nome, categoria (app | fivem), resumo,
+   Campos: nome, categoria (app), resumo,
            pontos (3 itens), etiqueta, tom (azul | amarelo | rosa)
    Nada mais precisa ser mexido — os cards são montados sozinhos.
    ========================================================= */
@@ -45,44 +45,6 @@ const PRODUTOS = [
       "Abre por PIN ou senha mestre",
       "Os dados ficam no seu aparelho",
       "Backup exportado criptografado"
-    ],
-    tom: "rosa"
-  },
-
-  /* --- FiveM: exemplos para você trocar pelos reais --- */
-  {
-    nome: "Base com tema próprio",
-    categoria: "fivem",
-    etiqueta: "Pronta · trocar pelo nome real",
-    resumo: "Servidor montado com identidade visual exclusiva, não é base revendida.",
-    pontos: [
-      "Tema, HUD e telas desenhados do zero",
-      "Scripts integrados entre si",
-      "Entregue instalada e testada"
-    ],
-    tom: "azul"
-  },
-  {
-    nome: "Addons",
-    categoria: "fivem",
-    etiqueta: "Pronto · trocar pelo nome real",
-    resumo: "Peças que entram no servidor que já está rodando.",
-    pontos: [
-      "Instala sem quebrar o que existe",
-      "Ajustado ao framework do seu servidor",
-      "Documentação de instalação junto"
-    ],
-    tom: "amarelo"
-  },
-  {
-    nome: "Scripts sob medida",
-    categoria: "fivem",
-    etiqueta: "Sob encomenda",
-    resumo: "Sistema feito do zero a partir da regra que você define.",
-    pontos: [
-      "Lógica fechada antes de virar código",
-      "Feito para não pesar no servidor",
-      "Entrega com documentação"
     ],
     tom: "rosa"
   }
