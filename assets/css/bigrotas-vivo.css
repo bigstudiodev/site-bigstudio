@@ -22,8 +22,8 @@
 .pagina-bigrotas .bigrotas-preco{padding:0;border:0}.pagina-bigrotas .bigrotas-preco > strong{color:var(--rota-verde-claro)}
 .pagina-bigrotas .bigrotas-confianca article{padding:28px;border:1px solid var(--rota-linha);border-radius:16px;background:rgba(4,11,6,.65)}
 .pagina-bigrotas .bigrotas-confianca article h2{max-width:18ch}
-.pagina-bigrotas .bigrotas-arte,.pagina-bigrotas .bigrotas-whatsapp{border:1px solid var(--rota-linha);padding:8px;background:#050A06;border-radius:clamp(16px,2vw,24px);overflow:hidden}
-.pagina-bigrotas .bigrotas-arte img,.pagina-bigrotas .bigrotas-whatsapp img{border-radius:clamp(10px,1.4vw,16px)}
+.pagina-bigrotas .bigrotas-arte{border:1px solid var(--rota-linha);padding:8px;background:#050A06;border-radius:clamp(16px,2vw,24px);overflow:hidden}
+.pagina-bigrotas .bigrotas-arte img{border-radius:clamp(10px,1.4vw,16px)}
 @media(hover:hover){.pagina-bigrotas .bigrotas-passos li:hover{border-color:var(--rota-verde);transform:translateY(-3px)}}
 @keyframes rota-aparecer{from{opacity:.35;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media(max-width:900px){

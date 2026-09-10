@@ -396,11 +396,6 @@ h3{font-size:1.25rem}
 }
 .bigrotas-arte{margin:clamp(42px,7vw,78px) 0 0}
 .bigrotas-arte img{width:100%;display:block;border-radius:clamp(14px,2vw,22px)}
-.bigrotas-whatsapp{
-  margin:clamp(54px,8vw,92px) 0 0;padding-top:28px;
-  border-top:1px solid rgba(255,255,255,.2);
-}
-.bigrotas-whatsapp img{width:100%;max-width:936px;display:block;border-radius:clamp(14px,2vw,22px)}
 
 .bigrotas-plano{
   margin-top:clamp(48px,7vw,82px);padding:clamp(30px,5vw,56px) 0;
