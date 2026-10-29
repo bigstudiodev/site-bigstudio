@@ -332,3 +332,9 @@ h2{letter-spacing:-.015em}
 .texto-legal h2{font-size:1.25rem}
 .area h2{font-size:1.2rem;margin-bottom:10px;letter-spacing:-.02em;line-height:1.15}
 .titulo-secao{font-size:clamp(1.7rem,6vw,2.5rem)}
+
+/* CLS no celular: antes do menu.js rodar, o menu aparecia aberto e depois colapsava, empurrando a página.
+   Com JS ativo, ele só aparece depois de pronto; sem JS os links continuam visíveis. */
+@media (max-width:819px) and (scripting:enabled){
+  .topo:not(.menu-pronto) .menu{display:none}
+}
