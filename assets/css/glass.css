@@ -7,6 +7,16 @@
    7. páginas  8. movimento  9. acessibilidade
    ========================================================= */
 
+/* 0. fontes de reserva ------------------------------------
+   Faces locais com métricas ajustadas às fontes da marca. Enquanto o Google Fonts
+   não chega, o texto ocupa o mesmo espaço e a troca não desloca o layout (CLS).
+   size-adjust calibrado por medição no navegador; ascent/descent vêm das métricas das fontes. */
+@font-face{font-family:"Chivo Ajuste";src:local("Arial"),local("ArialMT"),local("Liberation Sans");font-weight:400 500;size-adjust:107%;ascent-override:87.9%;descent-override:23.4%;line-gap-override:0%}
+@font-face{font-family:"Chivo Ajuste";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:600 800;size-adjust:101.2%;ascent-override:92.9%;descent-override:24.7%;line-gap-override:0%}
+@font-face{font-family:"Bricolage Ajuste";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:400 700;size-adjust:98%;ascent-override:94.9%;descent-override:27.6%;line-gap-override:0%}
+@font-face{font-family:"Bricolage Ajuste";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold");font-weight:800;size-adjust:97%;ascent-override:95.9%;descent-override:27.8%;line-gap-override:0%}
+@font-face{font-family:"Chivo Mono Ajuste";src:local("Courier New"),local("CourierNewPSMT"),local("Liberation Mono");size-adjust:100%;ascent-override:94%;descent-override:25%;line-gap-override:0%}
+
 /* 1. tokens ---------------------------------------------- */
 :root{
   --cal:#05060a;
@@ -31,6 +41,10 @@
 
   --ease:cubic-bezier(.2,.7,.3,1);
   --favela-opacidade:.05;
+
+  --display:"Bricolage Grotesque","Bricolage Ajuste","Chivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --corpo:"Chivo","Chivo Ajuste",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Chivo Mono","Chivo Mono Ajuste",ui-monospace,"SF Mono",Menlo,monospace;
 }
 
 /* 2. fundo ----------------------------------------------- */
@@ -251,7 +265,9 @@ body{
 /* 9. acessibilidade -------------------------------------- */
 :focus-visible{outline:3px solid var(--azulejo);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){
-  .glass,.cartao,.btn,.frentes .caminho,.menu a span,.js-movimento [data-revelar]{transition:none}
+  /* Garantia geral: nenhuma transição (inclui regras das páginas antigas) com a preferência ativa. */
+  *,*::before,*::after{transition-duration:.01ms !important;transition-delay:0s !important;scroll-behavior:auto !important}
+  .glass,.cartao,.btn,.frentes .caminho,.menu a,.menu a span,.menu .menu-contato,.menu-toggle,.campo input,.campo select,.campo textarea,.js-movimento [data-revelar]{transition:none}
   .js-movimento [data-revelar]{opacity:1;transform:none}
   .glass:hover,.cartao:hover,.frentes .caminho:hover,.btn:hover{transform:none}
 }
@@ -305,3 +321,14 @@ h2{letter-spacing:-.015em}
 .app-cartao .app-em-breve{font-size:.76rem}
 .app-cartao .cartao-link{font-size:.74rem}
 .estado{font-size:.72rem}
+
+/* Aplicativos: os cards são montados por JS; reserva a altura mínima medida para não empurrar o conteúdo. */
+@media (scripting:enabled){
+  .app-vitrine{min-height:590px}
+  @media(min-width:901px){.app-vitrine{min-height:300px}}
+}
+
+/* Hierarquia de títulos: tags corrigidas sem mudar a aparência */
+.texto-legal h2{font-size:1.25rem}
+.area h2{font-size:1.2rem;margin-bottom:10px;letter-spacing:-.02em;line-height:1.15}
+.titulo-secao{font-size:clamp(1.7rem,6vw,2.5rem)}
