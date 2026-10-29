@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bigstudiodev.github.io/site-bigstudio/sitemap.xml

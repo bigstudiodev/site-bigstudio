@@ -2,15 +2,17 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://control-center-production-0b5e.up.railway.app; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aplicativos — BIG STUDIO</title>
-<meta name="description" content="Aplicativos da BIG STUDIO: Meu Financeiro, Meu Tatame e BigLock.">
+<meta name="description" content="Aplicativos da BIG STUDIO: Meu Tatame e BigLock em desenvolvimento.">
 <link rel="icon" href="assets/img/selo.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BIG STUDIO">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:title" content="Aplicativos — BIG STUDIO">
-<meta property="og:description" content="Aplicativos da BIG STUDIO: Meu Financeiro, Meu Tatame e BigLock.">
+<meta property="og:description" content="Aplicativos da BIG STUDIO: Meu Tatame e BigLock em desenvolvimento.">
 <meta property="og:url" content="https://bigstudiodev.github.io/site-bigstudio/aplicativos.html">
 <meta property="og:image" content="https://bigstudiodev.github.io/site-bigstudio/assets/img/card-link.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,6 +28,9 @@
 <script src="assets/js/atualizacoes.js" defer></script>
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
+<link rel="canonical" href="https://bigstudiodev.github.io/site-bigstudio/aplicativos.html">
+<link rel="stylesheet" href="assets/css/glass.css?v=7">
+<script src="assets/js/movimento.js?v=1" defer></script>
 </head>
 <body class="pagina-aplicativos">
 
@@ -41,6 +46,7 @@
   <nav class="menu" id="menu-principal" aria-label="Navegação principal">
     <a href="index.html"><span>Início</span></a>
     <a href="aplicativos.html" aria-current="page"><span>Aplicativos</span></a>
+    <a href="tecnologias.html"><span>Tecnologias</span></a>
     <a href="fivem.html"><span>FiveM</span></a>
     <a href="bigrotas.html"><span>BigRotas</span></a>
     <a class="menu-contato" href="contato.html"><span>Contato</span></a>
@@ -56,8 +62,7 @@
       <p>Cada um resolve uma coisa específica, sem funções sobrando.</p>
     </div>
     <div class="grade app-vitrine" data-lista="app" data-vitrine></div>
-    <p class="app-legenda">Meu Financeiro: demonstração ilustrativa com dados de exemplo</p>
-    <noscript><p>Conheça o <a href="meu-financeiro.html">Meu Financeiro</a>, o Meu Tatame e o BigLock. Nossos aplicativos estão em desenvolvimento.</p></noscript>
+    <noscript><p>Meu Tatame e BigLock estão em desenvolvimento.</p></noscript>
   </section>
 
   <section class="faixa">
@@ -83,7 +88,7 @@
 
 <template id="vitrine-financeiro">
   <div class="app-demo demo-financeiro" aria-label="Exemplo de resumo financeiro">
-    <div class="demo-topo"><img src="assets/img/meu-financeiro-logo.png" alt="" width="28" height="28"><span>Resumo do mês</span><span class="demo-exemplo">Exemplo</span></div>
+    <div class="demo-topo"><img src="assets/img/meu-financeiro-logo.webp" alt="" width="28" height="28"><span>Resumo do mês</span><span class="demo-exemplo">Exemplo</span></div>
     <span class="demo-rotulo">Saldo do mês</span>
     <strong class="demo-saldo">R$ 2.860<span>,00</span></strong>
     <div class="demo-orcamento"><span>Orçamento utilizado</span><strong>73%</strong></div>

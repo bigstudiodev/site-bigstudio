@@ -4,16 +4,31 @@
 
 ```
 site-bigstudio/
-├─ index.html          início
-├─ aplicativos.html    Meu Financeiro, Meu Tatame, BigLock
-├─ bigrotas.html      BigRotas (só o botão da conversa)
-├─ fivem.html          bases, addons e scripts
-├─ contato.html        formulário (abre o e-mail preenchido)
+├─ index.html           início (hero, áreas de atuação, frentes)
+├─ aplicativos.html     vitrine: Meu Tatame e BigLock (Meu Financeiro oculto)
+├─ tecnologias.html     competências técnicas do estúdio
+├─ bigrotas.html        BigRotas (página própria, regras comerciais intocadas)
+├─ fivem.html           área em construção
+├─ contato.html         formulário (abre o e-mail preenchido)
+├─ privacidade*.html, termos.html   páginas legais (conteúdo preservado)
+├─ meu-financeiro.html  preservada, fora da navegação/vitrine/sitemap
+├─ robots.txt, sitemap.xml
+├─ testes/verificar-site.mjs   node testes/verificar-site.mjs
 └─ assets/
-   ├─ css/estilo.css   todo o visual do site
-   ├─ js/produtos.js   ficha de todos os produtos
-   └─ img/             imagens (vazio por enquanto)
+   ├─ css/estilo.css    base e tokens originais
+   ├─ css/glass.css     V2.0: tokens Dark Glass e sistema Glass (carregar por último)
+   ├─ js/movimento.js   revelação das seções e luz nos cards
+   ├─ js/produtos.js    ficha dos produtos (visivel:false oculta da vitrine)
+   └─ img/              imagens (PNGs originais mantidos; .webp otimizados)
 ```
+
+## Sistema Glass (V2.0)
+
+Classes em `glass.css`: `.glass` + variação `--produto | --servico | --tech | --info`, estado `.estado` (`--disponivel | --pesquisa`) e grade `.areas`. Adicione `data-revelar` para a entrada suave. Sem `backdrop-filter` o card usa fundo opaco; `prefers-reduced-motion` desliga os movimentos.
+
+## Segurança
+
+Todas as páginas têm CSP por meta tag (sem script ou estilo inline). Ao usar um recurso novo de terceiros ou outra API, inclua o host na CSP de cada página. O GitHub Pages não permite cabeçalhos HTTP próprios.
 
 ## Regras da estrutura
 
@@ -42,7 +57,7 @@ Abra `assets/js/produtos.js`, copie um bloco e edite:
 - Domínio próprio (opcional; hoje o site vive no endereço do GitHub Pages)
 
 - Página FiveM está em construção. Os três exemplos continuam guardados em `produtos.js`; quando ela voltar, é só recolocar o `<div class="grade" data-lista="fivem"></div>`
-- Imagens dos produtos (a estrutura de card ainda não tem imagem — dá para incluir quando você tiver prints)
+- Domínio próprio, fonte oficial da marca (se existir) e hospedagem local das fontes, pendentes de confirmação
 
 ## Publicar
 

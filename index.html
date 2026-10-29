@@ -2,15 +2,17 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://control-center-production-0b5e.up.railway.app; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BIG STUDIO — aplicativos e FiveM</title>
-<meta name="description" content="Estúdio brasileiro de software: aplicativos para o dia a dia, feitos por gente daqui.">
+<title>BIG STUDIO — software, IA e soluções digitais</title>
+<meta name="description" content="Estúdio brasileiro de tecnologia: aplicativos, sistemas e soluções digitais, com pesquisa em inteligência artificial e automação.">
 <link rel="icon" href="assets/img/selo.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BIG STUDIO">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="BIG STUDIO — aplicativos e FiveM">
-<meta property="og:description" content="Estúdio brasileiro de software: aplicativos para o dia a dia, feitos por gente daqui.">
+<meta property="og:title" content="BIG STUDIO — software, IA e soluções digitais">
+<meta property="og:description" content="Estúdio brasileiro de tecnologia: aplicativos, sistemas e soluções digitais, com pesquisa em inteligência artificial e automação.">
 <meta property="og:url" content="https://bigstudiodev.github.io/site-bigstudio/">
 <meta property="og:image" content="https://bigstudiodev.github.io/site-bigstudio/assets/img/card-link.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -26,6 +28,9 @@
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
 <script src="assets/js/fachada.js?v=1" defer></script>
+<link rel="canonical" href="https://bigstudiodev.github.io/site-bigstudio/">
+<link rel="stylesheet" href="assets/css/glass.css?v=7">
+<script src="assets/js/movimento.js?v=1" defer></script>
 </head>
 <body>
 
@@ -41,6 +46,7 @@
   <nav class="menu" id="menu-principal" aria-label="Navegação principal">
     <a href="index.html" aria-current="page"><span>Início</span></a>
     <a href="aplicativos.html"><span>Aplicativos</span></a>
+    <a href="tecnologias.html"><span>Tecnologias</span></a>
     <a href="fivem.html"><span>FiveM</span></a>
     <a href="bigrotas.html"><span>BigRotas</span></a>
     <a class="menu-contato" href="contato.html"><span>Contato</span></a>
@@ -51,12 +57,12 @@
 
   <section class="faixa capa">
     <div>
-      <p class="rotulo">Estúdio brasileiro de software</p>
+      <p class="rotulo">Estúdio brasileiro de tecnologia</p>
       <h1>Construído bloco <span class="destaque">por bloco</span>.</h1>
-      <p class="chamada">Aplicativos para o dia a dia, feitos por gente daqui.</p>
+      <p class="chamada">Desenvolvemos aplicativos, sistemas e soluções digitais, com pesquisa em inteligência artificial e automação. Feito por gente daqui.</p>
       <div class="botoes">
-        <a class="btn btn-cheio" href="#o-que-fazemos">Ver o que fazemos</a>
-        <a class="btn btn-vazio" href="contato.html">Pedir orçamento</a>
+        <a class="btn btn-cheio" href="#o-que-fazemos">Explorar soluções</a>
+        <a class="btn btn-vazio" href="contato.html">Solicitar orçamento</a>
       </div>
     </div>
 
@@ -86,27 +92,61 @@
   </section>
 
   <section class="faixa" id="o-que-fazemos">
-    <div class="cabeca">
-      <p class="rotulo">O que fazemos</p>
-      <h2>Três frentes, o mesmo cuidado.</h2>
+    <div class="cabeca" data-revelar>
+      <p class="rotulo">Áreas de atuação</p>
+      <h2>O que o estúdio constrói.</h2>
+    </div>
+    <div class="areas areas--4">
+      <article class="glass glass--servico area" data-revelar>
+        <span class="area-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+        <p class="estado estado--disponivel">Sob consulta</p>
+        <h3>Desenvolvimento de Software</h3>
+        <p>Aplicativos, sistemas e soluções digitais.</p>
+      </article>
+      <article class="glass glass--tech area" data-revelar>
+        <span class="area-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9zM9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></span>
+        <p class="estado estado--pesquisa">Em pesquisa</p>
+        <h3>Inteligência Artificial</h3>
+        <p>Pesquisa e desenvolvimento de assistentes, automações e sistemas inteligentes.</p>
+      </article>
+      <article class="glass glass--servico area" data-revelar>
+        <span class="area-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+        <p class="estado estado--disponivel">Sob consulta</p>
+        <h3>Soluções para Negócios</h3>
+        <p>Sites, painéis administrativos e ferramentas de gestão.</p>
+      </article>
+      <article class="glass glass--produto area" data-revelar>
+        <span class="area-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 2v7.5L4.5 19a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9.5V2M8 2h8"/></svg></span>
+        <p class="estado">Em desenvolvimento</p>
+        <h3>Tecnologias Experimentais</h3>
+        <p>Projetos e pesquisas desenvolvidos pelo estúdio.</p>
+      </article>
+    </div>
+    <p class="nota-estado">As etiquetas indicam o estágio de cada área: o que atendemos sob consulta e o que ainda está em pesquisa ou desenvolvimento.</p>
+  </section>
+
+  <section class="faixa" id="frentes">
+    <div class="cabeca" data-revelar>
+      <p class="rotulo">Frentes</p>
+      <h2>Onde acompanhar o trabalho.</h2>
     </div>
 
     <div class="caminhos frentes">
-      <a class="caminho frente-aplicativos" href="aplicativos.html">
+      <a data-revelar class="caminho frente-aplicativos" href="aplicativos.html">
         <div class="frente-conteudo">
           <h3>Aplicativos</h3>
-          <p class="resumo">Contas da casa, agenda de academia e senhas offline. Apps que resolvem uma coisa e fazem bem.</p>
+          <p class="resumo">Agenda de academia e senhas offline. Apps que resolvem uma coisa e fazem bem.</p>
         </div>
         <span class="frente-acesso">Explorar aplicativos <span class="seta" aria-hidden="true">→</span></span>
       </a>
-      <a class="caminho frente-bigrotas" href="bigrotas.html">
+      <a data-revelar class="caminho frente-bigrotas" href="bigrotas.html">
         <div class="frente-conteudo">
           <h3>BigRotas</h3>
           <p class="resumo">Para entregador de aplicativo: manda a planilha, recebe a rota na ordem certa.</p>
         </div>
         <span class="frente-acesso">Conhecer o BigRotas <span class="seta" aria-hidden="true">→</span></span>
       </a>
-      <a class="caminho frente-fivem" href="fivem.html">
+      <a data-revelar class="caminho frente-fivem" href="fivem.html">
         <div class="frente-conteudo">
           <div class="frente-titulo"><h3>FiveM</h3><span class="marcador">Em construção</span></div>
           <p class="resumo">Área em construção. Conteúdo ainda não disponível ao público.</p>
@@ -114,6 +154,15 @@
         <span class="frente-acesso">Ver status <span class="seta" aria-hidden="true">→</span></span>
       </a>
     </div>
+  </section>
+
+  <section class="faixa">
+    <div class="cabeca" data-revelar>
+      <p class="rotulo">Competências</p>
+      <h2>Como o estúdio trabalha.</h2>
+      <p>Inteligência artificial, desenvolvimento multiplataforma, automação, engenharia de software e prototipagem.</p>
+    </div>
+    <div class="botoes"><a class="btn btn-vazio" href="tecnologias.html">Ver tecnologias</a></div>
   </section>
 
   <section class="faixa">
