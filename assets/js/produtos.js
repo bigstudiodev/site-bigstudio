@@ -9,6 +9,7 @@
 const PRODUTOS = [
   {
     nome: "Meu Financeiro",
+    visivel: false,
     vitrine: "financeiro",
     categoria: "app",
     etiqueta: "Android · em desenvolvimento",
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(){
   document.querySelectorAll("[data-lista]").forEach(function(alvo){
     const categoria = alvo.getAttribute("data-lista");
     PRODUTOS
-      .filter(function(p){ return p.categoria === categoria; })
+      .filter(function(p){ return p.categoria === categoria && p.visivel !== false; })
       .forEach(function(p){ alvo.appendChild(montarCartao(p, alvo.hasAttribute("data-vitrine"))); });
   });
 });
