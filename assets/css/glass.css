@@ -1,0 +1,259 @@
+/* =========================================================
+   BIG STUDIO V2.0 — Dark Glass Technology
+   Carregado DEPOIS dos demais CSS: redefine os tokens e
+   aplica o sistema Glass sobre os componentes existentes.
+   1. tokens  2. fundo  3. glass (base e variações)
+   4. navegação  5. botões e formulários  6. componentes
+   7. páginas  8. movimento  9. acessibilidade
+   ========================================================= */
+
+/* 1. tokens ---------------------------------------------- */
+:root{
+  --cal:#05060a;
+  --muro:#05060a;
+  --grafite:#0d0f14;
+  --tinta-suave:#C9CFCB;
+  --linha:rgba(255,255,255,.12);
+
+  --vidro:rgba(20,23,30,.52);
+  --vidro-forte:rgba(14,16,22,.78);
+  --vidro-borda:rgba(255,255,255,.14);
+  --vidro-borda-forte:rgba(255,255,255,.26);
+  --vidro-reflexo:rgba(255,255,255,.07);
+  --vidro-sombra:0 10px 32px rgba(0,0,0,.38);
+  --vidro-desfoque:14px;
+  --raio:16px;
+  --raio-pequeno:10px;
+
+  --brilho-verde:rgba(34,197,94,.16);
+  --brilho-azul:rgba(111,168,255,.16);
+  --brilho-amarelo:rgba(240,180,41,.14);
+
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --favela-opacidade:.05;
+}
+
+/* 2. fundo ----------------------------------------------- */
+body{
+  background:
+    radial-gradient(900px 520px at 8% -6%,var(--brilho-verde),transparent 62%),
+    radial-gradient(800px 520px at 100% 4%,var(--brilho-azul),transparent 60%),
+    radial-gradient(700px 420px at 50% 112%,var(--brilho-amarelo),transparent 62%),
+    var(--cal);
+  background-attachment:fixed;
+}
+
+/* 3. sistema Glass --------------------------------------- */
+/* Base reutilizável. Variações: --produto --servico --tech --info --nav */
+.glass,
+.cartao,
+.caixa,
+.passo,
+.bigrotas-passos li,
+.bigrotas-confianca article,
+.bigrotas-plano,
+.bigrotas-perguntas details,
+.frentes .caminho{
+  position:relative;
+  background:linear-gradient(155deg,var(--vidro-reflexo),transparent 42%),var(--vidro);
+  border:1px solid var(--vidro-borda);
+  border-radius:var(--raio);
+  box-shadow:var(--vidro-sombra),inset 0 1px 0 rgba(255,255,255,.08);
+  -webkit-backdrop-filter:blur(var(--vidro-desfoque)) saturate(130%);
+  backdrop-filter:blur(var(--vidro-desfoque)) saturate(130%);
+  transition:border-color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),background-color .25s var(--ease);
+}
+.glass{padding:24px 22px 26px}
+
+/* Sem backdrop-filter: superfície mais opaca mantém a leitura. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .glass,.cartao,.caixa,.passo,.bigrotas-passos li,.bigrotas-confianca article,
+  .bigrotas-plano,.bigrotas-perguntas details,.frentes .caminho,.topo{
+    background:#12151c;
+  }
+}
+
+/* Variações de acento (borda superior discreta) */
+.glass--produto{--acento:var(--azulejo)}
+.glass--servico{--acento:var(--verde)}
+.glass--tech{--acento:var(--amarelo)}
+.glass--info{--acento:var(--tinta-suave)}
+.glass--produto,.glass--servico,.glass--tech,.glass--info{
+  border-top-color:color-mix(in srgb,var(--acento) 70%,transparent);
+}
+@supports not (color:color-mix(in srgb,red,blue)){
+  .glass--produto,.glass--servico,.glass--tech,.glass--info{border-top-color:var(--acento)}
+}
+
+/* Iluminação dinâmica: --mx/--my são definidos por movimento.js */
+.glass::after,.cartao::after,.frentes .caminho::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.09),transparent 70%);
+  opacity:0;transition:opacity .3s var(--ease);
+}
+@media(hover:hover){
+  .glass:hover,.cartao:hover,.frentes .caminho:hover{
+    border-color:var(--vidro-borda-forte);transform:translateY(-3px);
+    box-shadow:0 16px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .glass:hover::after,.cartao:hover::after,.frentes .caminho:hover::after{opacity:1}
+}
+
+/* etiqueta de estado: diferencia "disponível" de "em desenvolvimento" */
+.estado{
+  display:inline-flex;align-items:center;gap:7px;margin:0 0 14px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tinta-suave);padding:4px 10px;border-radius:999px;
+  border:1px solid var(--vidro-borda);background:rgba(255,255,255,.04);
+}
+.estado::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amarelo)}
+.estado--disponivel::before{background:var(--verde)}
+.estado--pesquisa::before{background:var(--azulejo)}
+
+/* 4. navegação ------------------------------------------- */
+.topo{
+  background:rgba(8,9,13,.62);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--vidro-borda);
+  box-shadow:0 8px 28px rgba(0,0,0,.28);
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .topo{background:#0a0c10}
+}
+.menu a{transition:color .2s var(--ease)}
+.menu a span{border-bottom-width:2px;transition:border-color .2s var(--ease)}
+.menu a[aria-current="page"] span{border-bottom-color:var(--verde)}
+.menu a:hover,.menu a[aria-current="page"]{color:var(--tinta)}
+.menu a:hover span{border-bottom-color:var(--azulejo)}
+.menu .menu-contato{
+  background:var(--verde);border-color:var(--verde);color:#04110a;font-weight:700;
+  border-radius:999px;transition:background-color .2s var(--ease),transform .2s var(--ease);
+}
+.menu .menu-contato:hover,.menu .menu-contato[aria-current="page"]{
+  background:var(--verde-hover);border-color:var(--verde-hover);color:#04110a;
+}
+.menu-toggle{
+  background:var(--vidro);border-color:var(--vidro-borda-forte);border-radius:12px;
+  transition:border-color .2s var(--ease);
+}
+.menu-toggle:hover{border-color:var(--tinta)}
+@media (max-width:819px){
+  .menu-pronto .menu{
+    background:rgba(8,9,13,.94);border-bottom:1px solid var(--vidro-borda);
+    -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  }
+  .menu .menu-contato{margin-top:16px}
+}
+.rodape{border-top:1px solid var(--vidro-borda);background:rgba(8,9,13,.5)}
+.rodape a{padding-block:12px;display:inline-block}
+
+/* 5. botões e formulários -------------------------------- */
+.btn{
+  border-radius:999px;padding:13px 24px;min-height:44px;
+  border:1px solid var(--vidro-borda-forte);color:var(--tinta);
+  transition:background-color .2s var(--ease),border-color .2s var(--ease),transform .2s var(--ease),box-shadow .2s var(--ease);
+}
+.btn-cheio{background:var(--verde);border-color:var(--verde);color:#04110a}
+.btn-cheio:hover{box-shadow:0 8px 24px rgba(34,197,94,.28)}
+.btn-vazio{background:rgba(255,255,255,.04)}
+.btn-vazio:hover{background:rgba(255,255,255,.1);border-color:var(--tinta)}
+@media(hover:hover){.btn:hover{transform:translateY(-2px)}}
+.btn:active{transform:translateY(0) scale(.98)}
+
+.campo input,.campo select,.campo textarea{
+  background:rgba(8,9,13,.7);border:1px solid var(--vidro-borda-forte);
+  border-radius:var(--raio-pequeno);color:var(--tinta);min-height:46px;
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
+}
+.campo input:hover,.campo select:hover,.campo textarea:hover{border-color:var(--tinta-suave)}
+.campo input:focus-visible,.campo select:focus-visible,.campo textarea:focus-visible{
+  outline:none;border-color:var(--azulejo);box-shadow:0 0 0 3px rgba(111,168,255,.35);
+}
+.formulario{
+  padding:clamp(20px,4vw,32px);border-radius:var(--raio);
+  background:var(--vidro);border:1px solid var(--vidro-borda);
+  -webkit-backdrop-filter:blur(var(--vidro-desfoque));backdrop-filter:blur(var(--vidro-desfoque));
+  box-shadow:var(--vidro-sombra);
+}
+
+/* 6. componentes ----------------------------------------- */
+.faixa + .faixa{border-top:1px solid var(--vidro-borda)}
+.cartao{padding:24px 22px 26px}
+.cartao::before{display:none}
+.cartao h3{margin-bottom:8px}
+.etiqueta{border-radius:999px;border-color:var(--vidro-borda);background:rgba(255,255,255,.04);padding:4px 11px}
+
+/* três frentes viram grade de cards */
+.frentes{border-top:0;gap:14px}
+.frentes .caminho{padding:26px 24px}
+.frentes .caminho::before{display:none}
+.frentes .caminho:hover{background:linear-gradient(155deg,var(--vidro-reflexo),transparent 42%),var(--vidro)}
+@media(min-width:820px){
+  .frentes{grid-template-columns:repeat(3,1fr)}
+  .frentes .caminho{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;gap:28px}
+  .frente-acesso{min-width:0}
+}
+
+/* áreas de atuação e tecnologias */
+.areas{display:grid;gap:14px}
+@media(min-width:640px){.areas{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.areas--4{grid-template-columns:repeat(4,1fr)}.areas--5{grid-template-columns:repeat(3,1fr)}}
+.area{display:flex;flex-direction:column}
+.area h3{font-size:1.2rem;margin-bottom:10px}
+.area p:not(.estado){margin:0;color:var(--tinta-suave);font-size:.95rem}
+.area-icone{
+  width:42px;height:42px;display:grid;place-items:center;margin-bottom:18px;
+  border-radius:12px;border:1px solid var(--vidro-borda);
+  background:rgba(255,255,255,.05);color:var(--acento,var(--azulejo));
+}
+.area-icone svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.nota-estado{margin:22px 0 0;color:var(--tinta-suave);font-size:.88rem;max-width:62ch}
+
+/* hero */
+.capa .destaque{
+  background:linear-gradient(90deg,var(--verde),var(--azulejo) 55%,var(--amarelo));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.fachada-cena{
+  padding:clamp(18px,3vw,32px);border-radius:calc(var(--raio) + 6px);
+  background:radial-gradient(420px 260px at 50% 100%,rgba(111,168,255,.1),transparent 70%),var(--vidro);
+  border:1px solid var(--vidro-borda);box-shadow:var(--vidro-sombra);
+}
+.texto-legal{max-width:72ch}
+.espaco-grande{margin-top:36px}
+
+/* 7. páginas --------------------------------------------- */
+/* BIG Rotas: preço, passos, FAQ e plano em cards de vidro */
+.pagina-bigrotas .bigrotas-passos{gap:14px}
+.pagina-bigrotas .bigrotas-passos li{padding:22px}
+.pagina-bigrotas .bigrotas-confianca{gap:14px}
+.pagina-bigrotas .bigrotas-confianca article{padding:24px}
+.pagina-bigrotas .bigrotas-plano{padding:clamp(24px,4vw,48px);border-top:1px solid var(--vidro-borda);border-bottom:1px solid var(--vidro-borda)}
+.pagina-bigrotas .bigrotas-preco{border-left-color:var(--vidro-borda)}
+.pagina-bigrotas .bigrotas-perguntas{border-bottom:0;display:grid;gap:10px}
+.pagina-bigrotas .bigrotas-perguntas details{padding:18px 20px;border-top:1px solid var(--vidro-borda)}
+.pagina-bigrotas .bigrotas-perguntas details[open]{border-color:var(--vidro-borda-forte)}
+.pagina-bigrotas .bigrotas-arte img{border:1px solid var(--vidro-borda);box-shadow:var(--vidro-sombra)}
+
+/* FiveM: mantém sinalização de construção */
+.pagina-fivem .fivem-marca{border-radius:var(--raio);border-color:var(--vidro-borda);background:var(--vidro)}
+.pagina-fivem .fivem-valores{border-color:var(--vidro-borda)}
+
+/* 8. movimento ------------------------------------------- */
+/* Só esconde quando o JS confirmou que vai revelar (html.js-movimento). */
+.js-movimento [data-revelar]{opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:var(--atraso,0s)}
+.js-movimento [data-revelar].visivel{opacity:1;transform:none;transition-delay:0s}
+.js-movimento .glass[data-revelar].visivel,.js-movimento .frentes .caminho[data-revelar].visivel{
+  transition:border-color .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),background-color .25s var(--ease)}
+
+/* 9. acessibilidade -------------------------------------- */
+:focus-visible{outline:3px solid var(--azulejo);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  .glass,.cartao,.btn,.frentes .caminho,.menu a span,.js-movimento [data-revelar]{transition:none}
+  .js-movimento [data-revelar]{opacity:1;transform:none}
+  .glass:hover,.cartao:hover,.frentes .caminho:hover,.btn:hover{transform:none}
+}
+@media (forced-colors:active){
+  .glass,.cartao,.frentes .caminho,.topo{border:1px solid CanvasText}
+}

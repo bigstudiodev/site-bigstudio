@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://control-center-production-0b5e.up.railway.app; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contato — BIG STUDIO</title>
 <meta name="description" content="Fale com a BIG STUDIO sobre aplicativos e BigRotas.">
@@ -21,6 +23,10 @@
 <link rel="stylesheet" href="assets/css/estilo.css?v=brasil-4">
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
+<script src="assets/js/contato.js" defer></script>
+<link rel="canonical" href="https://bigstudiodev.github.io/site-bigstudio/contato.html">
+<link rel="stylesheet" href="assets/css/glass.css?v=1">
+<script src="assets/js/movimento.js?v=1" defer></script>
 </head>
 <body>
 
@@ -36,6 +42,7 @@
   <nav class="menu" id="menu-principal" aria-label="Navegação principal">
     <a href="index.html"><span>Início</span></a>
     <a href="aplicativos.html"><span>Aplicativos</span></a>
+    <a href="tecnologias.html"><span>Tecnologias</span></a>
     <a href="fivem.html"><span>FiveM</span></a>
     <a href="bigrotas.html"><span>BigRotas</span></a>
     <a class="menu-contato" href="contato.html" aria-current="page"><span>Contato</span></a>
@@ -83,20 +90,6 @@
   <span><a href="mailto:desenvolver.vee@gmail.com">desenvolver.vee@gmail.com</a></span>
 </footer>
 
-<script>
-  const EMAIL = "desenvolver.vee@gmail.com"; // e-mail da BIG STUDIO
-
-  document.getElementById("enviar").addEventListener("click", function(){
-    const nome = document.getElementById("nome").value.trim();
-    const assunto = document.getElementById("assunto").value;
-    const mensagem = document.getElementById("mensagem").value.trim();
-
-    const corpo = "Nome: " + (nome || "-") + "\n\n" + (mensagem || "-");
-    window.location.href = "mailto:" + EMAIL
-      + "?subject=" + encodeURIComponent("[Site] " + assunto)
-      + "&body=" + encodeURIComponent(corpo);
-  });
-</script>
 
 </body>
 </html>

@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://control-center-production-0b5e.up.railway.app; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Meu Financeiro — BIG STUDIO</title>
 <meta name="description" content="Conheça o Meu Financeiro, aplicativo da BIG STUDIO para organizar o mês com simplicidade e manter seus dados no aparelho.">
@@ -23,6 +25,9 @@
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
 <script src="assets/js/financeiro.js?v=1" defer></script>
+<link rel="canonical" href="https://bigstudiodev.github.io/site-bigstudio/meu-financeiro.html">
+<link rel="stylesheet" href="assets/css/glass.css?v=1">
+<script src="assets/js/movimento.js?v=1" defer></script>
 </head>
 <body class="pagina-financeiro">
 
@@ -38,6 +43,7 @@
   <nav class="menu" id="menu-principal" aria-label="Navegação principal">
     <a href="index.html"><span>Início</span></a>
     <a href="aplicativos.html" aria-current="page"><span>Aplicativos</span></a>
+    <a href="tecnologias.html"><span>Tecnologias</span></a>
     <a href="fivem.html"><span>FiveM</span></a>
     <a href="bigrotas.html"><span>BigRotas</span></a>
     <a class="menu-contato" href="contato.html"><span>Contato</span></a>
@@ -49,7 +55,7 @@
     <div class="financeiro-boas-vindas-inner">
       <div class="financeiro-apresentacao">
         <div class="financeiro-identidade">
-          <img src="assets/img/meu-financeiro-logo.png" alt="">
+          <img src="assets/img/meu-financeiro-logo.webp" alt="">
           <span>Meu Financeiro</span>
         </div>
 
@@ -68,7 +74,7 @@
       <figure class="financeiro-preview" aria-labelledby="financeiro-demo-legenda">
         <div class="fin-tela" data-fin-entrada>
           <div class="fin-tela-marca">
-            <img src="assets/img/meu-financeiro-logo.png" alt="" width="42" height="42">
+            <img src="assets/img/meu-financeiro-logo.webp" alt="" width="42" height="42">
             <span>Meu Financeiro</span>
             <span class="fin-exemplo">Exemplo</span>
           </div>

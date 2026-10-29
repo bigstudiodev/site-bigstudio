@@ -2,6 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://control-center-production-0b5e.up.railway.app; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BIG Rotas — BIG STUDIO</title>
 <meta name="description" content="BIG Rotas organiza e agrupa sua rota da Shopee direto no WhatsApp a partir da planilha .xlsx original.">
@@ -24,7 +26,11 @@
 <script src="assets/js/atualizacoes.js" defer></script>
 <script src="assets/js/marca.js?v=3" defer></script>
 <script src="assets/js/menu.js?v=1" defer></script>
+<script src="assets/js/bigrotas-conversa.js" defer></script>
 <script src="assets/js/bigrotas-vivo.js?v=1" defer></script>
+<link rel="canonical" href="https://bigstudiodev.github.io/site-bigstudio/bigrotas.html">
+<link rel="stylesheet" href="assets/css/glass.css?v=1">
+<script src="assets/js/movimento.js?v=1" defer></script>
 </head>
 <body class="pagina-bigrotas">
 
@@ -40,6 +46,7 @@
   <nav class="menu" id="menu-principal" aria-label="Navegação principal">
     <a href="index.html"><span>Início</span></a>
     <a href="aplicativos.html"><span>Aplicativos</span></a>
+    <a href="tecnologias.html"><span>Tecnologias</span></a>
     <a href="fivem.html"><span>FiveM</span></a>
     <a href="bigrotas.html" aria-current="page"><span>BigRotas</span></a>
     <a class="menu-contato" href="contato.html"><span>Contato</span></a>
@@ -121,7 +128,10 @@
       </div>
 
       <figure class="bigrotas-arte">
-        <img src="assets/img/bigrotas-apresentacao-v2.png" alt="Guia visual do BIG Rotas com funcionamento pelo WhatsApp, plano de R$ 15,00 por 20 dias de acesso e teste grátis de 5 dias.">
+        <picture>
+          <source srcset="assets/img/bigrotas-apresentacao-v2.webp" type="image/webp">
+          <img src="assets/img/bigrotas-apresentacao-v2.png" alt="Guia visual do BIG Rotas com funcionamento pelo WhatsApp, plano de R$ 15,00 por 20 dias de acesso e teste grátis de 5 dias.">
+        </picture>
       </figure>
     </div>
   </section>
@@ -235,26 +245,6 @@
   <span><a href="contato.html">Falar com a gente</a></span>
 </footer>
 
-<script>
-  /* ---------------------------------------------------------
-     Links das conversas do BigRotas.
-     Número da BIG STUDIO. Formato: 55 + DDD + número, sem símbolos.
-     A mensagem de "assinar" precisa ser exatamente essa palavra —
-     é o comando que o WhatsApp do BigRotas reconhece para iniciar
-     o fluxo de pagamento (preço e chave Pix). Não adicionar texto
-     antes ou depois dela.
-     --------------------------------------------------------- */
-  const WHATSAPP = "https://wa.me/5511960405352?text=";
-  const MENSAGENS = {
-    teste: "Oi! Quero testar grátis o BigRotas por 5 dias.",
-    assinar: "assinar"
-  };
-
-  document.querySelectorAll("[data-conversa]").forEach((link) => {
-    const mensagem = MENSAGENS[link.dataset.conversa];
-    link.setAttribute("href", WHATSAPP + encodeURIComponent(mensagem));
-  });
-</script>
 
 </body>
 </html>
