@@ -31,7 +31,7 @@
   const COR = {
     ceu: [[5, 8, 22], [9, 16, 40], [14, 26, 60], [22, 38, 82], [30, 48, 96]],
     estrela: '#dfe7ff', lua: '#e8eaf2', luaMeio: '#cfd4e2', luaSombra: '#aab1c4',
-    morro: '#090f1f', morroBorda: '#16233f', cristo: '#0b1222',
+    morro: '#050912', morroBorda: '#22325a', cristo: '#0b1222',
     predio: ['#0b1530', '#0e1a39', '#101e40'],
     janelaCidade: ['#f2c46d', '#ffd88a', '#8fb6ff', '#e9a24f'],
     nuvem: ['#16244a', '#1e2f5a', '#283d6c', '#33497a'],
@@ -41,7 +41,7 @@
     caixa: '#28469a', caixaClara: '#3d5fbd', caixaTopo: '#5577d0', caixaSombra: '#1a2f6a',
     porta: '#2c1b12', portaLuz: '#f0a24a',
     vidro: '#151b2b', vidroReflexo: '#232c44', moldura: '#100d0a', peitoril: '#5a554f',
-    luz: [['#ffd98c', '#ffc46a', '#e8963e'], ['#ffe2a0', '#ffcf7a', '#f0a54e'], ['#ffcf86', '#f6b259', '#d98432']],
+    luz: [['#fff1c4', '#ffc76a', '#e8903a'], ['#fff4d0', '#ffd27c', '#f0a04a'], ['#ffe9b8', '#f8b65a', '#d9802e']],
     tela: ['#a8d0ff', '#7fb0f5', '#5a86d6'],
     pele: ['#5a3624', '#6e4630', '#8a5a3c', '#3e2518', '#a06a45'],
     cabelo: ['#120c09', '#2a1810', '#0c0a0a'],
@@ -57,7 +57,7 @@
     verde: ['#3c5446', '#486553', '#2b3d33'],
     amarelo: ['#7a6a32', '#8d7b3c', '#5a4d22'],
   };
-  function noite(hex, k = 0.58) {
+  function noite(hex, k = 0.5) {
     const v = parseInt(hex.slice(1), 16);
     const r = (v >> 16) & 255, g = (v >> 8) & 255, b = v & 255;
     const az = [12, 18, 38];
@@ -65,6 +65,8 @@
   }
   const MUROS = Object.fromEntries(Object.entries(MUROS_DIA).map(([n, cs]) => [n, cs.map((c) => noite(c))]));
   const TIJOLO = MUROS_DIA.tijolo.map((c) => noite(c, 0.66));
+  // perfil do morro do Cristo: pico sob a estátua
+  const morroY = (x) => Math.round(178 - 96 * Math.exp(-(((x - 660) / 78) ** 2)) - 18 * Math.exp(-(((x - 540) / 60) ** 2)));
   const css = (c, a = 1) => (a === 1 ? `rgb(${c[0]},${c[1]},${c[2]})` : `rgba(${c[0]},${c[1]},${c[2]},${a})`);
   const mistura = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
 
@@ -96,23 +98,24 @@
     [276, 60, 26, 30, 'azul', { obra: 1, parabolica: 1 }],
     // fileira do meio-alto
     [118, 82, 34, 34, 'tijolo', { caixa: 1, escada: 1 }],
-    [150, 84, 44, 40, 'cinza', { selo: 1, sentado: 1 }],
+    [150, 84, 44, 40, 'cinza', { selo: 1 }],
     [192, 80, 36, 44, 'amarelo', { janelas: 'luz', grade: 1, pipa: 1 }],
-    [226, 76, 40, 48, 'terracota', { janelas: 'luz', caixa: 1, grade: 1, caminho: 1, cadeiras: 1 }],
+    [226, 76, 40, 48, 'terracota', { janelas: 'luz', caixa: 1, grade: 1, caminho: 'laje-alta', cadeiras: 1 }],
     [264, 84, 34, 40, 'azul', { janelas: 'tv' }],
     [296, 92, 64, 18, 'rosa', { terraco: 1 }],
     // fileira do meio
     [60, 136, 58, 36, 'ocre', { computador: 1 }],
     [96, 112, 30, 26, 'rosa', { grade: 1, bola: 1 }],
     [116, 118, 40, 30, 'terracota', { janelas: 'luz', grade: 1 }],
-    [154, 122, 36, 28, 'tijolo', { escada: 1 }],
+    [154, 122, 36, 28, 'tijolo', { escada: 1, sentado: 1 }],
     [188, 124, 42, 30, 'cinza', { janelas: 'luz', caixa: 1, vasos: 1 }],
     [228, 124, 30, 26, 'verde', { janelas: 'luz', gato: 1 }],
+    [258, 122, 40, 28, 'ocre', { janelas: 'luz', caixa: 1 }],
     [296, 110, 64, 32, 'terracota', { janelas: 'luz', porta: 1 }],
     // fileira da frente
     [30, 172, 48, 30, 'tijolo', { janelas: 'luz' }],
     [76, 172, 44, 30, 'cinza', { porta: 1, bandeira: 1 }],
-    [118, 150, 46, 52, 'terracota', { janelas: 'luz', porta: 1, caminho: 1 }],
+    [118, 150, 46, 52, 'terracota', { janelas: 'luz', porta: 1, caminho: 'laje-baixa' }],
     [162, 154, 44, 48, 'amarelo', { janelas: 'luz' }],
     [204, 150, 52, 52, 'rosa', { janelas: 'luz', porta: 1 }],
     [254, 142, 106, 60, 'azul', { mural: 1 }],
@@ -138,6 +141,9 @@
             const jx = x + 6 + Math.floor(r() * Math.max(1, w - tam[0] - 12));
             const jy = y + 10 + fy * 30 + Math.floor(r() * 5);
             if (jy + tam[1] > y + h - 6 || usados.some((u) => Math.abs(u - jx) < tam[0] + 6)) continue;
+            const livre = (ax, ay, aw, ah) => jx + tam[0] + 3 < ax || jx - 3 > ax + aw || jy + tam[1] + 3 < ay || jy - 3 > ay + ah;
+            if (o.bandeira && !livre(x + 10, y + 14, 28, 18)) continue;
+            if (o.selo && !livre(x + 30, y + 18, 31, 31)) continue;
             usados.push(jx);
             const acesa = o.janelas === 'luz' ? r() < 0.72 : r() < 0.42;
             const tv = o.janelas === 'tv' && q === 0 && fy === 0;
@@ -156,7 +162,7 @@
         }
       }
       if (o.porta) portas.push({ x: x + w - 20, y: y + h - 20, acesa: r() < 0.7 });
-      if (o.caminho) caminhos.push({ x0: x + 6, x1: x + w - 16, y, casa: i });
+      if (o.caminho) caminhos.push({ x0: x + 6, x1: x + w - (o.caixa ? 34 : 16), y, id: o.caminho }); // não atravessa a caixa d'água
       casas.push(casa);
     });
     caminhos.push({ x0: 600, x1: 676, y: 220, terraco: true });
@@ -166,7 +172,8 @@
     for (let k = 0; k < 180; k++) {
       const sx = Math.floor(r() * W);
       const sy = Math.floor(r() * 190);
-      if (Math.hypot(sx - 196, sy - 124) < 34 || Math.hypot(sx - 636, sy - 52) < 20) continue;
+      if (Math.hypot(sx - 196, sy - 124) < 34 || Math.hypot(sx - 660, sy - 70) < 26) continue;
+      if (sx >= 430 && sy >= morroY(sx) - 2) continue; // estrela só onde é céu
       estrelas.push({ x: sx, y: sy, fase: r() * 6, brilho: r(), grande: r() < 0.08 });
     }
     const cidade = [];
@@ -184,10 +191,12 @@
       cx += w + Math.floor(r() * 5);
     }
     const arvores = [
-      { x: 216, y: 192, r: 26 }, { x: 280, y: 132, r: 30 }, { x: 472, y: 44, r: 28 },
-      { x: 580, y: 104, r: 24 }, { x: 92, y: 320, r: 24 }, { x: 392, y: 372, r: 22 },
-      { x: 536, y: 52, r: 20 }, { x: 340, y: 80, r: 20 }, { x: 176, y: 256, r: 18 },
-      { x: 500, y: 236, r: 16 }, { x: 256, y: 88, r: 22 }, { x: 410, y: 140, r: 14 },
+      // atrás das casas: só a copa aparece acima das lajes
+      { x: 282, y: 150, r: 28, atras: 1 }, { x: 472, y: 46, r: 26, atras: 1 }, { x: 584, y: 96, r: 22, atras: 1 },
+      { x: 338, y: 84, r: 20, atras: 1 }, { x: 222, y: 214, r: 24, atras: 1 }, { x: 520, y: 236, r: 16, atras: 1 },
+      { x: 420, y: 128, r: 15, atras: 1 }, { x: 260, y: 92, r: 18, atras: 1 },
+      // na rua, com tronco até o chão
+      { x: 96, y: 336, r: 24, base: H }, { x: 404, y: 352, r: 20, base: H },
     ].map((a) => {
       const px = [];
       for (let dy = -a.r; dy <= a.r; dy++) {
@@ -204,7 +213,7 @@
       }
       return { ...a, px, fase: r() * 6 };
     });
-    const postes = [[184, 216], [364, 140], [524, 148], [660, 176], [52, 300], [452, 300]];
+    const postes = [[44, 296, H], [252, 302, H], [470, 306, H], [356, 126, 168], [560, 118, 168], [700, 168, 220]];
     const nuvens = [
       { y: 36, w: 110, vel: 2.4, fase: 0 }, { y: 70, w: 70, vel: 1.6, fase: 300 },
       { y: 16, w: 84, vel: 2.0, fase: 520 }, { y: 100, w: 54, vel: 1.2, fase: 820 },
@@ -224,11 +233,11 @@
       { caminho: caminhos.find((c) => c.rua), cor: [210, 154, 58], calca: [64, 44, 70], pele: 2, cabelo: 1, vel: 17, fase: 60, saia: true, rabo: true },
       { caminho: caminhos.find((c) => c.rua), cor: [63, 106, 168], calca: [30, 34, 46], pele: 0, cabelo: 0, vel: 12, fase: 420, bone: [180, 40, 40] },
       { caminho: caminhos.find((c) => c.rua), cor: [120, 120, 126], calca: [34, 30, 28], pele: 3, cabelo: 2, vel: 10, fase: 760, sacola: 1 },
-      { caminho: caminhos.find((c) => c.casa === 8), cor: [184, 67, 47], calca: [44, 58, 76], pele: 3, cabelo: 0, vel: 9, fase: 70, crianca: true },
-      { caminho: caminhos.find((c) => c.casa === 20), cor: [122, 143, 106], calca: [43, 43, 43], pele: 4, cabelo: 1, vel: 11, fase: 90, rabo: true },
+      { caminho: caminhos.find((c) => c.id === 'laje-alta'), cor: [184, 67, 47], calca: [44, 58, 76], pele: 3, cabelo: 0, vel: 9, fase: 70, crianca: true },
+      { caminho: caminhos.find((c) => c.id === 'laje-baixa'), cor: [122, 143, 106], calca: [43, 43, 43], pele: 4, cabelo: 1, vel: 11, fase: 90, rabo: true },
     ];
     // pássaros pousados no fio entre os postes 2 e 3
-    const passaros = [0, 1, 2, 3].map((k) => ({ x: 400 + k * 14 + Math.floor(r() * 6), fase: r() }));
+    const passaros = [0, 1, 2, 3].map((k) => ({ x: 378 + k * 13 + Math.floor(r() * 5), fase: r() }));
     return { janelas, portas, casas, caminhos, estrelas, cidade, arvores, postes, nuvens, moradores, passaros };
   }
 
@@ -257,6 +266,12 @@
     g.fillRect(0, 0, raio * 2, raio * 2);
     brilhos.set(chave, c);
     return c;
+  }
+  function poca(ctx, x, y, raio, cor, k) {
+    if (k <= 0.02) return;
+    ctx.globalAlpha = Math.min(1, k);
+    ctx.drawImage(spriteBrilho(Math.round(raio), cor), Math.round(x - raio), Math.round(y - raio * 0.28), raio * 2, Math.round(raio * 0.56));
+    ctx.globalAlpha = 1;
   }
   function brilho(ctx, x, y, raio, cor, k) {
     if (k <= 0.02) return;
@@ -308,23 +323,33 @@
     }
   }
   function desenharMorro(ctx, r) {
-    for (let x = 480; x < W; x++) {
-      const y = Math.round(120 - Math.sin((x - 480) / 80) * 36 - (x > 640 ? (x - 640) * 0.35 : 0) + (r() < 0.3 ? 1 : 0));
+    for (let x = 430; x < W; x++) {
+      const y = morroY(x) + (r() < 0.3 ? 1 : 0);
       px(ctx, x, y, COR.morro, 1, H - y);
       px(ctx, x, y, COR.morroBorda);
       // mata no morro
       if (r() < 0.5) px(ctx, x, y - 1 - Math.floor(r() * 3), COR.morro);
+      if (r() < 0.35) px(ctx, x, y + 2 + Math.floor(r() * 6), '#0b1426');
+      if (r() < 0.12) px(ctx, x, y - 2 - Math.floor(r() * 4), '#050912', 1, 4); // mata no topo do morro
     }
     // Cristo Redentor no alto do morro
-    const cx = 660, cy = 56;
+    const cx = 660, cy = morroY(660) - 28;
     const corpo = ['00011000', '00011000', '11111111', '11111111', '00011000', '00011000', '00011000',
       '00011000', '00111100', '00111100', '00111100', '00111100', '01111110', '01111110'];
+    // halo dos refletores
+    for (let d = 30; d > 4; d -= 2) {
+      ctx.fillStyle = `rgba(220,230,255,${0.012 * (30 - d) / 2})`;
+      ctx.beginPath(); ctx.arc(cx, cy + 12, d, 0, Math.PI * 2); ctx.fill();
+    }
     corpo.forEach((l, y) => [...l].forEach((b, x) => {
-      if (b === '1') {
-        px(ctx, cx - 8 + x * 2, cy + y * 2, COR.cristo, 2, 2);
-      }
+      if (b === '1') px(ctx, cx - 8 + x * 2, cy + y * 2, x < 4 ? '#c9d2e6' : '#9aa6c2', 2, 2);
     }));
-    px(ctx, cx - 8, cy + 4, '#22314f', 16, 1); // luz da lua no topo dos braços
+    // casinhas acesas no morro, ao longe
+    for (let k = 0; k < 26; k++) {
+      const lx = 500 + Math.floor(r() * 210);
+      const ly = 96 + Math.floor(r() * 110);
+      if (ly > morroY(lx) + 4) px(ctx, lx, ly, r() < 0.7 ? '#e8a24a' : '#f2d08a');
+    }
   }
   function desenharCidade(ctx, cena) {
     for (const p of cena.cidade) {
@@ -376,10 +401,16 @@
       const comp = 4 + Math.floor(r() * 14);
       for (let k = 0; k < comp; k++) if (r() < 0.8) px(ctx, x, c.y + 5 + k, css(mistura(escuro, [0, 0, 0], 0.15)));
     }
-    // laje saliente
-    px(ctx, c.x - 3, c.y, COR.lajeClara, c.w + 6, 1);
+    // contorno escuro (pixel art) e sombra sob a laje
+    px(ctx, c.x - 1, c.y, '#06070b', 1, c.h);
+    px(ctx, c.x + c.w, c.y, '#06070b', 1, c.h);
+    for (let k = 0; k < 5; k++) px(ctx, c.x, c.y + 6 + k, `rgba(0,0,0,${0.32 - k * 0.06})`, c.w, 1);
+    // laje saliente com borda de luar
+    px(ctx, c.x - 4, c.y - 1, '#06070b', c.w + 8, 1);
+    px(ctx, c.x - 3, c.y, '#a6b2d2', c.w + 6, 1);
     px(ctx, c.x - 3, c.y + 1, COR.laje, c.w + 6, 3);
     px(ctx, c.x - 3, c.y + 4, COR.lajeSombra, c.w + 6, 2);
+    px(ctx, c.x - 4, c.y + 6, '#06070b', c.w + 8, 1);
     for (let x = c.x; x < c.x + c.w; x += 7) px(ctx, x, c.y + 6, css(mistura(escuro, [0, 0, 0], 0.4)), 3, 1);
     if (c.o.grade) {
       px(ctx, c.x, c.y - 10, COR.grade, c.w, 2);
@@ -518,23 +549,26 @@
     }
   }
   function desenharFios(ctx, cena) {
-    for (const [x, y] of cena.postes) {
-      px(ctx, x, y, COR.poste, 2, H - y);
+    for (const [x, y, base] of cena.postes) {
+      px(ctx, x - 1, y, '#07080c', 4, base - y); // contorno
+      px(ctx, x, y, COR.poste, 2, base - y);
+      px(ctx, x, y, '#2a2c36', 1, base - y);
       px(ctx, x - 6, y + 2, COR.poste, 14, 2);
       px(ctx, x + 6, y + 4, '#2a2a30', 3, 2);
-      // transformador em um dos postes
-      if (x === 364) { px(ctx, x - 7, y + 14, '#2a2d36', 7, 10); px(ctx, x - 7, y + 14, '#3a3e4a', 2, 10); }
+      if (x === 356) { px(ctx, x - 8, y + 12, '#2a2d36', 7, 10); px(ctx, x - 8, y + 12, '#3a3e4a', 2, 10); } // transformador
+      if (base < H) px(ctx, x - 3, base - 2, '#3a3632', 8, 2); // base de concreto na laje
     }
   }
   function ligacoes(cena) {
-    const ps = [...cena.postes].sort((a, b) => a[0] - b[0]);
+    const ps = [...cena.postes].map(([x, y]) => [x, y]).sort((a, b) => a[0] - b[0]);
     const lista = [];
     for (let i = 0; i < ps.length - 1; i++) {
-      lista.push([ps[i], ps[i + 1], 16, 3], [ps[i], ps[i + 1], 22, 7], [ps[i], ps[i + 1], 12, 1]);
+      lista.push([ps[i], ps[i + 1], 14, 3], [ps[i], ps[i + 1], 20, 7], [ps[i], ps[i + 1], 10, 1]);
     }
-    lista.push([[0, 190], ps[0], 14, 0], [[0, 160], ps[1], 26, 4], [ps[ps.length - 1], [W, 124], 14, 2], [[524, 148], [W, 190], 20, 5]);
-    // gatos de luz: fios finos descendo para as casas
-    lista.push([[364, 140], [300, 176], 6, 2], [[524, 148], [470, 160], 5, 3], [[184, 216], [236, 248], 6, 2], [[660, 176], [700, 200], 4, 2]);
+    lista.push([[0, 270], ps[0], 12, 1], [ps[ps.length - 1], [W, 150], 12, 2], [[560, 118], [W, 96], 10, 4]);
+    // gatos de luz: fios finos descendo dos postes para as casas
+    lista.push([[356, 126], [300, 168], 6, 2], [[560, 118], [500, 152], 5, 3], [[252, 302], [212, 274], 4, 2],
+      [[470, 306], [520, 250], 4, 2], [[700, 168], [650, 222], 4, 2]);
     return lista;
   }
 
@@ -611,7 +645,8 @@
   }
 
   // ---------------------------------------------------------- pessoas (24 px)
-  function desenharPessoa(ctx, x, y, m, quadro, dir, pose = 'anda') {
+  function pessoa(ctx, x, y, m, quadro, dir, pose, contorno) {
+    const P = (xx, yy, cor, w = 1, h = 1) => px(ctx, xx, yy, contorno || cor, w, h);
     const alt = m.crianca ? 17 : 24;
     const k = alt / 24;
     const pele = COR.pele[m.pele];
@@ -621,50 +656,58 @@
     const fx = (dx) => x + dx * dir;
     const perna = Math.round(9 * k);
     const tronco = Math.round(9 * k);
-    const ombro = y - perna - tronco;
+    const ombro = pose === 'sentado' ? y - 3 - tronco : y - perna - tronco;
     // pernas
     if (pose === 'sentado') {
+      // sentado na beira da laje: coxas na horizontal, canelas penduradas balançando
       const balanca = quadro % 2;
-      px(ctx, x - 2, y - 3, css(m.calca), 6, 3);
-      px(ctx, fx(3), y, css(m.calca), 2, 5 + balanca);
-      px(ctx, fx(1), y, sombra(m.calca), 2, 5 + (1 - balanca));
+      P(x - 2, y - 3, css(m.calca), 7, 3);
+      P(fx(4) + balanca * dir, y, css(m.calca), 2, 6);
+      P(fx(2) + (1 - balanca) * dir, y, sombra(m.calca), 2, 6);
+      P(fx(4) + balanca * dir, y + 6, '#161616', 3, 1);
     } else {
       const passos = pose === 'anda' ? [[-3, 3], [-1, 1], [3, -3], [1, -1]][quadro] : [[0, 0]][0];
       const [p1, p2] = passos;
       // perna de trás (mais escura) e da frente
       for (let i = 0; i < perna; i++) {
         const t = i / perna;
-        px(ctx, x + Math.round(p2 * t * dir) - 1, y - perna + i, sombra(m.calca), 2, 1);
-        px(ctx, x + Math.round(p1 * t * dir), y - perna + i, css(m.calca), 2, 1);
+        P(x + Math.round(p2 * t * dir) - 1, y - perna + i, sombra(m.calca), 2, 1);
+        P(x + Math.round(p1 * t * dir), y - perna + i, css(m.calca), 2, 1);
       }
-      px(ctx, x + p2 * dir - 2, y - 1, '#141414', 4, 1);
-      px(ctx, x + p1 * dir - 1, y - 1, '#1c1c1c', 4, 1);
-      if (m.saia) px(ctx, x - 3, y - perna - 1, css(m.calca), 7, 4);
+      P(x + p2 * dir - 2, y - 1, '#141414', 4, 1);
+      P(x + p1 * dir - 1, y - 1, '#1c1c1c', 4, 1);
+      if (m.saia) P(x - 3, y - perna - 1, css(m.calca), 7, 4);
     }
     // tronco com sombra e borda de luz quente
-    px(ctx, x - 2, ombro, css(camisa), 5, tronco);
-    px(ctx, fx(-2), ombro, sombra(camisa), 1, tronco);
-    px(ctx, fx(3), ombro + 1, css(mistura(camisa, [255, 170, 90], 0.45)), 1, tronco - 2);
-    if (m.sacola) px(ctx, fx(3), ombro + tronco - 1, '#d8d4c8', 3, 4);
+    P(x - 2, ombro, css(camisa), 5, tronco);
+    P(fx(-2), ombro, sombra(camisa), 1, tronco);
+    P(fx(3), ombro + 1, css(mistura(camisa, [255, 170, 90], 0.45)), 1, tronco - 2);
+    if (m.sacola) P(fx(3), ombro + tronco - 1, '#d8d4c8', 3, 4);
     // braços
     if (pose === 'acena') {
       const sobe = quadro % 2;
-      px(ctx, fx(3), ombro - 5 + sobe, pele, 1, 6);
-      px(ctx, fx(-3), ombro - 5 + (1 - sobe), pele, 1, 6);
+      P(fx(3), ombro - 5 + sobe, pele, 1, 6);
+      P(fx(-3), ombro - 5 + (1 - sobe), pele, 1, 6);
     } else {
       const balanco = pose === 'anda' ? [-2, 0, 2, 0][quadro] : 0;
-      for (let i = 0; i < 7; i++) px(ctx, fx(1) + Math.round((balanco * i) / 7) * dir, ombro + 1 + i, i > 5 ? pele : sombra(camisa, 0.85), 1, 1);
+      for (let i = 0; i < 7; i++) P(fx(1) + Math.round((balanco * i) / 7) * dir, ombro + 1 + i, i > 5 ? pele : sombra(camisa, 0.85), 1, 1);
     }
     // cabeça
     const cab = ombro - 6;
-    px(ctx, x - 2, cab, pele, 5, 5);
-    px(ctx, fx(3), cab + 2, pele, 1, 2);
-    px(ctx, fx(2), cab + 2, '#120c08');
-    px(ctx, x - 2, cab - 1, cabelo, 5, 2);
-    px(ctx, fx(-2), cab, cabelo, 2, 3);
-    if (m.rabo) px(ctx, fx(-3), cab + 1, cabelo, 1, 5);
-    if (m.bone) { px(ctx, x - 2, cab - 2, css(m.bone), 5, 2); px(ctx, fx(3), cab - 1, css(m.bone), 2, 1); }
-    px(ctx, x - 1, ombro - 1, pele, 3, 1); // pescoço
+    P(x - 2, cab, pele, 5, 5);
+    P(fx(3), cab + 2, pele, 1, 2);
+    P(fx(2), cab + 2, '#120c08');
+    P(x - 2, cab - 1, cabelo, 5, 2);
+    P(fx(-2), cab, cabelo, 2, 3);
+    if (m.rabo) P(fx(-3), cab + 1, cabelo, 1, 5);
+    if (m.bone) { P(x - 2, cab - 2, css(m.bone), 5, 2); P(fx(3), cab - 1, css(m.bone), 2, 1); }
+    P(x - 1, ombro - 1, pele, 3, 1); // pescoço
+  }
+
+  function desenharPessoa(ctx, x, y, m, quadro, dir, pose = 'anda') {
+    // contorno de 1 px em volta da figura (dá presença contra os muros)
+    for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) pessoa(ctx, x + dx, y + dy, m, quadro, dir, pose, '#07070a');
+    pessoa(ctx, x, y, m, quadro, dir, pose);
   }
 
   // ---------------------------------------------------------- criação
@@ -680,7 +723,6 @@
     const f = fundo.getContext('2d');
     desenharCeu(f, r);
     desenharLua(f, 196, 124, 22);
-    desenharLua(f, 636, 52, 12);
     desenharMorro(f, r);
     desenharCidade(f, cena);
 
@@ -695,9 +737,9 @@
       a.estados = [-1, -0.5, 0, 0.5, 1].map((bal) => {
         const tela = document.createElement('canvas');
         const m = a.r + 10;
-        tela.width = m * 2; tela.height = m * 2 + 10;
+        tela.width = m * 2; tela.height = m + (a.base ? a.base - a.y : m) + 10;
         const g = tela.getContext('2d');
-        px(g, m - 2, m, COR.tronco, 4, a.r + 8);
+        px(g, m - 2, m, COR.tronco, 4, (a.base ? a.base - a.y : a.r + 8));
         for (const [dx, dy, tom, solto] of a.px) {
           g.fillStyle = COR.folha[tom];
           g.fillRect(m + dx + (solto ? Math.round(bal * solto * 1.4) : 0), m + dy, 1, 1);
@@ -758,6 +800,12 @@
         const x = ((n.fase + t * n.vel) % (W + n.w * 2)) - n.w;
         ctx.drawImage(n.tela, Math.round(x - n.w / 2), n.y - 14);
       }
+      const arvore = (a) => {
+        const bal = Math.sin(t * 1.2 + a.fase);
+        const e = a.estados[Math.max(0, Math.min(4, Math.round((bal + 1) * 2)))];
+        ctx.drawImage(e.tela, a.x - e.m, a.y - e.m);
+      };
+      for (const a of cena.arvores) if (a.atras) arvore(a);
       ctx.drawImage(casas, 0, 0);
       // fios balançando de leve com o vento
       ctx.fillStyle = COR.fio;
@@ -769,9 +817,9 @@
       }
       // pássaros no fio (levantam voo a cada 31 s e voltam)
       const pv = t % 31;
-      const fio = fios.find((l) => l[0][0] === 364 || l[1][0] === 364);
+      const fio = true;
       for (const pa of cena.passaros) {
-        let bx = pa.x, by = fioY([364, 140], [452, 300], pa.x, 16 + vento, 3) - 3;
+        let bx = pa.x, by = fioY([356, 126], [470, 306], pa.x, 14 + vento, 3) - 3;
         if (fio && pv > 20) {
           const voo = Math.min(1, (pv - 20) / 3) - Math.max(0, (pv - 28) / 3);
           bx += voo * (60 + pa.fase * 40);
@@ -783,27 +831,31 @@
         px(ctx, bx - 1, by - 1 - asa, '#0b0c10', 3, 1);
       }
       // árvores (tufos do alto balançam)
-      for (const a of cena.arvores) {
-        const bal = Math.sin(t * 1.2 + a.fase);
-        const e = a.estados[Math.max(0, Math.min(4, Math.round((bal + 1) * 2)))];
-        ctx.drawImage(e.tela, a.x - e.m, a.y - e.m);
-      }
+      for (const a of cena.arvores) if (!a.atras) arvore(a);
       // janelas e portas
       for (const j of cena.janelas) desenharJanela(ctx, j, intensidade(j, t), t);
       for (const p of cena.portas) desenharPorta(ctx, p, t);
       desenharComputador(ctx, porNome('computador'), t);
-      // brilhos (luz quente pintando os muros)
+      // luz quente tingindo os muros (overlay) e depois clareando (aditivo)
+      ctx.globalCompositeOperation = 'overlay';
+      for (const j of cena.janelas) {
+        const k = intensidade(j, t);
+        brilho(ctx, j.x + j.w / 2, j.y + j.h / 2, 26 + j.w * 3, j.tv ? '90,140,255' : '255,120,30', k * 0.72);
+      }
+      for (const p of cena.portas) if (p.acesa) brilho(ctx, p.x + 5, p.y + 10, 36, '255,120,30', 1);
       ctx.globalCompositeOperation = 'lighter';
       for (const j of cena.janelas) {
         const k = intensidade(j, t);
         brilho(ctx, j.x + j.w / 2, j.y + j.h / 2, 20 + j.w * 2.8, j.tv ? '110,160,255' : '255,140,50', k);
       }
       for (const p of cena.portas) if (p.acesa) brilho(ctx, p.x + 5, p.y + 10, 30, '255,140,50', 1);
-      cena.postes.forEach(([x, y], i) => {
-        const pisca = i === 2 ? (Math.sin(t * 13) > 0.2 || Math.floor(t) % 5 ? 1 : 0.2) : 1;
+      cena.postes.forEach(([x, y, base], i) => {
+        const pisca = i === 1 ? (Math.sin(t * 13) > 0.2 || Math.floor(t) % 5 ? 1 : 0.2) : 1;
         px(ctx, x + 6, y + 6, '#ffe6b0', 3, 1);
-        brilho(ctx, x + 7, y + 8, 26, '255,200,120', pisca);
+        brilho(ctx, x + 7, y + 8, 28, '255,200,120', pisca);
+        poca(ctx, x + 7, base - 1, 34, '255,190,110', 0.8 * pisca); // poça de luz no chão
       });
+      for (const p of cena.portas) if (p.acesa) poca(ctx, p.x + 5, p.y + 20, 22, '255,150,60', 0.9);
       ctx.globalCompositeOperation = 'source-over';
       // vida nas lajes
       desenharVaral(ctx, porNome('varal'), t);
