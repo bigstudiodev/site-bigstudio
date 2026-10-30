@@ -36,11 +36,15 @@ checar(/5 dias/.test(rotas), 'bigrotas: teste de 5 dias ausente');
 const conv = readFileSync(join(raiz, 'assets/js/bigrotas-conversa.js'), 'utf8');
 checar(conv.includes('5511960405352') && conv.includes('assinar'), 'bigrotas: WhatsApp/comando alterado');
 
-// Animação original da favela na página inicial (assinatura obrigatória)
+// Favela animada do hero (cena principal, gerada por ferramentas/gerar-favela.py)
 const inicio = readFileSync(join(raiz, 'index.html'), 'utf8');
-checar((inicio.match(/class="morador"/g) || []).length === 4, 'index: a fachada animada deve ter os 4 moradores');
-checar(inicio.includes('class="cena-controle"') && inicio.includes('assets/js/fachada.js'), 'index: controle de pausa ou fachada.js ausente');
-checar((inicio.match(/janela-viva/g) || []).length === 2, 'index: janelas animadas ausentes');
+checar(inicio.includes('data-favela') && inicio.includes('data-favela-controle'), 'index: cena da favela ou controle de pausa ausente');
+checar(inicio.includes('assets/js/favela.js') && inicio.includes('assets/css/favela.css'), 'index: favela.js ou favela.css ausente');
+checar((inicio.match(/class="fv-janela /g) || []).length >= 20, 'index: janelas animadas ausentes');
+checar((inicio.match(/class="fv-caminho /g) || []).length >= 3, 'index: moradores caminhando ausentes');
+checar(!inicio.includes('fachada-cena') && !inicio.includes('fachada.js'), 'index: a animação antiga não deve estar no hero');
+const cssFavela = readFileSync(join(raiz, 'assets/css/favela.css'), 'utf8');
+checar(/prefers-reduced-motion:reduce/.test(cssFavela), 'favela.css: sem suporte a movimento reduzido');
 
 console.log(falhas.length ? falhas.join('\n') : `OK — ${paginas.length} páginas verificadas`);
 process.exit(falhas.length ? 1 : 0);

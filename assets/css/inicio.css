@@ -1,7 +1,7 @@
 /* =========================================================
    BIG STUDIO — página inicial (Base 3: "A favela que compila")
    Carregado depois de glass.css, só na index.
-   1. tokens  2. hero  3. título  4. ações  5. fachada original
+   1. tokens  2. hero  3. título  4. ações  5. favela animada
    6. painel  7. cinco cards  8. projetos  9. responsivo
    ========================================================= */
 
@@ -35,8 +35,9 @@
     radial-gradient(40% 55% at 60% 100%,rgba(240,150,40,.07),transparent 70%),
     linear-gradient(180deg,var(--noite) 0%,var(--noite-azul) 58%,var(--cal) 100%);
 }
-.inicio-cenario{position:relative;z-index:-1}
-.cenario-favela{display:block;width:100%;height:100%;object-fit:cover}
+.inicio-hero .favela{z-index:0}
+/* esfumaçado das bordas: pinta o próprio fundo do hero por cima da cena (o botão de pausa fica acima) */
+.inicio-hero .favela::before,.inicio-hero .favela::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none}
 .inicio-conteudo{position:relative;z-index:2;min-width:0}
 
 .inicio-eyebrow{
@@ -86,19 +87,8 @@
 @media(hover:hover){.botao-b3:hover{transform:translateY(-2px)}}
 .botao-b3:focus-visible,.card-b3:focus-visible{outline:3px solid var(--azulejo);outline-offset:3px}
 
-/* 5. fachada original, integrada ao cenário --------------- */
-/* A cena animada original (casas, moradores, janelas, pausa) fica na moldura de vidro, sobre o cenário. */
-.pagina-inicio .fachada-cena{
-  position:relative;z-index:2;
-  background:linear-gradient(160deg,rgba(255,255,255,.07),transparent 45%),rgba(8,12,22,.64);
-  border-color:rgba(255,255,255,.2);
-  box-shadow:0 18px 40px rgba(0,0,0,.5),0 0 34px rgba(80,140,255,.10),inset 0 1px 0 rgba(255,255,255,.09);
-}
-
-/* Só as casas e os moradores mudam de escala; o botão de pausa mantém tamanho legível. */
-.pagina-inicio .fachada-cena .fachada{width:420px;max-width:none;zoom:var(--escala-cena,1)}
-.pagina-inicio .fachada-cena .cena-controle{font-size:.74rem;min-height:32px;color:var(--texto-b3);border-bottom-color:rgba(255,255,255,.35)}
-.pagina-inicio .fachada-cena{padding:16px 18px 8px}
+/* 5. favela animada --------------------------------------- */
+/* A cena (camadas, janelas, moradores, pipa) vem de favela.css, gerado por ferramentas/gerar-favela.py. */
 
 /* 6. painel horizontal ------------------------------------ */
 .inicio-painel{position:relative;z-index:3;max-width:var(--largura-inicio);margin:0 auto;padding-inline:var(--pad-inicio)}
@@ -194,30 +184,21 @@
     min-height:clamp(470px,34.2vw,560px);
     padding:calc(var(--altura-topo) + clamp(34px,3.8vw,60px)) var(--recuo-inicio) clamp(52px,4.4vw,72px);
   }
-  .inicio-cenario{position:absolute;inset:0 0 0 auto;width:64%}
-  .cenario-favela{
-    object-position:64% 30%;
-    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%),linear-gradient(0deg,transparent 0,#000 16%);
-    -webkit-mask-composite:source-in;
-    mask-image:linear-gradient(90deg,transparent 0,#000 24%),linear-gradient(0deg,transparent 0,#000 16%);
-    mask-composite:intersect;
+  .inicio-hero .favela{position:absolute;inset:0 0 0 auto;width:64%}
+  .inicio-hero .favela::before{
+    background:linear-gradient(180deg,var(--noite) 0%,var(--noite-azul) 58%,var(--cal) 100%);
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 11.4%,transparent 30%);mask-image:linear-gradient(90deg,#000 0,#000 11.4%,transparent 30%);
   }
+  .inicio-hero .favela::after{background:linear-gradient(0deg,var(--cal) 0,rgba(5,6,10,0) 16%)}
+  .pagina-inicio .fv-controle{bottom:calc(clamp(28px,2.6vw,42px) + 16px);right:auto;left:25%}
+  /* mesma escala da Base 3: a ilustração (872 px de largura a 1536 px) começa onde termina o título */
+  .inicio-hero .fv-palco{top:0;bottom:auto;height:auto;min-width:0;width:88.6%}
   .inicio-conteudo{max-width:min(48%,720px)}
-  .pagina-inicio .fachada-cena{
-    --escala-cena:.62;
-    position:absolute;bottom:clamp(52px,4.6vw,76px);width:max-content;
-    /* ancorada na coluna do conteúdo: começa depois do título em qualquer largura */
-    left:calc(var(--recuo-inicio) + (min(100vw, var(--largura-inicio)) - 2 * var(--pad-inicio)) * .48);
-  }
   .inicio-painel{margin-top:calc(-1 * clamp(28px,2.6vw,42px))}
-}
-@media (min-width:1100px) and (max-width:1439px){
-  .pagina-inicio .fachada-cena{--escala-cena:.5}
 }
 @media (min-width:820px) and (max-width:1099px){
   .inicio-conteudo{max-width:56%}
-  .inicio-cenario{width:60%}
-  .pagina-inicio .fachada-cena{left:auto;right:var(--pad-inicio);--escala-cena:.5}
+  .inicio-hero .favela{width:60%}
   .cards-b3{grid-template-columns:repeat(6,minmax(0,1fr))}
   .cards-b3 li{grid-column:span 2}
   .cards-b3 li:nth-child(4),.cards-b3 li:nth-child(5){grid-column:span 3}
@@ -232,13 +213,10 @@
 @media (max-width:819px){
   .inicio-hero{display:flex;flex-direction:column;gap:22px;padding:28px var(--pad-inicio) 26px}
   .inicio-conteudo{order:1}
-  .inicio-cenario{order:2;margin-inline:calc(-1 * var(--pad-inicio));aspect-ratio:1/1;max-height:560px}
-  .cenario-favela{
-    object-position:60% 50%;
-    -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);
-    mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 80%,transparent 100%);
-  }
-  .pagina-inicio .fachada-cena{--escala-cena:.68;order:3;align-self:flex-start;margin:-124px 0 0;width:max-content;max-width:100%}
+  .inicio-hero .favela{order:2;margin-inline:calc(-1 * var(--pad-inicio));aspect-ratio:1/1;max-height:560px}
+  .inicio-hero .favela::before{background:linear-gradient(180deg,var(--noite-azul) 0,rgba(10,20,40,0) 12%)}
+  .inicio-hero .favela::after{background:linear-gradient(0deg,var(--cal) 0,rgba(5,6,10,0) 14%)}
+  .pagina-inicio .fv-controle{top:max(12px,4%);bottom:auto}
   .inicio-titulo .linha-1{font-size:min(16.2vw,5.4rem)}
   .inicio-titulo .linha-2{font-size:min(10.4vw,3.6rem)}
   .inicio-acoes .botao-b3{flex:1 1 220px}

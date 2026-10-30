@@ -20,8 +20,10 @@ site-bigstudio/
    ├─ css/inicio.css    só a página inicial (hero cinematográfico, painel, cards)
    ├─ js/movimento.js   revelação das seções e luz nos cards
    ├─ js/produtos.js    ficha dos produtos (visivel:false oculta da vitrine)
-   └─ img/              imagens (PNGs originais mantidos; .webp otimizados;
-                        favela-cena-*.webp = ilustração recortada da Base 3, sem textos de interface)
+   ├─ css/favela.css    GERADO: camadas e animações da favela do hero
+   ├─ js/favela.js      pausa da favela (botão, fora da tela, aba oculta, movimento reduzido)
+   └─ img/favela/       GERADO: camadas da favela (base, luzes, céu, nuvens, moradores, pipa)
+ferramentas/gerar-favela.py   gera a favela animada a partir da arte Base 3
 ```
 
 ## Sistema Glass (V2.0)
@@ -30,7 +32,18 @@ Classes em `glass.css`: `.glass` + variação `--produto | --servico | --tech | 
 
 ## Página inicial (Base 3)
 
-A animação original da favela (`fachada.css` + `fachada.js`) é obrigatória e fica na moldura de vidro sobre o cenário. Só a escala muda (variável `--escala-cena` em `inicio.css`); o comportamento, a pausa e o movimento reduzido são os originais. O teste `testes/verificar-site.mjs` falha se ela for removida.
+A favela do hero é a própria cena principal, construída em camadas a partir da arte aprovada (Base 3):
+céu com estrelas, nuvens que passam só sobre o céu, construções, a luz de cada janela (46 janelas com
+ritmo próprio), moradores andando nas lajes e uma criança soltando pipa. A marca aparece na cena só como
+o selo pixelado pintado numa parede; o letreiro "BIG STUDIO" da arte original foi removido.
+
+Para mudar a cena, edite `ferramentas/gerar-favela.py` e rode:
+
+    python3 ferramentas/gerar-favela.py caminho/para/base3.png
+
+Ele regera `assets/img/favela/`, `assets/css/favela.css` e o trecho entre `<!-- favela:inicio -->` e
+`<!-- favela:fim -->` no `index.html`. A animação antiga (`fachada.css`/`fachada.js`) saiu do hero e
+continua no repositório para reversão.
 
 ## Segurança
 
