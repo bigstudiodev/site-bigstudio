@@ -36,5 +36,11 @@ checar(/5 dias/.test(rotas), 'bigrotas: teste de 5 dias ausente');
 const conv = readFileSync(join(raiz, 'assets/js/bigrotas-conversa.js'), 'utf8');
 checar(conv.includes('5511960405352') && conv.includes('assinar'), 'bigrotas: WhatsApp/comando alterado');
 
+// Animação original da favela na página inicial (assinatura obrigatória)
+const inicio = readFileSync(join(raiz, 'index.html'), 'utf8');
+checar((inicio.match(/class="morador"/g) || []).length === 4, 'index: a fachada animada deve ter os 4 moradores');
+checar(inicio.includes('class="cena-controle"') && inicio.includes('assets/js/fachada.js'), 'index: controle de pausa ou fachada.js ausente');
+checar((inicio.match(/janela-viva/g) || []).length === 2, 'index: janelas animadas ausentes');
+
 console.log(falhas.length ? falhas.join('\n') : `OK — ${paginas.length} páginas verificadas`);
 process.exit(falhas.length ? 1 : 0);

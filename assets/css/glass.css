@@ -338,3 +338,39 @@ h2{letter-spacing:-.015em}
 @media (max-width:819px) and (scripting:enabled){
   .topo:not(.menu-pronto) .menu{display:none}
 }
+
+/* 11. cabeçalho (Base 3) ---------------------------------- */
+/* Marca oficial (selo + nome) com descritor; navegação em pílula de vidro; chamada verde à direita. */
+.marca{gap:12px}
+.marca .selo{grid-template-columns:repeat(3,8px);grid-auto-rows:8px;gap:3px}
+.marca-texto{display:flex;flex-direction:column;line-height:1;font-size:clamp(1.25rem,1.9vw,1.75rem);letter-spacing:.01em}
+.marca-texto small{margin-top:6px;font-family:var(--mono);font-weight:500;font-size:clamp(.5rem,.62vw,.62rem);letter-spacing:.17em;text-transform:uppercase;color:var(--tinta-suave)}
+.icone{width:18px;height:18px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.topo-cta{display:none}
+@media (max-width:1099px){.marca-texto small{display:none}}
+@media (min-width:820px){
+  .topo{flex-wrap:nowrap;min-height:80px;padding-block:0;gap:20px}
+  .menu{
+    flex-wrap:nowrap;gap:2px;padding:5px;margin-inline:auto;
+    border:1px solid var(--vidro-borda-forte);border-radius:999px;
+    background:rgba(9,13,24,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 24px rgba(0,0,0,.25);
+  }
+  .menu a{min-height:40px;padding:0 clamp(10px,1.25vw,20px);border:1px solid transparent;border-radius:999px;font-size:.92rem;color:var(--tinta)}
+  .menu a span,.menu a[aria-current="page"] span{border:0;padding:0}
+  .menu a:hover{background:rgba(255,255,255,.07)}
+  .menu a:hover span{border:0}
+  .menu a[aria-current="page"],.menu .menu-contato[aria-current="page"]{
+    color:#41E07E;border-color:rgba(65,224,126,.8);background:rgba(34,197,94,.09);
+    box-shadow:0 0 16px rgba(34,197,94,.22),inset 0 0 10px rgba(34,197,94,.12);
+  }
+  .menu .menu-contato{margin:0;background:none;border-color:transparent;color:var(--tinta);font-weight:500}
+  .menu .menu-contato:hover{background:rgba(255,255,255,.07);color:var(--tinta)}
+}
+@media (min-width:1200px){
+  .topo-cta{
+    display:inline-flex;align-items:center;gap:10px;flex-shrink:0;min-height:46px;padding:0 22px;
+    border-radius:999px;background:var(--verde);color:#04110a;font-weight:700;font-size:.92rem;text-decoration:none;
+    box-shadow:0 0 22px rgba(34,197,94,.35);transition:background-color .2s var(--ease),transform .2s var(--ease);
+  }
+  .topo-cta:hover{background:#3BE07A;transform:translateY(-1px)}
+}
