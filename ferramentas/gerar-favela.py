@@ -4,8 +4,8 @@
 A ilustração é decomposta em camadas independentes; nada é desenhado por cima
 de uma imagem pronta. Saídas:
 
-  assets/img/favela/base-{872,1744}.webp   construções e céu, janelas animadas apagadas
-  assets/img/favela/luzes-{872,1744}.webp  só a luz das janelas animadas (alfa)
+  assets/img/favela/base-872.webp          construções e céu, janelas animadas apagadas
+  assets/img/favela/luzes-872.webp         só a luz das janelas animadas (alfa)
   assets/img/favela/ceu.png                máscara do céu (nuvens só passam sobre ele)
   assets/img/favela/nuvem-{1,2,3}.png      nuvens em pixel art
   assets/img/favela/morador-*.png          moradores (folhas de 4 quadros)
@@ -333,11 +333,12 @@ def main(base3):
     IMG.mkdir(parents=True, exist_ok=True)
     b_img = Image.fromarray(base.clip(0, 255).astype(np.uint8))
     l_img = Image.fromarray(luzes, "RGBA")
-    for larg in (872, 1744):
-        esc = larg / W
-        tam = (larg, round(H * esc))
-        (b_img if larg == W else b_img.resize(tam, Image.LANCZOS).filter(ImageFilter.UnsharpMask(1.2, 60, 2))).save(IMG / f"base-{larg}.webp", "WEBP", quality=82, method=6)
-        (l_img if larg == W else l_img.resize(tam, Image.LANCZOS)).save(IMG / f"luzes-{larg}.webp", "WEBP", quality=85, method=6)
+    # Só a resolução original da arte (872 px): uma versão "2x" seria apenas ampliação, sem
+    # detalhe novo, e custava ~500 KB a mais no celular (LCP medido de 6,6 s).
+    b_img.save(IMG / "base-872.webp", "WEBP", quality=82, method=6)
+    l_img.save(IMG / "luzes-872.webp", "WEBP", quality=85, method=6)
+    for velho in ("base-1744.webp", "luzes-1744.webp"):
+        (IMG / velho).unlink(missing_ok=True)
     ceu_rgba.resize((W // 2, H // 2), Image.LANCZOS).save(IMG / "ceu.png", optimize=True)
     for i, (lw, lh) in enumerate([(210, 54), (150, 42), (120, 36)], 1):
         nuvem(lw, lh, i * 17).save(IMG / f"nuvem-{i}.png", optimize=True)
@@ -400,7 +401,7 @@ def main(base3):
 
 TEMPLATE_HTML = """    <div class="favela" data-favela>
       <div class="fv-palco" role="img" aria-label="Favela à noite, com casas de laje iluminadas, moradores andando pelas lajes, uma criança soltando pipa no telhado e o mural A tecnologia também nasce aqui.">
-        <img class="fv-base" src="assets/img/favela/base-872.webp" srcset="assets/img/favela/base-872.webp 872w, assets/img/favela/base-1744.webp 1744w" sizes="(min-width: 820px) 64vw, 160vw" width="872" height="538" alt="" fetchpriority="high" decoding="async">
+        <img class="fv-base" src="assets/img/favela/base-872.webp" width="872" height="538" alt="" fetchpriority="high" decoding="async">
         <div class="fv-ceu" aria-hidden="true">
           {estrelas}
           <i class="fv-nuvem fv-n1"></i><i class="fv-nuvem fv-n2"></i><i class="fv-nuvem fv-n3"></i>
@@ -450,7 +451,6 @@ TEMPLATE_CSS = """/* =========================================================
 /* luzes: cada janela usa a sua parte da camada de luz e tem o seu ritmo */
 .fv-janela{
   background-image:url("../img/favela/luzes-872.webp");
-  background-image:image-set(url("../img/favela/luzes-872.webp") 1x,url("../img/favela/luzes-1744.webp") 2x);
   background-repeat:no-repeat;mix-blend-mode:normal;
   animation:var(--anim,fv-respira) var(--dur) ease-in-out var(--atraso) infinite;
 }

@@ -28,7 +28,6 @@
 /* luzes: cada janela usa a sua parte da camada de luz e tem o seu ritmo */
 .fv-janela{
   background-image:url("../img/favela/luzes-872.webp");
-  background-image:image-set(url("../img/favela/luzes-872.webp") 1x,url("../img/favela/luzes-1744.webp") 2x);
   background-repeat:no-repeat;mix-blend-mode:normal;
   animation:var(--anim,fv-respira) var(--dur) ease-in-out var(--atraso) infinite;
 }
