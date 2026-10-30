@@ -19,20 +19,24 @@ favela/
 ## Como funciona
 
 - Resolução lógica 720x400, ampliada com `image-rendering: pixelated` (pixels nítidos em qualquer tela).
-- Camadas fixas (céu, morro, cidade, casas, postes) são desenhadas uma vez; a cada quadro entram
-  estrelas, estrela cadente, avião, nuvens, fios balançando, pássaros, árvores, a luz e a vida de
-  cada janela (gente passando, plantas, estante, TV), portas, sala dos computadores, varal com
-  moradora, pipa, crianças com bola, morador sentado na laje, gato, cachorro, moto e moradores.
-- 14 quadros por segundo. Cada quadro custa ~3 ms (~7 ms com a CPU 4x mais lenta): árvores e nuvens
-  são pré-desenhadas; céu e reboco são escritos direto em ImageData.
+- A composição segue a planta da Base 3, em camadas de distância: céu e lua; cidade e morro do
+  Cristo com névoa; casario denso subindo o morro (gerado, pequeno e azulado); árvores; casas do
+  meio (com face lateral, laje, telha, puxadinho, caixa d'água, vergalhão, parabólica, toldo, ar-
+  condicionado, pichação); frente (terraço, sala dos computadores, escadaria, mural, bandeira).
+- Quanto mais longe, mais escura e azulada a cor (`longe()`); casas e moradores têm contorno.
+- Moradores são figuras articuladas (`pessoa()`), do tamanho da distância: 20 px no alto do
+  morro, 44 a 54 px no primeiro plano (terraço e escadaria).
+- Camadas fixas, árvores, nuvens e fiação são pré-desenhadas; cada quadro custa ~8 ms (~46 ms com
+  a CPU 4x mais lenta), a 14 quadros por segundo.
 - Tudo é determinístico (semente fixa): a cena é sempre a mesma.
 
 ## Onde mexer
 
-- `CASAS`: posição, tamanho, cor do muro e elementos de cada casa (`janelas`, `caixa`, `grade`,
-  `escada`, `obra`, `selo`, `mural`, `computador`, `porta`, `varal`, `pipa`, `caminho`...).
-- `MUROS_DIA` e `COR`: paleta. A noite é aplicada por `noite()`.
-- `moradores` em `montar()`: quem anda, por qual laje ou rua, em que velocidade.
+- `montar()`: `fundo` (casario gerado), `meio` e `frente` (casas posicionadas como na Base 3),
+  `janelas` marcantes, `portas`, `arvores`, `postes` e `fios`, moradores `M` e `andando`.
+- `desenharTerraco`, `desenharEscadaria`, `desenharComputador`, `desenharVaral`, `desenharPipa`,
+  `desenharMoto`: os acontecimentos da cena.
+- `C` e `MUROS`: paleta. A noite é aplicada por `noite()`.
 
 ## Uso no site
 
