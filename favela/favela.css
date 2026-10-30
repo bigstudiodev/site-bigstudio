@@ -1,0 +1,20 @@
+/* Página de desenvolvimento da favela em pixel art. */
+:root{color-scheme:dark;--fundo:#05070d;--texto:#e4e8ec;--apoio:#a9b2bc;--borda:rgba(255,255,255,.18)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fundo);color:var(--texto);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.bancada{max-width:1440px;margin:0 auto;padding:24px max(16px,3vw) 64px;display:grid;gap:32px}
+.bancada-topo h1{margin:0;font-size:1.6rem}
+.bancada-topo p,.bancada-amostras h2{margin:6px 0 0;color:var(--apoio);font-size:.95rem;font-weight:500}
+
+/* componente: canvas ampliado em pixels nítidos, sem deformar */
+.favela{position:relative;overflow:hidden;border-radius:14px;border:1px solid var(--borda);aspect-ratio:360/200;background:#060a1a}
+.favela canvas{display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.favela--celular{width:min(100%,390px);aspect-ratio:1/1;margin-top:12px}
+.favela--celular canvas{width:auto;height:100%;aspect-ratio:360/200;position:absolute;right:0;top:0}
+.favela-controle{
+  position:absolute;right:12px;bottom:12px;min-height:36px;padding:0 16px;border-radius:999px;
+  font:inherit;font-size:.8rem;font-weight:600;color:var(--texto);background:rgba(6,9,16,.75);
+  border:1px solid rgba(255,255,255,.3);cursor:pointer;
+}
+.favela-controle:focus-visible{outline:3px solid #6fa8ff;outline-offset:2px}
+.favela-controle[hidden]{display:none}

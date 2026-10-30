@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Favela em pixel art — BIG STUDIO (desenvolvimento)</title>
+<link rel="stylesheet" href="favela.css">
+<script src="favela.js" defer></script>
+</head>
+<body>
+<main class="bancada">
+  <header class="bancada-topo">
+    <h1>Favela em pixel art</h1>
+    <p>Subprojeto da página inicial. Toda a cena é desenhada em código; nenhuma imagem é usada.</p>
+  </header>
+
+  <section class="favela" data-big-favela aria-label="Cena animada">
+    <canvas role="img" aria-label="Favela à noite em pixel art: casas de laje com janelas acesas, caixas d'água, fiação, árvores, moradores andando, duas pessoas no computador, uma criança soltando pipa e o mural A tecnologia também nasce aqui."></canvas>
+    <button class="favela-controle" type="button" data-favela-controle hidden>Pausar cena</button>
+  </section>
+
+  <section class="bancada-amostras" aria-label="Celular">
+    <h2>Recorte de celular</h2>
+    <div class="favela favela--celular" data-big-favela>
+      <canvas role="img" aria-label="A mesma cena, enquadrada para celular."></canvas>
+      <button class="favela-controle" type="button" data-favela-controle hidden>Pausar cena</button>
+    </div>
+  </section>
+</main>
+</body>
+</html>
