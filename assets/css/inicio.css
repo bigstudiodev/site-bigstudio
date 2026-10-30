@@ -205,12 +205,14 @@
   .inicio-conteudo{max-width:min(48%,720px)}
   .pagina-inicio .fachada-cena{
     --escala-cena:.62;
-    position:absolute;left:44.5%;bottom:clamp(52px,4.6vw,76px);width:max-content;
+    position:absolute;bottom:clamp(52px,4.6vw,76px);width:max-content;
+    /* ancorada na coluna do conteúdo: começa depois do título em qualquer largura */
+    left:calc(var(--recuo-inicio) + (min(100vw, var(--largura-inicio)) - 2 * var(--pad-inicio)) * .48);
   }
   .inicio-painel{margin-top:calc(-1 * clamp(28px,2.6vw,42px))}
 }
 @media (min-width:1100px) and (max-width:1439px){
-  .pagina-inicio .fachada-cena{left:45.5%;--escala-cena:.5}
+  .pagina-inicio .fachada-cena{--escala-cena:.5}
 }
 @media (min-width:820px) and (max-width:1099px){
   .inicio-conteudo{max-width:56%}
