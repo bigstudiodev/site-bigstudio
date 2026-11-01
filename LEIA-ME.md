@@ -1,38 +1,50 @@
 # Site BIG STUDIO — estrutura
 
-## Pastas
+## Pastas e arquitetura V3
 
-```
+```text
 site-bigstudio/
-├─ index.html           início (Base 3: hero, painel, seis cards, projetos)
-├─ barbearias.html     página comercial (multi-profissional em validação)
-├─ aplicativos.html     vitrine: Meu Tatame e BigLock (Meu Financeiro oculto)
-├─ tecnologias.html     competências técnicas do estúdio
-├─ bigrotas.html        BigRotas (página própria, regras comerciais intocadas)
-├─ fivem.html           área em construção
-├─ contato.html         formulário (abre o e-mail preenchido)
-├─ privacidade*.html, termos.html   páginas legais (conteúdo preservado)
-├─ meu-financeiro.html  preservada, fora da navegação/vitrine/sitemap
+├─ index.html            apresentação do estúdio e caminhos principais
+├─ servicos.html         serviços de desenvolvimento sob consulta
+├─ projetos.html         produtos autorais e iniciativas em desenvolvimento
+├─ estudio.html          identidade, processo e competências
+├─ contato.html          formulário de contato (abre o e-mail preenchido)
+├─ barbearias.html       página comercial acessível contextualizada em Serviços
+├─ bigrotas.html         produto próprio, acessível em Projetos
+├─ aplicativos.html      projetos Meu Tatame e BigLock (Meu Financeiro oculto)
+├─ tecnologias.html      detalhamento técnico vinculado ao Estúdio
+├─ fivem.html            área em construção vinculada a Projetos
+├─ privacidade*.html, termos.html    páginas legais preservadas
+├─ meu-financeiro.html   preservada, fora da navegação, vitrine e sitemap
 ├─ robots.txt, sitemap.xml
-├─ testes/verificar-site.mjs   node testes/verificar-site.mjs
+├─ testes/verificar-site.mjs
 └─ assets/
-   ├─ css/estilo.css    base e tokens originais
-   ├─ css/glass.css     V2.0: tokens Dark Glass e cabeçalho Base 3 (carregar depois do CSS base)
-   ├─ css/inicio.css    layout e grade da home Base 3 (carregar depois de glass.css)
-   ├─ js/movimento.js   revelação das seções e luz nos cards
-   ├─ js/produtos.js    ficha dos produtos (visivel:false oculta da vitrine)
-   └─ img/              imagens (PNGs originais mantidos; .webp otimizados)
+   ├─ css/estilo.css     estilos base
+   ├─ css/glass.css      linguagem visual e cabeçalho
+   ├─ css/inicio.css     hero e fachada original da home
+   ├─ css/v3.css         componentes editoriais V3, páginas e acessibilidade
+   ├─ css/v3-home.css    ajustes de layout da home V3
+   ├─ js/menu.js         menu responsivo e acessível
+   ├─ js/produtos.js     cadastro de produtos (visivel:false oculta o produto)
+   └─ img/               recursos visuais existentes
 ```
 
 ## Sistema Glass (V2.0)
 
 Classes em `glass.css`: `.glass` + variação `--produto | --servico | --tech | --info`, estado `.estado` (`--disponivel | --pesquisa`) e grade `.areas`. Adicione `data-revelar` para a entrada suave. Sem `backdrop-filter` o card usa fundo opaco; `prefers-reduced-motion` desliga os movimentos.
 
-## Página inicial Base 3
+## Arquitetura e navegação V3
 
-A home mantém a fachada animada original de `fachada.css` e `fachada.js` (quatro moradores, duas janelas, controle de pausa). A cena experimental da branch `claude/site-current-summary-4yel60` não foi integrada. A home possui seis cards, incluindo Barbearias. O menu recolhe até 1099 px.
+A navegação principal é composta exclusivamente por **Início / Serviços / Projetos / Estúdio / Contato**. Produtos individuais, segmentos específicos e áreas experimentais são acessados nas categorias correspondentes, com indicação do estágio real.
 
-Barbearias: implantação R$ 450 e mensalidade R$ 150 por barbeiro; multi-profissional ainda em validação.
+- **Serviços:** sites e sistemas, aplicativos, automação e inteligência artificial sob avaliação de viabilidade. A solução para Barbearias é um exemplo contextual de sites e sistemas, não um destaque na home ou no menu.
+- **Projetos:** BIG Rotas (disponível); Meu Tatame e BigLock (em desenvolvimento); FiveM (em construção). Não inventar portfólio de clientes ou casos não autorizados.
+- **Estúdio:** posicionamento, método e ligação às competências técnicas existentes em `tecnologias.html`.
+- **Início:** hero e fachada animada originais da Base 3 (quatro moradores, duas janelas e pausa); três frentes de serviços, três produtos autorais, método, contato e atualizações. Cena experimental `favela/` permanece fora da produção.
+- **Barbearias:** `barbearias.html` e oferta preservadas (R$ 450 de implantação; R$ 150 por barbeiro/mês; multi-profissional em validação). Domínio .com.br tratado separadamente, demonstração não publicada.
+- **Menu responsivo:** até 1099 px, menu móvel; a partir de 1100 px, navegação desktop. Não modificar `menu.js` isoladamente do CSS.
+
+O site é estático e a navegação/rodapé são repetidos em cada HTML. Ao adicionar páginas, sincronize ambas as estruturas, sitemap, canonical, CSP e testes.
 
 ## Segurança
 
@@ -40,10 +52,10 @@ Todas as páginas têm CSP por meta tag (sem script ou estilo inline). Ao usar u
 
 ## Regras da estrutura
 
-- **Um só CSS.** Cor, fonte e espaçamento moram em `estilo.css`, no bloco de tokens do topo. Mudou lá, mudou no site inteiro.
-- **Produto não vira página.** Todo produto é uma entrada em `produtos.js`. As páginas só têm o espaço onde os cards entram (`data-lista="app" | "fivem"`). Exceção: o BigRotas tem página própria e não entra como card.
+- **CSS por responsabilidade.** Tokens e base em `estilo.css`; componentes legados em `glass.css`; hero em `inicio.css`; organização V3 em `v3.css` e ajustes da home em `v3-home.css`. Evite regras globais desnecessárias.
+- **Produtos e serviços são distintos.** O cadastro `produtos.js` alimenta a vitrine de aplicativos; BIG Rotas e Barbearias mantêm páginas específicas já existentes. A V3 reúne o acesso sob Projetos ou Serviços, sem criar um item principal por produto.
 - **Sem framework e sem build.** É HTML puro: abre no navegador e publica em qualquer lugar, inclusive GitHub Pages de graça.
-- **Menu e rodapé são repetidos** em cada arquivo. É o preço de não ter build; se um dia incomodar, dá para trocar por um gerador estático.
+- **Menu e rodapé são repetidos** em cada HTML. Manter os cinco destinos sincronizados, com links de acessibilidade e rodapé.
 
 ## Adicionar um produto
 

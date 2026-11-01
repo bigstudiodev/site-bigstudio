@@ -89,3 +89,8 @@
 }
 @media(prefers-reduced-motion:reduce){.v3-button,.v3-service-card{transition:none}.v3-button:hover,.v3-service-card:hover{transform:none}}
 @media(forced-colors:active){.v3-service-card,.v3-project-card,.v3-detail-card,.v3-bottom-cta,.v3-product-spotlight{border:1px solid CanvasText}}
+
+/* Acessibilidade: acesso direto ao conteúdo a partir do teclado */
+.v3-skip-link{position:fixed;left:16px;top:-110px;z-index:1000;display:inline-block;max-width:calc(100vw - 32px);padding:12px 18px;border:2px solid #082516;border-radius:8px;background:#7CF1AA;color:#06150B;font-weight:800;box-shadow:0 6px 22px rgba(0,0,0,.5);text-decoration:none}
+.v3-skip-link:focus-visible{top:16px;outline:3px solid #6FA8FF;outline-offset:3px}
+#conteudo-principal{scroll-margin-top:86px}
