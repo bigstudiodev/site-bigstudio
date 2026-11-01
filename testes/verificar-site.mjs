@@ -53,8 +53,8 @@ checar(readFileSync(join(raiz, 'sitemap.xml'), 'utf8').includes('/barbearias.htm
 const menuEsperado = ['index.html', 'servicos.html', 'projetos.html', 'estudio.html', 'contato.html'];
 for (const p of paginas) {
   const html = readFileSync(join(raiz, p), 'utf8');
-  const menu = html.match(/<nav class="menu" id="menu-principal"[\\s\\S]*?<\\/nav>/)?.[0] || '';
-  const destinos = [...menu.matchAll(/<a\\b[^>]*href="([^"]+)"/g)].map((m) => m[1]);
+  const menu = html.match(/<nav class="menu" id="menu-principal"[\s\S]*?<\/nav>/)?.[0] || '';
+  const destinos = [...menu.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map((m) => m[1]);
   checar(JSON.stringify(destinos) === JSON.stringify(menuEsperado), `${p}: navegação V3 inconsistente`);
   checar(!menu.includes('href="barbearias.html"'), `${p}: Barbearias não deve estar no menu principal`);
   checar(html.includes('href="#conteudo-principal"') && html.includes('id="conteudo-principal"'), `${p}: falta atalho para conteúdo principal`);
