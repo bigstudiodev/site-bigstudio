@@ -44,6 +44,8 @@ checar(/\.com\.br/.test(barb) && /não (está )?incluído/i.test(barb), 'barbear
 checar(/Em validação/.test(barb) && /multi-profissional/i.test(barb), 'barbearias: falta ressalva do estágio multi-profissional');
 checar(!/(localhost|127\.0\.0\.1|[A-Za-z]:\\|file:\/\/)/.test(barb), 'barbearias: aponta para caminho local');
 checar(!/<iframe|Demonstração interativa:\s*<a|href="[^"]*demo/i.test(barb), 'barbearias: não deve haver link/embed de demonstração ainda');
+checar(!/em nome (da|do)/i.test(barb), 'barbearias: não definir titularidade do domínio (regra comercial não decidida)');
+checar(/Login individual e permissões específicas para cada barbeiro/.test(barb) && /ainda estão em validação/.test(barb), 'barbearias: login individual deve constar como em validação');
 checar(barb.includes('data-demo-reservado'), 'barbearias: falta o espaço reservado da demonstração');
 checar(/contato\.html\?assunto=Barbearias/.test(barb), 'barbearias: falta chamada para o contato');
 checar(readFileSync(join(raiz, 'sitemap.xml'), 'utf8').includes('/barbearias.html'), 'sitemap: sem barbearias.html');
