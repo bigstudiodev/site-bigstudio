@@ -5,7 +5,7 @@
   const menu = topo?.querySelector('.menu');
   if (!botao || !menu) return;
 
-  const mobile = window.matchMedia('(max-width: 819px)');
+  const mobile = window.matchMedia('(max-width: 1099px)');
   const abrir = botao.querySelector('[data-menu-abrir]');
   const fechar = botao.querySelector('[data-menu-fechar]');
 

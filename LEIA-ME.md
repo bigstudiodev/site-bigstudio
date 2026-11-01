@@ -4,7 +4,8 @@
 
 ```
 site-bigstudio/
-├─ index.html           início (hero, áreas de atuação, frentes)
+├─ index.html           início (Base 3: hero, painel, seis cards, projetos)
+├─ barbearias.html     página comercial (multi-profissional em validação)
 ├─ aplicativos.html     vitrine: Meu Tatame e BigLock (Meu Financeiro oculto)
 ├─ tecnologias.html     competências técnicas do estúdio
 ├─ bigrotas.html        BigRotas (página própria, regras comerciais intocadas)
@@ -16,7 +17,8 @@ site-bigstudio/
 ├─ testes/verificar-site.mjs   node testes/verificar-site.mjs
 └─ assets/
    ├─ css/estilo.css    base e tokens originais
-   ├─ css/glass.css     V2.0: tokens Dark Glass e sistema Glass (carregar por último)
+   ├─ css/glass.css     V2.0: tokens Dark Glass e cabeçalho Base 3 (carregar depois do CSS base)
+   ├─ css/inicio.css    layout e grade da home Base 3 (carregar depois de glass.css)
    ├─ js/movimento.js   revelação das seções e luz nos cards
    ├─ js/produtos.js    ficha dos produtos (visivel:false oculta da vitrine)
    └─ img/              imagens (PNGs originais mantidos; .webp otimizados)
@@ -25,6 +27,12 @@ site-bigstudio/
 ## Sistema Glass (V2.0)
 
 Classes em `glass.css`: `.glass` + variação `--produto | --servico | --tech | --info`, estado `.estado` (`--disponivel | --pesquisa`) e grade `.areas`. Adicione `data-revelar` para a entrada suave. Sem `backdrop-filter` o card usa fundo opaco; `prefers-reduced-motion` desliga os movimentos.
+
+## Página inicial Base 3
+
+A home mantém a fachada animada original de `fachada.css` e `fachada.js` (quatro moradores, duas janelas, controle de pausa). A cena experimental da branch `claude/site-current-summary-4yel60` não foi integrada. A home possui seis cards, incluindo Barbearias. O menu recolhe até 1099 px.
+
+Barbearias: implantação R$ 450 e mensalidade R$ 150 por barbeiro; multi-profissional ainda em validação.
 
 ## Segurança
 
