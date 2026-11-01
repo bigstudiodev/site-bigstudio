@@ -1,0 +1,12 @@
+/* Home V3: preserva o hero e a fachada Base 3, reorganizando os blocos editoriais. */
+.pagina-inicio .inicio-painel ul{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pagina-inicio .inicio-painel li:nth-child(3){border-left:1px solid rgba(255,255,255,.14)}
+.pagina-inicio .inicio-painel strong{font-size:clamp(1.12rem,1.6vw,1.6rem)}
+.pagina-inicio .v3-project-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.v3-section-end{display:flex;justify-content:flex-end;margin-top:26px}
+.v3-home-story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.7fr);gap:32px 72px;align-items:end;margin-bottom:50px}
+.v3-home-story h2{max-width:17ch;font-size:clamp(2.2rem,4.5vw,4.2rem);line-height:1.04;margin:16px 0 0}
+.v3-home-story p:not(.v3-eyebrow){max-width:55ch;margin:0 0 22px;color:var(--tinta-suave);line-height:1.7;font-size:1.03rem}
+@media(max-width:1023px){.pagina-inicio .v3-project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pagina-inicio .v3-project-grid .v3-project-card:last-child{grid-column:1/-1}}
+@media(max-width:819px){.pagina-inicio .inicio-painel li{flex-direction:row;align-items:center;gap:10px;padding:16px}.pagina-inicio .inicio-painel ul{grid-template-columns:1fr}.pagina-inicio .inicio-painel li+li{border-left:0;border-top:1px solid rgba(255,255,255,.14)}.v3-home-story{grid-template-columns:1fr;gap:20px}}
+@media(max-width:680px){.pagina-inicio .v3-project-grid{grid-template-columns:1fr}.pagina-inicio .v3-project-grid .v3-project-card:last-child{grid-column:auto}.v3-section-end{justify-content:flex-start}.v3-home-story{margin-bottom:35px}}
