@@ -1,8 +1,9 @@
 // Verificação estática do site (sem dependências): node testes/verificar-site.mjs
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const raiz = new URL('..', import.meta.url).pathname;
+const raiz = fileURLToPath(new URL('..', import.meta.url));
 const paginas = readdirSync(raiz).filter((f) => f.endsWith('.html'));
 const falhas = [];
 const checar = (ok, msg) => { if (!ok) falhas.push(msg); };
@@ -35,6 +36,22 @@ checar(rotas.includes('R$ 15,00'), 'bigrotas: preço R$ 15,00 ausente');
 checar(/5 dias/.test(rotas), 'bigrotas: teste de 5 dias ausente');
 const conv = readFileSync(join(raiz, 'assets/js/bigrotas-conversa.js'), 'utf8');
 checar(conv.includes('5511960405352') && conv.includes('assinar'), 'bigrotas: WhatsApp/comando alterado');
+
+// Página Barbearias: oferta, honestidade sobre o estágio, sem demonstração publicada e navegação em todas as páginas
+const barb = readFileSync(join(raiz, 'barbearias.html'), 'utf8');
+checar(barb.includes('R$ 450') && barb.includes('R$ 150'), 'barbearias: valores da oferta ausentes');
+checar(/\.com\.br/.test(barb) && /não (está )?incluído/i.test(barb), 'barbearias: falta avisar que o domínio .com.br não está incluído');
+checar(/Em validação/.test(barb) && /multi-profissional/i.test(barb), 'barbearias: falta ressalva do estágio multi-profissional');
+checar(!/(localhost|127\.0\.0\.1|[A-Za-z]:\\|file:\/\/)/.test(barb), 'barbearias: aponta para caminho local');
+checar(!/<iframe|Demonstração interativa:\s*<a|href="[^"]*demo/i.test(barb), 'barbearias: não deve haver link/embed de demonstração ainda');
+checar(!/em nome (da|do)/i.test(barb), 'barbearias: não definir titularidade do domínio (regra comercial não decidida)');
+checar(/Login individual e permissões específicas para cada barbeiro/.test(barb) && /ainda estão em validação/.test(barb), 'barbearias: login individual deve constar como em validação');
+checar(barb.includes('data-demo-reservado'), 'barbearias: falta o espaço reservado da demonstração');
+checar(/contato\.html\?assunto=Barbearias/.test(barb), 'barbearias: falta chamada para o contato');
+checar(readFileSync(join(raiz, 'sitemap.xml'), 'utf8').includes('/barbearias.html'), 'sitemap: sem barbearias.html');
+for (const p of paginas) checar(readFileSync(join(raiz, p), 'utf8').includes('<a href="barbearias.html"'), `${p}: menu sem link para Barbearias`);
+checar(readFileSync(join(raiz, 'index.html'), 'utf8').includes('frente-barbearias'), 'index: falta o destaque de Barbearias');
+checar(readFileSync(join(raiz, 'contato.html'), 'utf8').includes('<option>Barbearias</option>'), 'contato: falta a opção Barbearias');
 
 console.log(falhas.length ? falhas.join('\n') : `OK — ${paginas.length} páginas verificadas`);
 process.exit(falhas.length ? 1 : 0);

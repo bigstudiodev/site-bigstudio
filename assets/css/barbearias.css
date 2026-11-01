@@ -1,0 +1,60 @@
+/* BIG STUDIO Barbearias — página comercial. Usa os tokens de estilo.css e os cards de glass.css. */
+.pagina-barbearias section[id]{scroll-margin-top:88px}
+.pagina-barbearias .cabeca{max-width:62ch}
+.barb-chamada{max-width:58ch;font-size:1.06rem;color:var(--tinta-suave);margin:18px 0 0}
+.barb-selo{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:5px 12px;border:1px solid var(--linha);border-radius:999px;font-size:.78rem;color:var(--tinta-suave)}
+.barb-selo::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amarelo)}
+
+/* oferta */
+.barb-precos{display:grid;gap:14px}
+.barb-preco{display:flex;flex-direction:column;gap:6px}
+.barb-preco .barb-rotulo{margin:0;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-suave)}
+.barb-valor{display:block;font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,7vw,3.1rem);line-height:1.05;letter-spacing:-.03em;color:var(--tinta)}
+.barb-valor small{font-family:var(--corpo);font-weight:500;font-size:.95rem;letter-spacing:0;color:var(--tinta-suave)}
+.barb-preco p:not(.barb-rotulo){margin:0;color:var(--tinta-suave);font-size:.95rem}
+.barb-exemplos{margin-top:22px;overflow-x:auto}
+.barb-exemplos table{width:100%;min-width:0;border-collapse:collapse;font-size:.95rem}
+.barb-exemplos caption{text-align:left;padding:0 0 10px;color:var(--tinta-suave);font-size:.88rem}
+.barb-exemplos th,.barb-exemplos td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--linha);vertical-align:top}
+.barb-exemplos thead th{font-weight:500;color:var(--tinta-suave);font-size:.82rem}
+.barb-exemplos td:last-child,.barb-exemplos th:last-child{text-align:right}
+.barb-nota{margin:18px 0 0;max-width:64ch;color:var(--tinta-suave);font-size:.9rem}
+
+/* etapas */
+.barb-etapas{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:etapa;border-top:2px solid var(--tinta)}
+.barb-etapas li{counter-increment:etapa;display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 14px;padding:18px 4px;border-bottom:1px solid var(--linha)}
+.barb-etapas li::before{content:counter(etapa,decimal-leading-zero);font-family:var(--mono);color:var(--verde);font-size:.9rem;padding-top:3px}
+.barb-etapas h3{font-size:1.1rem;line-height:1.3}
+.barb-etapas p{grid-column:2;margin:0;color:var(--tinta-suave);font-size:.95rem}
+
+/* estágio do produto */
+.barb-estagio{display:grid;gap:14px}
+.barb-estagio ul{margin:12px 0 0;padding-left:1.15em;color:var(--tinta-suave);font-size:.95rem}
+.barb-estagio li + li{margin-top:6px}
+.barb-estagio h3{font-size:1.2rem;margin:10px 0 0}
+
+/* espaço reservado da demonstração (sem link até haver demonstração publicada e autorizada) */
+.barb-demo{display:grid;gap:18px;padding:clamp(18px,4vw,32px);border:1px dashed var(--linha);border-radius:14px}
+.barb-demo-amostra{display:grid;gap:12px}
+.barb-demo-card{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--linha);border-radius:12px;min-width:0}
+.barb-demo-card span{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--verde);color:var(--cal);font-weight:800}
+.barb-demo-card strong{display:block;font-size:.98rem}
+.barb-demo-card small{display:block;color:var(--tinta-suave)}
+.barb-demo p{margin:0;color:var(--tinta-suave);max-width:60ch}
+
+/* perguntas */
+.barb-faq{border-top:1px solid var(--linha)}
+.barb-faq details{border-bottom:1px solid var(--linha)}
+.barb-faq summary{cursor:pointer;display:flex;align-items:center;min-height:52px;padding:10px 4px;font-weight:500;list-style-position:inside}
+.barb-faq details p{margin:0;padding:0 4px 18px;color:var(--tinta-suave);max-width:66ch}
+
+@media(min-width:720px){
+  .barb-precos,.barb-estagio{grid-template-columns:repeat(2,1fr)}
+  .barb-demo-amostra{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1000px){
+  .barb-etapas{grid-template-columns:repeat(2,1fr);column-gap:48px}
+}
+@media(max-width:380px){
+  .barb-exemplos th,.barb-exemplos td{padding:9px 6px;font-size:.88rem}
+}

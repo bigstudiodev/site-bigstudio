@@ -9,6 +9,7 @@
   border-bottom:1px solid var(--linha);transition:background-color .2s ease,border-color .2s ease;
 }
 .frentes .frente-bigrotas{--frente-cor:var(--verde)}
+.frentes .frente-barbearias{--frente-cor:var(--rosa)}
 .frentes .frente-fivem{--frente-cor:var(--amarelo)}
 .frentes .caminho::before{content:"";position:absolute;left:0;top:36px;width:3px;height:27px;background:var(--frente-cor)}
 .frente-conteudo{min-width:0}
